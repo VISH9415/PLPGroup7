@@ -5,25 +5,31 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import com.cg.project.bean.AccountBean;
 import com.cg.project.bean.CustomerBean;
 import com.cg.project.bean.UserBean;
 import com.cg.project.exception.BankingException;
-import com.cg.project.util.DBUtil;
-import com.cg.project.util.JPAUtil;
 
 public class BankingDAOImpl implements IBankingDAO{
 
 	//private static Logger logger = Logger.getLogger(com.cg.project.dao.BankingDAOImpl.class);
 	//open account 
 	
-	private EntityManager entityManager;
-
-	public BankingDAOImpl() {
-		entityManager = JPAUtil.getEntityManager();
+	@PersistenceContext
+	EntityManager entityManager;
+	UserBean user;
+	public BankDaoImpl() {
+		// TODO Auto-generated constructor stub
 	}
-	
+
+	@Override
+	public UserBean registerUser(UserBean userBean) {
+		entityManager.persist(userBean);
+		entityManager.flush();
+		return userBean;
+	}
 /*
 
 	@Override
