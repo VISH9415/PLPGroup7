@@ -1,12 +1,25 @@
 package com.cg.project.bean;
 
-public class UserBean {
-private long accountId;
-private String userId;
-private String loginPassword;
-private String transactionPassword;
-private String lockStatus;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "UserTable")
+public class UserBean {
+	
+	@Column(name = "Account_Id")
+	private long accountId;
+	@Id
+	@Column(name = "User_Id")
+	private String userId;
+	@Column(name = "login_Password")
+	private String loginPassword;
+	@Column(name = "transaction_Password")
+	private String transactionPassword;
+	@Column(name = "lock_Status")
+	private String lockStatus;
 
 public UserBean(long accountId, String userId, String loginPassword,
 		 String transactionPassword, String lockStatus) {
@@ -56,6 +69,4 @@ public String toString() {
 			+ ", transactionPassword=" + transactionPassword + ", lockStatus="
 			+ lockStatus + "]";
 }
-
-
 }

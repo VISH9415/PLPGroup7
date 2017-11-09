@@ -2,22 +2,23 @@ package com.cg.project.bean;
 
 import java.sql.Date;
 
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Entity
+@Table(name = "accountmaster")
 public class AccountBean {
-
-private long accountId;
-
-private String accountType;
-
-private Date openDate;
-
-private double accountBalance;
-
+	@Id
+	@Column(name = "account_Id")
+	private long accountId;
+	@Column(name = "account_Type")
+	private String accountType;
+	@Column(name = "open_Date")
+	private Date openDate;
+	@Column(name = "Account_Balance")
+	private double accountBalance;
 
 public AccountBean() {
 	super();
@@ -46,5 +47,4 @@ public double getAccountBalance() {
 public void setAccountBalance(double accountBalance) {
 	this.accountBalance = accountBalance;
 }
-
 }

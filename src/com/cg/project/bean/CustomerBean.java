@@ -1,11 +1,27 @@
 package com.cg.project.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Customer")
 public class CustomerBean {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "Account_Id")
 	private long accountId;
+	@Column(name = "Customer_Name")
 	private String customerName;
+	@Column(name = "Email")
 	private String email;
+	@Column(name =  "Address")
 	private String address;
+	@Column(name  = "Pancard")
 	private String pancard;
 	private String accountType;
 
@@ -60,5 +76,4 @@ public class CustomerBean {
 	public void setPancard(String pancard) {
 		this.pancard = pancard;
 	}
-
 }

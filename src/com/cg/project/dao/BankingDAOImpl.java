@@ -1,23 +1,13 @@
 package com.cg.project.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 
 import com.cg.project.bean.AccountBean;
 import com.cg.project.bean.CustomerBean;
-import com.cg.project.bean.FundTransferBean;
-import com.cg.project.bean.PayeeBean;
-import com.cg.project.bean.ServiceTrackerBean;
-import com.cg.project.bean.TransactionsBean;
 import com.cg.project.bean.UserBean;
 import com.cg.project.exception.BankingException;
 import com.cg.project.util.DBUtil;
@@ -34,7 +24,47 @@ public class BankingDAOImpl implements IBankingDAO{
 		entityManager = JPAUtil.getEntityManager();
 	}
 	
+/*
 
+	@Override
+	public UserBean registerUser(UserBean userBean) {
+		entityManager.persist(userBean);
+		entityManager.flush();
+		return userBean;
+	}
+
+	@Override
+	public HashMap<String, UserBean> fetchUserById(String uid) {
+		HashMap<String,UserBean> userMap = new HashMap<String,UserBean>();
+		UserBean userFound= new UserBean();
+		userFound = entityManager.find(UserBean.class, uid);
+		userMap.put(uid,userFound);
+		return userMap;	
+	}
+
+	@Override
+	public UserBean validateUser(String userId) {
+		String qry = "SELECT user from UserBean user where userId =:puserId";
+		TypedQuery<UserBean> query = entityManager.createQuery(qry, UserBean.class);
+		query.setParameter("puserId", userId);
+		user = query.getSingleResult();
+		return user;
+	}
+
+	@Override
+	public UserBean openAccount(UserBean userBean) {
+		entityManager.persist(userBean);
+		entityManager.flush();
+		return userBean;
+	}
+	public CustomerBean selectCustomer(CustomerBean customerBean){
+		String qry = "SELECT customer from CustomerBean customer where accountId=:paccountId";
+		TypedQuery<CustomerBean> query = entityManager.createQuery(qry, CustomerBean.class);
+		query.setParameter("paccountId", customerBean.getAccountId());
+		customerBean = query.getSingleResult();
+		return customerBean;
+	}*/
+	
 	@Override
 	public UserBean fetchUserById(String uid) throws BankingException
 	{

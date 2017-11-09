@@ -19,8 +19,33 @@ public class BankController {
 	UserBean userBean = new UserBean();
 	AccountBean accountBean = new AccountBean();
     CustomerBean customerBean = new CustomerBean();
-	IBankingService service = new BankingServiceImpl();
+    @Autowired
+	IBankingService service;
 
+    @RequestMapping(value = "/newuser.htm")
+	public String newUser(){
+		return "newuser"; 
+	}
+	
+	@RequestMapping(value = "/adduser.htm",method = RequestMethod.POST)
+	public String addUser(@RequestParam("username") String userName,@RequestParam("loginpwd") String pwd,
+			@RequestParam("confirmloginpwd") String confirmPwd, @RequestParam("transpwd") String transPwd,Model map) {
+		String msg = null;
+		user.setUserId(userName);
+		user.setLoginPassword(confirmPwd);
+		user.setTransactionPassword(transPwd);
+		user.setAccountId(0L);
+		user.setLockStatus("nope");
+		service.registerUser(user);
+		msg = "You are successfully registered with our bank\nThank you";
+		map.addAttribute("message", msg);
+		return "success";
+	}
+
+	@RequestMapping(value = "/login.htm")
+	public String existingUser(){
+		return "login";
+	}
 	
 	//user inserted during signup....
 	@RequestMapping("/loginMethod") 
