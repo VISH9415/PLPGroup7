@@ -1,16 +1,11 @@
 package com.cg.project.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.cg.project.bean.AccountBean;
 import com.cg.project.bean.CustomerBean;
 import com.cg.project.bean.UserBean;
-import com.cg.project.exception.BankingException;
 
 public class BankingDAOImpl implements IBankingDAO{
 
@@ -20,9 +15,12 @@ public class BankingDAOImpl implements IBankingDAO{
 	@PersistenceContext
 	EntityManager entityManager;
 	
+<<<<<<< HEAD
 	public BankDaoImpl() {
 		// TODO Auto-generated constructor stub
 	}
+=======
+>>>>>>> f197be20df1e7ebc527c3d7efdb1a950e9145979
 
 	@Override
 	public UserBean registerUser(UserBean userBean) {
@@ -72,7 +70,7 @@ public class BankingDAOImpl implements IBankingDAO{
 	}*/
 	
 	@Override
-	public UserBean fetchUserById(String uid) throws BankingException
+	public UserBean fetchUserById(String uid) 
 	{
 		//HashMap<String,UserBean> userMap = new HashMap<String,UserBean>();
 		UserBean userFound= new UserBean();
@@ -107,7 +105,7 @@ public class BankingDAOImpl implements IBankingDAO{
 	}
 	//updating address and password based on request..
 		@Override
-		public void updateUserDetails(String uid,long actId) throws BankingException
+		public void updateUserDetails(String uid,long actId) 
 		{
 			UserBean userFound= new UserBean();
 			userFound = entityManager.find(UserBean.class, uid);
@@ -119,7 +117,7 @@ public class BankingDAOImpl implements IBankingDAO{
 	
 		
 		
-		@Override
+		/*@Override
 		public int insertAccount(AccountBean account) throws BankingException {
 			Connection conn = null;
 			PreparedStatement pst = null;
@@ -141,7 +139,7 @@ public class BankingDAOImpl implements IBankingDAO{
 				//logger.error("");
 				throw new BankingException("Error in insertion into accountmaster");
 			}
-		}
+		}*/
 /*	@Override
 	public AccountBean fetchAccounts(long actId) throws BankingException
 	{
@@ -282,6 +280,30 @@ public class BankingDAOImpl implements IBankingDAO{
     //UserBean userBean = new UserBean();
     entityManager.persist(userBean);
 	}*/
+
+		@Override
+		public void updateAccountIdinUser(String accountId) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public UserBean validateUser(String userId) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public UserBean openAccount(UserBean userBean) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public int insertAccount(AccountBean account) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
 
 	/*
    
