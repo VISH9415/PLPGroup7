@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action = "adduser.htm" method = "post">
+<form action = "signup.htm" method = "post">
 <table>
 
 <tr>
@@ -25,6 +25,12 @@
 <tr>
 <td>Enter Transaction Password</td>
 <td><input type = "password" name = "transpwd"></td>
+</tr>
+<tr>
+<td>Select secret question: <select name="secretQuestion">
+<option value="petName">First Pet Name?</option>
+<option value="city">City of Birth?</option>
+</select>
 </tr>
 <tr>
 <td><input type="submit" value="Submit"></td>

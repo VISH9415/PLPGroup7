@@ -14,7 +14,7 @@ public interface IBankingDAO
 
 	int insertAccount(AccountBean account);
 	
-	public UserBean registerUser(UserBean userBean);
+	public void registerUser(UserBean userBean);
 
 	public CustomerBean insertIntoCustomer(CustomerBean customer);
 

@@ -2,30 +2,49 @@ package com.cg.project.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Repository;
 
 import com.cg.project.bean.AccountBean;
 import com.cg.project.bean.CustomerBean;
 import com.cg.project.bean.UserBean;
 
+@Repository
+@Transactional
 public class BankingDAOImpl implements IBankingDAO{
 
 	//private static Logger logger = Logger.getLogger(com.cg.project.dao.BankingDAOImpl.class);
 	//open account 
 	
 	@PersistenceContext
-	EntityManager entityManager;
-	
-
-	public BankDaoImpl() {
-		// TODO Auto-generated constructor stub
-	}
-
+	private EntityManager entityManager;
 
 	@Override
-	public UserBean registerUser(UserBean userBean) {
+	public void registerUser(UserBean userBean) {
 		entityManager.persist(userBean);
 		entityManager.flush();
-		return userBean;
+	}
+	
+	@Override
+	public UserBean fetchUserById(String uid) 
+	{
+		//HashMap<String,UserBean> userMap = new HashMap<String,UserBean>();
+		UserBean userFound= new UserBean();
+		userFound = entityManager.find(UserBean.class, uid);
+		//userMap.put(uid,userFound);
+		return userFound;	
+	}
+	
+	@Override
+	public int validateAdmin(String adminId, String adminPassword) {
+		// TODO Auto-generated method stub
+		int count = 0;
+	if(adminId.equals("ViVaHaKa")&&adminPassword.equals("ADMIN1234"))
+	{
+		count++;
+	}
+	return count;
 	}
 /*
 
@@ -68,27 +87,9 @@ public class BankingDAOImpl implements IBankingDAO{
 		return customerBean;
 	}*/
 	
-	@Override
-	public UserBean fetchUserById(String uid) 
-	{
-		//HashMap<String,UserBean> userMap = new HashMap<String,UserBean>();
-		UserBean userFound= new UserBean();
-		userFound = entityManager.find(UserBean.class, uid);
-		//userMap.put(uid,userFound);
-		return userFound;	
-	}
+
 	
-	@Override
-	public int validateAdmin(String adminId, String adminPassword) {
-		// TODO Auto-generated method stub
-		int count = 0;
-	if(adminId.equals("ViVaHaKa")&&adminPassword.equals("ADMIN1234"))
-	{
-		count++;
-	}
-	
-	return count;
-	}
+
 	
 	public CustomerBean insertIntoCustomer(CustomerBean customer)
 	{

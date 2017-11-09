@@ -9,7 +9,7 @@
 <body>
     <form action="openAccount" modelAttribute="customer">
     
-     <input type="hidden" name="username" value="${username}"/> 
+     <%-- <input type="hidden" name="username" value="${username}"/>  --%>
     
     Enter Name:<input type="text" name="customerName"/>
     Enter Address:<input type="text" name="address"/>

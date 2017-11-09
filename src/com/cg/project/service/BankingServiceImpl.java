@@ -1,17 +1,18 @@
 package com.cg.project.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.project.bean.CustomerBean;
 import com.cg.project.bean.UserBean;
-import com.cg.project.dao.BankingDAOImpl;
 import com.cg.project.dao.IBankingDAO;
 import com.cg.project.exception.BankingException;
 @Service
 public class BankingServiceImpl implements IBankingService {
-
-	IBankingDAO dao = new BankingDAOImpl();
-	//----------------------------vishesh
+   
+	@Autowired
+	IBankingDAO dao;
+	
 	@Override
 	public UserBean fetchUserById(String uid)
 			throws BankingException {
@@ -30,11 +31,11 @@ public class BankingServiceImpl implements IBankingService {
 		return dao.insertIntoCustomer(customer);
 	}
 
-	@Override
+	/*@Override
 	public void updateAccountIdinUser(String accountId) {
 		// TODO Auto-generated method stub
 		dao.updateAccountIdinUser(accountId);
-	}
+	}*/
 /*	public BankingServiceImpl() {
 		// TODO Auto-generated constructor stub
 	}
@@ -111,6 +112,12 @@ public class BankingServiceImpl implements IBankingService {
 	public UserBean updateAccountIdinUser(long accountId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void registerUser(UserBean userBean) {
+		// TODO Auto-generated method stub
+		dao.registerUser(userBean);
 	}
 
 

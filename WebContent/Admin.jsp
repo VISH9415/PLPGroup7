@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+   <h2> You have recieved a request to open account of user: ${username}</h2>
    <h2>Please Login: </h2>
   <form action="adminValidate">
    Enter UserId:<input type="text" name="adminId"/>

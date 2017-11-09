@@ -11,14 +11,16 @@
 <h3>Thanks you are successfully logged in ...</h3>
 
 <c:choose>
-
     <c:when test="${user.accountId==0}">
-    <%-- <form action="openAccountRequest" >
-    <input type="hidden" name="username" value="${user.userId}"/> --%>
-    <a href="openAccountRequest/${name="user" value="user"}">OpenAccount</a>
-<!-- </form> -->
-	</c:when> 
-	   
+ 
+    <form>
+    <input type="hidden" name="username" value="${uid}"/>
+    <!-- <input type="submit" name="submit" value="OpenAccount"/> -->
+     <a href="openAccountRequest.htm">OpenAccount</a> 
+    </form> 
+ 
+ 	</c:when>    
+ 	
     <c:otherwise>
     <h3>Hello {} your account is already opened with account number {}</h3>
     <h3>Your Account Balance is {}</h3>

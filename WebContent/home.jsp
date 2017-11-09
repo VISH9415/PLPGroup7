@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>HomePage</title>
 </head>
 <body>
+<a href = "user.htm">NewUser</a><br>
 <a href = "admin.htm">Administrator</a><br>
-<a href = "newuser.htm">New User</a><br>
-<a href = "login.htm">Existing User</a>
+<!-- <a href = "login.htm">Existing User</a> -->
 </body>
 </html>

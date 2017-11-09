@@ -22,6 +22,9 @@ public interface IBankingService
 
 	public UserBean updateAccountIdinUser(long accountId);
 
+
+	public void registerUser(UserBean userBean);
+
 	 /*public AccountBean fetchAccounts(long actId) throws BankingException;
 	 public double fetchAmount(long actId) throws BankingException;
 	 public long openAccount(CustomerBean customerBean) throws BankingException;
