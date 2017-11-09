@@ -1,31 +1,28 @@
 package com.cg.project.dao;
 
-import java.sql.Date;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-
 import com.cg.project.bean.AccountBean;
 import com.cg.project.bean.CustomerBean;
-import com.cg.project.bean.PayeeBean;
-import com.cg.project.bean.ServiceTrackerBean;
-import com.cg.project.bean.TransactionsBean;
 import com.cg.project.bean.UserBean;
-import com.cg.project.exception.BankingException;
 
 public interface IBankingDAO 
 {
-	 public UserBean fetchUserById(String uid) throws BankingException;
+	public UserBean fetchUserById(String uid);
 
 	public int validateAdmin(String adminId, String adminPassword);
 
-	void updateUserDetails(String uid, long actId) throws BankingException;
+	void updateUserDetails(String uid, long actId);
 
-	int insertAccount(AccountBean account) throws BankingException;
+	int insertAccount(AccountBean account);
+	
+	public UserBean registerUser(UserBean userBean);
 
 	public CustomerBean insertIntoCustomer(CustomerBean customer);
 
 	public void updateAccountIdinUser(String accountId);
+	
+	public UserBean validateUser(String userId);
+	
+	public UserBean openAccount(UserBean userBean);
 
 	/* public AccountBean fetchAccounts(long actId) throws BankingException;
 	 public double fetchAmount(long actId) throws BankingException;

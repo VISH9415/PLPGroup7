@@ -1,4 +1,4 @@
-package com.cg.project.client;
+/*package com.cg.project.client;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -43,10 +43,10 @@ public class BankingClient {
 			String use = sc.nextLine();
 
 			switch (use) {
-			/**
+			*//**
 			 * 
 			 * Case 1 starts
-			 */
+			 *//*
 			case "1":
 				System.out.println("Please signup for our services .. ");
 
@@ -103,15 +103,15 @@ public class BankingClient {
 
 				break;
 
-			/**
+			*//**
 			 * 
 			 * Case 1 ends
-			 */
+			 *//*
 
-			/**
+			*//**
 			 * 
 			 * Case 2 starts
-			 */
+			 *//*
 
 			case "2":
 				// existing user in bank...
@@ -277,9 +277,9 @@ public class BankingClient {
 							}
 							break;
 
-						/**
+						*//**
 						 * Start of transaction
-						 */
+						 *//*
 
 						case "2":
 							// Transactions....
@@ -581,9 +581,9 @@ public class BankingClient {
 								}
 							}
 							break;
-						/**
+						*//**
 						 * End of transaction
-						 */
+						 *//*
 						case "3":
 							// fund transfer ...
 							boolean fund = true;
@@ -936,14 +936,14 @@ public class BankingClient {
 					}
 				}
 				break;
-			/**
+			*//**
 			 * 
 			 * Case 2 ends
-			 */
-			/**
+			 *//*
+			*//**
 			 * 
 			 * Case 3 starts
-			 */
+			 *//*
 			case "3":
 				int x = 1;
 				System.out.println("Hello Admin");
@@ -1011,3 +1011,4 @@ public class BankingClient {
 
 }// correct upto here
 
+*/
