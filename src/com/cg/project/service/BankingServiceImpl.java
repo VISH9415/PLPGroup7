@@ -1,19 +1,13 @@
 package com.cg.project.service;
 
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
+import org.springframework.stereotype.Service;
 
-import com.cg.project.bean.AccountBean;
 import com.cg.project.bean.CustomerBean;
-import com.cg.project.bean.PayeeBean;
-import com.cg.project.bean.ServiceTrackerBean;
-import com.cg.project.bean.TransactionsBean;
 import com.cg.project.bean.UserBean;
 import com.cg.project.dao.BankingDAOImpl;
 import com.cg.project.dao.IBankingDAO;
 import com.cg.project.exception.BankingException;
-
+@Service
 public class BankingServiceImpl implements IBankingService {
 
 	IBankingDAO dao = new BankingDAOImpl();
@@ -112,6 +106,12 @@ public class BankingServiceImpl implements IBankingService {
 		return dao.registerUser(userBean);
 	}
 */
+
+	@Override
+	public UserBean updateAccountIdinUser(long accountId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 	

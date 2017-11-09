@@ -1,16 +1,17 @@
 package com.cg.project.client;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cg.project.bean.AccountBean;
 import com.cg.project.bean.CustomerBean;
 import com.cg.project.bean.UserBean;
 import com.cg.project.exception.BankingException;
-import com.cg.project.service.BankingServiceImpl;
 import com.cg.project.service.IBankingService;
 
 @Controller
@@ -19,6 +20,7 @@ public class BankController {
 	UserBean userBean = new UserBean();
 	AccountBean accountBean = new AccountBean();
     CustomerBean customerBean = new CustomerBean();
+    
     @Autowired
 	IBankingService service;
 
@@ -46,7 +48,7 @@ public class BankController {
 	public String existingUser(){
 		return "login";
 	}
-	
+	//xml of vaibhav type...
 	//user inserted during signup....
 	@RequestMapping("/loginMethod") 
 	public String existingUserlogin(@RequestParam("userName") String uid,@RequestParam("loginPassword") String password,Model model) throws BankingException

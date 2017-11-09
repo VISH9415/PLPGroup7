@@ -23,6 +23,7 @@ public class CustomerBean {
 	private String address;
 	@Column(name  = "Pancard")
 	private String pancard;
+	@Column(name="account_type")
 	private String accountType;
 
 	public CustomerBean() {

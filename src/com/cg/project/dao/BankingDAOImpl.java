@@ -19,7 +19,8 @@ public class BankingDAOImpl implements IBankingDAO{
 	
 	@PersistenceContext
 	EntityManager entityManager;
-	UserBean user;
+	
+	//UserBean user;
 	public BankDaoImpl() {
 		// TODO Auto-generated constructor stub
 	}
