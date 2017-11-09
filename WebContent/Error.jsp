@@ -8,5 +8,6 @@
 </head>
 <body>
 ${message}
+<a href="Home.htm">Login</a>
 </body>
 </html>

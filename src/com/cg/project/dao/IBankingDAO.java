@@ -24,6 +24,8 @@ public interface IBankingDAO
 	
 	public UserBean openAccount(UserBean userBean);
 
+	public void insertIntoAccountMaster(AccountBean accountBean);
+
 	/* public AccountBean fetchAccounts(long actId) throws BankingException;
 	 public double fetchAmount(long actId) throws BankingException;
 	 public void openAccount(CustomerBean customerBean) throws BankingException;

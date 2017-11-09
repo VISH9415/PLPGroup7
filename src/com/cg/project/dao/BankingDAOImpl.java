@@ -305,6 +305,13 @@ public class BankingDAOImpl implements IBankingDAO{
 			return 0;
 		}
 
+		@Override
+		public void insertIntoAccountMaster(AccountBean accountBean) {
+			// TODO Auto-generated method stub
+			entityManager.persist(accountBean);
+			entityManager.flush();
+		}
+
 	/*
    
 

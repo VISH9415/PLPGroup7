@@ -12,9 +12,9 @@
      <%-- <input type="hidden" name="username" value="${username}"/>  --%>
     
     Enter Name:<input type="text" name="customerName"/>
-    Enter Address:<input type="text" name="address"/>
     Enter Email:<input type="text" name="email"/>
-    
+    Enter Address:<input type="text" name="address"/>
+    Enter PanCard no: <input type="text" name="pancard"/>
     Select account type:<select name="accountType">
     <option value="savings">Savings</option>
     <option value="current">Current</option>

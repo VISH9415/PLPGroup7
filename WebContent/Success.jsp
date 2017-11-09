@@ -10,8 +10,7 @@
 <body>
 <h3>Thanks you are successfully logged in ...</h3>
 
-<c:choose>
-    <c:when test="${user.accountId==0}">
+    <c:if test="${user.accountId==0}">
  
     <form>
     <input type="hidden" name="username" value="${uid}"/>
@@ -19,11 +18,12 @@
      <a href="openAccountRequest.htm">OpenAccount</a> 
     </form> 
  
- 	</c:when>    
+ 	</c:if>    
  	
-    <c:otherwise>
-    <h3>Hello {} your account is already opened with account number {}</h3>
-    <h3>Your Account Balance is {}</h3>
+ <c:if test="${user.accountId!=0}">
+ 
+    <h3>Hello ${user.userId} your account is already opened with account number ${user.accountId} </h3>
+    <h3>Your Account Balance is ${customer.accountBalance} </h3>
 <form>
 Please select:
 
@@ -34,8 +34,10 @@ Please select:
 <a href="fundTransfer">Fund Transfer</a>
 <a href="changePass">Change Password</a>
 </form>
-    </c:otherwise>
-</c:choose>
+</c:if>
 
 </body>
 </html>
+
+
+

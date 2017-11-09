@@ -3,6 +3,7 @@ package com.cg.project.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.project.bean.AccountBean;
 import com.cg.project.bean.CustomerBean;
 import com.cg.project.bean.UserBean;
 import com.cg.project.dao.IBankingDAO;
@@ -118,6 +119,12 @@ public class BankingServiceImpl implements IBankingService {
 	public void registerUser(UserBean userBean) {
 		// TODO Auto-generated method stub
 		dao.registerUser(userBean);
+	}
+
+	@Override
+	public void insertIntoAccountMaster(AccountBean accountBean) {
+		// TODO Auto-generated method stub
+		dao.insertIntoAccountMaster(accountBean);
 	}
 
 
