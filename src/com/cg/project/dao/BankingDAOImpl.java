@@ -15,12 +15,11 @@ public class BankingDAOImpl implements IBankingDAO{
 	@PersistenceContext
 	EntityManager entityManager;
 	
-<<<<<<< HEAD
+
 	public BankDaoImpl() {
 		// TODO Auto-generated constructor stub
 	}
-=======
->>>>>>> f197be20df1e7ebc527c3d7efdb1a950e9145979
+
 
 	@Override
 	public UserBean registerUser(UserBean userBean) {
