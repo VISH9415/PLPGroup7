@@ -6,29 +6,24 @@ import com.cg.project.bean.UserBean;
 
 public interface IBankingDAO 
 {
-	public UserBean fetchUserById(String uid);
 
-	public int validateAdmin(String adminId, String adminPassword);
-
-	void updateUserDetails(String uid, long actId);
-
-	public UserBean updateAccountIdinUser(UserBean userBean);
+	public void registerUser(UserBean userBean);
 	
-	int insertAccount(AccountBean account);
+	public UserBean fetchUserById(String uid);
+	
+	public int validateAdmin(String adminId, String adminPassword);
 	
 	public void updateloginpassword(UserBean userBean);
 	
-	public void registerUser(UserBean userBean);
-
+	public UserBean updateAccountIdinUser(UserBean userBean);
+	
 	public CustomerBean insertIntoCustomer(CustomerBean customer);
-
-	public void updateAccountIdinUser(String accountId);
 	
-	public UserBean validateUser(String userId);
+	public void updateUserDetails(String uid,long actId);
 	
-	public UserBean openAccount(UserBean userBean);
-
 	public void insertIntoAccountMaster(AccountBean accountBean);
+	
+	
 
 	/* public AccountBean fetchAccounts(long actId) throws BankingException;
 	 public double fetchAmount(long actId) throws BankingException;

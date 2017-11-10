@@ -132,6 +132,18 @@ public class BankingServiceImpl implements IBankingService {
 		dao.insertIntoAccountMaster(accountBean);
 	}
 
+/*	@Override
+	public void updateAccountIdinUser(long accountId) {
+		// TODO Auto-generated method stub
+		dao.updateAccountIdinUser(accountId);
+	}*/
+
+	@Override
+	public void updateUserDetails(String uid, long actId) {
+		// TODO Auto-generated method stub
+		dao.updateUserDetails(uid, actId);
+	}
+
 
 	
 	

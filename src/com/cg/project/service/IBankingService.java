@@ -14,18 +14,20 @@ import com.cg.project.exception.BankingException;
 
 public interface IBankingService
 {
-	 public UserBean fetchUserById(String uid) throws BankingException;
-
+	public void registerUser(UserBean userBean);
+	
+	public UserBean fetchUserById(String uid) throws BankingException;
+	
 	public int validateAdmin(String adminId, String adminPassword);
-
-	public CustomerBean insertIntoCustomer(CustomerBean customer);
-
-	public UserBean updateAccountIdinUser(UserBean userBean);
-
+	
 	public void updateloginpassword(UserBean userBean);
 	
-	public void registerUser(UserBean userBean);
-
+	public UserBean updateAccountIdinUser(UserBean userBean);
+	
+	public CustomerBean insertIntoCustomer(CustomerBean customer);
+	
+	public void updateUserDetails(String uid,long actId);
+	
 	public void insertIntoAccountMaster(AccountBean accountBean);
 
 	 /*public AccountBean fetchAccounts(long actId) throws BankingException;

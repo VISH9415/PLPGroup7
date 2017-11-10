@@ -34,6 +34,19 @@ public class BankController {
 	 */
 	// user signup ...
      //***************************user signup *************************
+	/**
+	 * Method used to sign up
+	 * 
+	 * @param username
+	 * @param pwd
+	 * @param confirmpwd
+	 * @param transpwd
+	 * @param secques
+	 * @param secans
+	 * @param model
+	 * @return
+	 * @throws BankingException
+	 */
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String addUser(@RequestParam("usernamesignup") String username,
 			@RequestParam("passwordsignup") String pwd,
@@ -75,7 +88,16 @@ public class BankController {
 	}
 
 	// user login
+	
 	//***************************user login*************************
+	/**
+	 * Method for user login 
+	 * @param username
+	 * @param password
+	 * @param model
+	 * @return
+	 * @throws BankingException
+	 */
 	@RequestMapping(value = "/userlogin", method = RequestMethod.POST)
 	public String existingUserlogin(@RequestParam("username") String username,
 			@RequestParam("password") String password, Model model)
@@ -110,6 +132,15 @@ public class BankController {
 	}
 
 	//***************************forget password*************************
+	/**
+	 * Method to implement forget password..
+	 * @param username
+	 * @param secques
+	 * @param secans
+	 * @param model
+	 * @return
+	 * @throws BankingException
+	 */
 	@RequestMapping(value="/forgetPass", method = RequestMethod.POST)
 	public String forgetpassword(
 			@RequestParam("usernameForget") String username,
@@ -169,7 +200,13 @@ public class BankController {
 	}
 
 	//***************************admin login*************************
-	// admin login
+	/**
+	 * Method for bank administrator login...
+	 * @param adminId
+	 * @param adminPass
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/adminlogin", method = RequestMethod.POST)
 	public String validateAdmin(@RequestParam("admin-username") String adminId,
 			@RequestParam("admin-password") String adminPass, Model model) {
@@ -183,6 +220,18 @@ public class BankController {
 	}
 
 	//***************************open account*************************
+	/**
+	 * Method to open account of user 
+	 * @param customername
+	 * @param email
+	 * @param address
+	 * @param pancard
+	 * @param accType
+	 * @param username
+	 * @param model
+	 * @return
+	 * @throws BankingException
+	 */
 	@RequestMapping(value="/openAccount",method=RequestMethod.POST)
 	public String openAccount(
 			@RequestParam("customername") String customername,
@@ -246,7 +295,7 @@ public class BankController {
 	public String fundTransfer() {
 		return null;
 	}
-
+  
 	@RequestMapping("/changepass")
 	public String changePassword(@RequestParam("username") String uid,@RequestParam("newpassword") String newpassword,@RequestParam("renewpassword") String renewpassword,Model model) throws BankingException {
 		{
