@@ -20,9 +20,10 @@ public interface IBankingService
 
 	public CustomerBean insertIntoCustomer(CustomerBean customer);
 
-	public UserBean updateAccountIdinUser(long accountId);
+	public UserBean updateAccountIdinUser(UserBean userBean);
 
-
+	public void updateloginpassword(UserBean userBean);
+	
 	public void registerUser(UserBean userBean);
 
 	public void insertIntoAccountMaster(AccountBean accountBean);

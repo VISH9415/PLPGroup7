@@ -20,8 +20,11 @@ public class BankingDAOImpl implements IBankingDAO{
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	
 	@Override
 	public void registerUser(UserBean userBean) {
+		System.out.println("userBean is: "+userBean);
+		System.out.println("in dao..register");
 		entityManager.persist(userBean);
 		entityManager.flush();
 	}
@@ -29,10 +32,10 @@ public class BankingDAOImpl implements IBankingDAO{
 	@Override
 	public UserBean fetchUserById(String uid) 
 	{
-		//HashMap<String,UserBean> userMap = new HashMap<String,UserBean>();
 		UserBean userFound= new UserBean();
 		userFound = entityManager.find(UserBean.class, uid);
-		//userMap.put(uid,userFound);
+		//System.out.println("uid: "+uid);
+		//System.out.println("userfetched: "+userFound);
 		return userFound;	
 	}
 	
@@ -40,12 +43,26 @@ public class BankingDAOImpl implements IBankingDAO{
 	public int validateAdmin(String adminId, String adminPassword) {
 		// TODO Auto-generated method stub
 		int count = 0;
+		System.out.println("in dao ... validate admin");
 	if(adminId.equals("ViVaHaKa")&&adminPassword.equals("ADMIN1234"))
 	{
 		count++;
 	}
 	return count;
 	}
+	
+	public void updateloginpassword(UserBean userBean)
+	{
+		entityManager.merge(userBean);
+		entityManager.flush();
+	}
+
+	public UserBean updateAccountIdinUser(UserBean userBean)
+	{
+		 UserBean user = entityManager.merge(userBean);
+		return user;
+	}
+	
 /*
 
 	@Override

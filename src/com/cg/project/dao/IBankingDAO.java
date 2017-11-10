@@ -12,7 +12,11 @@ public interface IBankingDAO
 
 	void updateUserDetails(String uid, long actId);
 
+	public UserBean updateAccountIdinUser(UserBean userBean);
+	
 	int insertAccount(AccountBean account);
+	
+	public void updateloginpassword(UserBean userBean);
 	
 	public void registerUser(UserBean userBean);
 

@@ -25,6 +25,11 @@ public class BankingServiceImpl implements IBankingService {
 		return dao.validateAdmin(adminId, adminPassword);
 		
 	}
+	
+	public void updateloginpassword(UserBean userBean)
+	{
+	    dao.updateloginpassword(userBean);
+	}
 
 	@Override
 	public CustomerBean insertIntoCustomer(CustomerBean customer) {
@@ -110,9 +115,9 @@ public class BankingServiceImpl implements IBankingService {
 */
 
 	@Override
-	public UserBean updateAccountIdinUser(long accountId) {
+	public UserBean updateAccountIdinUser(UserBean userBean) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.updateAccountIdinUser(userBean);
 	}
 
 	@Override

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-${message}
-<a href="Home.htm">Login</a>
+${message}<br>
+<a href="index.jsp">Home</a>
 </body>
 </html>
