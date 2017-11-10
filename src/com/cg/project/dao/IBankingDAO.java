@@ -1,7 +1,11 @@
 package com.cg.project.dao;
 
+import java.sql.Date;
+import java.util.List;
+
 import com.cg.project.bean.AccountBean;
 import com.cg.project.bean.CustomerBean;
+import com.cg.project.bean.TransactionsBean;
 import com.cg.project.bean.UserBean;
 
 public interface IBankingDAO 
@@ -23,6 +27,29 @@ public interface IBankingDAO
 	public UserBean validateUser(String userId);
 	
 	public UserBean openAccount(UserBean userBean);
+	
+	public CustomerBean changeAddress(CustomerBean customer);
+	
+	public CustomerBean viewCustomer(long accId);
+	
+	public UserBean viewAccountId(String userId);
+	
+	public AccountBean viewAccount(long accId);
+	
+	public AccountBean updateBalance(long accId,AccountBean account);
+	
+	public UserBean getUserName(long accId);
+
+	public AccountBean updateBalance(long accId,double amount);
+	
+	public List<TransactionsBean> vewMiniStatement(long accId);
+	
+	public TransactionsBean viewDetailsOfTransactions(long accId);
+	
+	public List<TransactionsBean> viewDetailStatement(long accId,Date initDate,Date finDate);
+	
+	public List<TransactionsBean> adminViewTransactions(long accId);
+		
 
 	/* public AccountBean fetchAccounts(long actId) throws BankingException;
 	 public double fetchAmount(long actId) throws BankingException;

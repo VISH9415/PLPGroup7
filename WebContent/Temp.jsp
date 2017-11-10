@@ -8,7 +8,7 @@
 </head>
 <body>
 <!-- signup message -->
-${message}
+${message}<br>
 <a href="login.htm">Login</a>
 </body>
 </html>

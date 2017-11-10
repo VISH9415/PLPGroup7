@@ -2,13 +2,27 @@ package com.cg.project.bean;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "transactions")
 public class TransactionsBean {
-private long transactionId;
-private String transDescription;
-private Date dateOfTransaction;
-private String transactionType;
-private double transactionAmount;
-private long accountNumber;
+	@Id
+	@Column(name = "transaction_Id")
+	private long transactionId;
+	@Column(name = "tran_description")
+	private String transDescription;
+	@Column(name = "date_of_transaction")
+	private Date dateOfTransaction;
+	@Column(name = "transaction_type")
+	private String transactionType;
+	@Column(name = "tran_amount")
+	private double transactionAmount;
+	@Column(name = "account_no")
+	private long accountNumber;
 
 public TransactionsBean() {
 	super();

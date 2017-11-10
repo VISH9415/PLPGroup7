@@ -1,9 +1,14 @@
 package com.cg.project.service;
 
+import java.sql.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.project.bean.AccountBean;
 import com.cg.project.bean.CustomerBean;
+import com.cg.project.bean.TransactionsBean;
 import com.cg.project.bean.UserBean;
 import com.cg.project.dao.IBankingDAO;
 import com.cg.project.exception.BankingException;
@@ -31,83 +36,6 @@ public class BankingServiceImpl implements IBankingService {
 		return dao.insertIntoCustomer(customer);
 	}
 
-	/*@Override
-	public void updateAccountIdinUser(String accountId) {
-		// TODO Auto-generated method stub
-		dao.updateAccountIdinUser(accountId);
-	}*/
-/*	public BankingServiceImpl() {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public AccountBean fetchAccounts(long actId) throws BankingException {
-		return dao.fetchAccounts(actId);
-	}
-
-	@Override
-	public double fetchAmount(long actId) throws BankingException {
-		return dao.fetchAmount(actId);
-	}
-
-	@Override
-	public long openAccount(CustomerBean customerBean) throws BankingException {
-		// TODO Auto-generated method stub
-		return dao.openAccount(customerBean);
-	}
-
-	@Override
-	public CustomerBean validateId(long actId) throws BankingException {
-		// TODO Auto-generated method stub
-		return dao.validateId(actId);
-	}
-
-	@Override
-	public String deposit(long actId, double amount, AccountBean accountBean)
-			throws BankingException {
-		// TODO Auto-generated method stub
-		return dao.deposit(actId, amount, accountBean);
-	}
-
-	@Override
-	public String depositUpdate(long actId, double amount)
-			throws BankingException {
-		// TODO Auto-generated method stub
-		return dao.depositUpdate(actId, amount);
-	}
-
-	@Override
-	public void transactionUpdate(long accId, TransactionsBean transBean)
-			throws BankingException {
-			dao.transactionUpdate(accId, transBean);
-	}
-
-	@Override
-	public String withdraw(long accId, double amount) throws BankingException {
-		// TODO Auto-generated method stub
-		return dao.withdraw(accId, amount);
-	}
-
-	@Override
-	public void sendfund(double amt, long actId, long pactId)
-			throws BankingException {
-		// TODO Auto-generated method stub
-			dao.sendfund(amt, actId, pactId);
-	}
-
-	@Override
-	public String validatePassword(String uId) throws BankingException {
-		// TODO Auto-generated method stub
-		return dao.validatePassword(uId);
-	}
-
-	@Override
-	public int registerUser(UserBean userBean) throws BankingException {
-		// TODO Auto-generated method stub
-		return dao.registerUser(userBean);
-	}
-*/
-
 	@Override
 	public UserBean updateAccountIdinUser(long accountId) {
 		// TODO Auto-generated method stub
@@ -120,9 +48,50 @@ public class BankingServiceImpl implements IBankingService {
 		dao.registerUser(userBean);
 	}
 
+	@Override
+	public UserBean validateUser(String userId) {
+		return dao.validateUser(userId);
+	}
 
-	
-	
+	@Override
+	public CustomerBean changeAddress(CustomerBean customer) {
+		return dao.changeAddress(customer);
+	}
+
+	@Override
+	public CustomerBean viewCustomer(long accId) {
+		return dao.viewCustomer(accId);
+	}
+
+	@Override
+	public UserBean viewAccountId(String userId) {
+		return dao.viewAccountId(userId);
+	}
+
+	@Override
+	public AccountBean viewAccount(long accId) {
+		return dao.viewAccount(accId);
+	}
+
+	@Override
+	public UserBean getUserName(long accId) {
+		return dao.getUserName(accId);
+	}
+
+	@Override
+	public List<TransactionsBean> vewMiniStatement(long accId) {
+		return dao.vewMiniStatement(accId);
+	}
+
+	@Override
+	public List<TransactionsBean> viewDetailStatement(long accId,Date initDate,Date finDate) {
+		return dao.viewDetailStatement(accId,initDate,finDate);
+	}
+
+	@Override
+	public List<TransactionsBean> adminViewTransactions(long accId) {
+		return dao.adminViewTransactions(accId);
+	}
 
 	/*@Override
 	public int updateUserDetails(UserBean userBean, String uid, long actId)

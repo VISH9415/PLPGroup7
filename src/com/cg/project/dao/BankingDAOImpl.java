@@ -1,13 +1,18 @@
 package com.cg.project.dao;
 
+import java.sql.Date;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
 import com.cg.project.bean.AccountBean;
 import com.cg.project.bean.CustomerBean;
+import com.cg.project.bean.TransactionsBean;
 import com.cg.project.bean.UserBean;
 
 @Repository
@@ -289,8 +294,11 @@ public class BankingDAOImpl implements IBankingDAO{
 
 		@Override
 		public UserBean validateUser(String userId) {
-			// TODO Auto-generated method stub
-			return null;
+		String qry = "Select user from UserBean user where userId=:puserId";
+		TypedQuery<UserBean> query = entityManager.createQuery(qry, UserBean.class);
+		query.setParameter("puserId", userId);
+		UserBean user = query.getSingleResult();
+			return user;
 		}
 
 		@Override
@@ -305,263 +313,84 @@ public class BankingDAOImpl implements IBankingDAO{
 			return 0;
 		}
 
-	/*
-   
-
-
-	@Override
-	public int fetchUserByActId(long acid) throws BankingException
-	{
-      //use list and get the size...
-	  //String sql = "Select count(*) from usertable where account_id=?";	
-	}
-
-	@Override
-	public int updateCustomerAddress(long actId,String address) throws BankingException
-	{
-		CustomerBean customerFound= new CustomerBean();
-		customerFound = entityManager.find(CustomerBean.class,actId);
-		
-		    entityManager.merge(customerFound);
-			//String sql = "UPDATE CUSTOMER SET ADDRESS=? WHERE ACCOUNT_ID=?";	
-	} 
-
-	@Override
-	public HashMap<Long, List<TransactionsBean>> viewMiniStatement(long accId) throws BankingException
-	{
-		Date dateOfTrans = null;
-		HashMap<Long, List<TransactionsBean>> miniMap = new HashMap<>();
-		Connection conn = null;
-		PreparedStatement pst = null;
-		try{
-			conn = DBUtil.createConnection();
-			String sql = "select * from (select * from TRANSACTIONS order by DATE_OF_TRANSACTION desc) where rownum<=10 and account_no ="+accId;
-			pst = conn.prepareStatement(sql);
-			ResultSet rs = pst.executeQuery();
-			List<TransactionsBean> list = new ArrayList<TransactionsBean>();
-			while(rs.next()){
-				TransactionsBean transactionsBean = new TransactionsBean(rs.getLong(1),rs.getString(2),rs.getDate(3),rs.getString(4),rs.getDouble(5),rs.getLong(6));
-				list.add(transactionsBean);
-			}
-	}
-
-	@Override
-	public HashMap<Long, List<TransactionsBean>> viewDetailedStatement(long accId,Date date1,Date date2) throws BankingException 
-	{
-		HashMap<Long, List<TransactionsBean>> detMap = new HashMap<>();
-		Connection conn = null;
-		PreparedStatement pst = null;
-		try{
-			conn = DBUtil.createConnection();
-			String sql = "SELECT * FROM TRANSACTIONS WHERE ACCOUNT_NO=? AND DATE_OF_TRANSACTION BETWEEN ? AND ?";
-			pst = conn.prepareStatement(sql);
-			pst.setLong(1,accId);
-			pst.setDate(2, date1);
-			pst.setDate(3, date2);
-			ResultSet rs = pst.executeQuery();
-			List<TransactionsBean> list = new ArrayList<TransactionsBean>();
-			while(rs.next()){
-				TransactionsBean transactionsBean = new TransactionsBean(rs.getLong(1),rs.getString(2),rs.getDate(3),rs.getString(4),rs.getDouble(5),rs.getLong(6));
-				list.add(transactionsBean);
-			}
-			detMap.put(accId,list);
-			logger.info("");
-
-		}catch(SQLException se){
-			logger.error("");
-			throw new BankingException("Error in fetching detailed statement");
+		@Override
+		public CustomerBean changeAddress(CustomerBean customer) {
+			entityManager.merge(customer);
+			return customer;
 		}
-		return detMap;
-	}
-	
-	@Override
-	public int serviceTracking(ServiceTrackerBean service,long accId) throws BankingException
-	{
-		int status=0;
-		Connection conn=null;
-		PreparedStatement pst = null;
-		String sql = "INSERT INTO SERVICETRACKER VALUES(SERV_SEQ.NEXTVAL,?,?,?,?)";
-		try {
-			conn = DBUtil.createConnection();
-			pst = conn.prepareStatement(sql);
-			pst.setString(1,service.getServiceDescription());
-			pst.setLong(2,accId);
-			pst.setDate(3,service.getServiceRaisedDate());
-			pst.setString(4,service.getServiceStatus());
-			status = pst.executeUpdate();
-			logger.info("");
 
-		} catch (SQLException e) {
-			logger.error("");
-			throw new BankingException("Error in insertion into servicetracker");
+		@Override
+		public CustomerBean viewCustomer(long accId) {
+			CustomerBean customer = entityManager.find(CustomerBean.class, accId);
+			return customer;
 		}
-		System.out.println(status +" Service registered...");
-		return status;	
-	}
 
-	@Override
-	public Date fetchOpenDate(long accId) throws BankingException
-	{
-		Connection conn = null;
-		PreparedStatement pst = null;
-		Date opdate = null;
-		try{
-			conn = DBUtil.createConnection();
-			String sql = "Select open_date from accountmaster where account_Id="+accId;
-			pst = conn.prepareStatement(sql);
-			ResultSet rs = pst.executeQuery();
-			while(rs.next()) {
-				opdate = rs.getDate(1);
-			}
-			logger.info("");
-
-		}catch(SQLException se){
-			logger.error("");
-			throw new BankingException("Error in fetching opendate");
+		@Override
+		public UserBean viewAccountId(String userId) {
+			UserBean user = entityManager.find(UserBean.class, userId);
+			return user;
 		}
-		return opdate;
-	}
-	
 
-	
-	@Override
-	public long getPreviousUser(String uId) throws BankingException
-	{
-		Connection conn = null;
-		PreparedStatement pst = null;
-		UserBean userBean = new UserBean();
-		try{
-			conn = DBUtil.createConnection();
-			String sql = "Select account_id from usertable where USER_ID= ?";
-			pst = conn.prepareStatement(sql);
-			pst.setString(1,uId);
-			ResultSet rs = pst.executeQuery();
-
-			while(rs.next()) {
-				userBean.setAccountId(rs.getLong(1));
-			}
-			logger.info("");
-
-		}catch(SQLException se){
-			logger.error("");
-			throw new BankingException("Error in fetching account_id");
+		@Override
+		public AccountBean viewAccount(long accId) {
+			AccountBean account = entityManager.find(AccountBean.class, accId);
+			return account;
 		}
-		return userBean.getAccountId() ;
-	}
 
-	@Override
-	public int insertService(ServiceTrackerBean serviceTracker) throws BankingException
-	{
-		int count = 0;
-		Connection conn =null;
-		PreparedStatement pst= null;
-		String sql = new String("INSERT INTO SERVICETRACKER VALUES(serv_seq.nextval,?,?,?,?)");
-		try{
-			conn = DBUtil.createConnection();
-			pst = conn.prepareStatement(sql);
-			pst.setString(1,serviceTracker.getServiceDescription());
-			pst.setLong(2,serviceTracker.getAccountId());
-			pst.setDate(3,serviceTracker.getServiceRaisedDate());
-			pst.setString(4,serviceTracker.getServiceStatus());
-			count = pst.executeUpdate();
-			logger.info("");
+		@Override
+		public AccountBean updateBalance(long accId,double amount) {
+//			entityManager.merge(account);
+			String qry = "Update AccountBean account set account.accountBalance = account.accountBalance-:amount";		
+			return null;
+		}
 
-		}catch(SQLException se){
-			logger.error("");
-			throw new BankingException("Record not inserted into servicetracker");
+		@Override
+		public UserBean getUserName(long accId) {
+			UserBean user = entityManager.find(UserBean.class, accId);
+			return user;
 		}
-		finally
-		{
-			try
-			{
-				DBUtil.closeConnection();
-			}catch(SQLException se){
-				logger.error("");
-				throw new BankingException("Problems in closing connection");
-			}
-			System.out.println(count+" service results affected");
-		}
-		return count;
-	}
-	@Override
-	public int insertPayee(PayeeBean payeeBean) throws BankingException {
-		int count = 0;
-		Connection conn =null;
-		PreparedStatement pst= null;
-		String sql = new String("INSERT INTO PAYEETABLE VALUES(?,?,?)");
-		try{
-			conn = DBUtil.createConnection();
-			pst = conn.prepareStatement(sql);
-			pst.setLong(1,payeeBean.getAccountId());
-			pst.setLong(2,payeeBean.getPayeeAccountId());
-			pst.setString(3,payeeBean.getNickName());
-			count = pst.executeUpdate();
-			logger.info("");
-		}catch(SQLException se){
-			logger.error("");
-			throw new BankingException("Record not inserted into payeeTable ");
-		}
-		finally
-		{
-			try
-			{
-				DBUtil.closeConnection();
-			}catch(SQLException se){
-				logger.error("");
-				throw new BankingException("Problems in closing connection");
-			}
-			System.out.println(count+" Payee results affected");
-		}
-		return count;
-	}
-	@Override
-	public List<UserBean> viewAccountHolders() throws BankingException {
-		Connection conn = null;
-		PreparedStatement pst = null;
-		//UserBean userBean = new UserBean();
-		List<UserBean> userList = new ArrayList<>();
-		try{
-			conn = DBUtil.createConnection();
-			String sql = "Select * from usertable where account_id!=0";
-			pst = conn.prepareStatement(sql);
-			ResultSet rs = pst.executeQuery();
 
-			while(rs.next()) {
-			UserBean userBean = new UserBean(rs.getLong(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5));
-			userList.add(userBean);
-			}
-			logger.info("");
+		@Override
+		public AccountBean updateBalance(long accId, AccountBean account) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
-		}catch(SQLException se){
-			logger.error("");
-			throw new BankingException("Error in fetching user records");
+		@Override
+		public List<TransactionsBean> vewMiniStatement(long accId) {
+			String qry = "SELECT transaction from TransactionsBean transaction where transaction.accountNumber=:paccountId order by transaction.dateOfTransaction";
+			TypedQuery<TransactionsBean> query = entityManager.createQuery(qry, TransactionsBean.class);
+			query.setParameter("paccountId", accId);
+			List<TransactionsBean> miniStatement = query.setMaxResults(2).getResultList();
+			return miniStatement;
+		}
+
+		@Override
+		public TransactionsBean viewDetailsOfTransactions(long accId) {
+			String qry = "Select transaction from TransactionsBean transaction where transaction.accountNumber=:paccNo";
+			TypedQuery<TransactionsBean> query = entityManager.createQuery(qry, TransactionsBean.class);
+			TransactionsBean transaction = query.getSingleResult();
+			return transaction;
+		}
+
+		@Override
+		public List<TransactionsBean> viewDetailStatement(long accId,Date initDate,Date finDate) {
+			String qry = "SELECT transaction from TransactionsBean transaction where transaction.accountNumber=:paccountId and transaction.dateOfTransaction between :pdate1 and :pdate2 order by transaction.dateOfTransaction";
+			TypedQuery<TransactionsBean> query = entityManager.createQuery(qry, TransactionsBean.class);
+			query.setParameter("paccountId", accId);
+			query.setParameter("pdate1", initDate);
+			query.setParameter("pdate2",finDate);
+			List<TransactionsBean> detailStatement = query.getResultList();
+			return detailStatement;
+		}
+
+		@Override
+		public List<TransactionsBean> adminViewTransactions(long accId) {
+			String qry = "SELECT transaction from TransactionsBean transaction where transaction.accountNumber=:paccountId order by transaction.dateOfTransaction";
+			TypedQuery<TransactionsBean> query = entityManager.createQuery(qry, TransactionsBean.class);
+			query.setParameter("paccountId", accId);
+			List<TransactionsBean> adminStatement = query.getResultList();
+			return adminStatement;
 		}
 		
-		return userList;
-	}
-	@Override
-	public List<TransactionsBean> viewTransactionsDetails()	throws BankingException {
-		Connection conn = null;
-		PreparedStatement pst = null;
-		//UserBean userBean = new UserBean();
-		List<TransactionsBean> transList = new ArrayList<>();
-		try{
-			conn = DBUtil.createConnection();
-			String sql = "Select * from transactions";
-			pst = conn.prepareStatement(sql);
-			ResultSet rs = pst.executeQuery();
-
-			while(rs.next()) {
-			TransactionsBean transactionsBean= new TransactionsBean(rs.getLong(1),rs.getString(2),rs.getDate(3),rs.getString(4),rs.getDouble(5),rs.getLong(6));
-			transList.add(transactionsBean);
-			}
-			logger.info("");
-
-		}catch(SQLException se){
-			logger.error("");
-			throw new BankingException("Error in fetching transaction details");
-		}
-		
-		return transList;
-	}*/
 }

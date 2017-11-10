@@ -1,13 +1,10 @@
 package com.cg.project.service;
 
 import java.sql.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import com.cg.project.bean.AccountBean;
 import com.cg.project.bean.CustomerBean;
-import com.cg.project.bean.PayeeBean;
-import com.cg.project.bean.ServiceTrackerBean;
 import com.cg.project.bean.TransactionsBean;
 import com.cg.project.bean.UserBean;
 import com.cg.project.exception.BankingException;
@@ -22,8 +19,25 @@ public interface IBankingService
 
 	public UserBean updateAccountIdinUser(long accountId);
 
-
+	public UserBean validateUser(String userId);
+	
 	public void registerUser(UserBean userBean);
+	
+	public CustomerBean changeAddress(CustomerBean customer);
+	
+	public CustomerBean viewCustomer(long accId);
+	
+	public UserBean viewAccountId(String userId);
+	
+	public AccountBean viewAccount(long accId);
+	
+	public List<TransactionsBean> vewMiniStatement(long accId);
+	
+	public UserBean getUserName(long accId);
+	
+	public List<TransactionsBean> viewDetailStatement(long accId,Date initDate, Date finDate);
+
+	public List<TransactionsBean> adminViewTransactions(long accId);
 
 	 /*public AccountBean fetchAccounts(long actId) throws BankingException;
 	 public double fetchAmount(long actId) throws BankingException;
