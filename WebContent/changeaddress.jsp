@@ -7,10 +7,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="loginMethod.htm" method="post">
-Enter UserName:<input type="text" name="userName" required/><br>
-Enter LoginPassword:<input type="password" name="loginPassword" required/><br>
-<input type="submit" name="submit" value="Login"/>
+<form action = "validateid.htm" method = "post">
+<table>
+
+<tr>
+<td>Enter your Account Id</td>
+<td><input type = "text" name = "accId"></td>
+</tr>
+<tr>
+<td><input type = "submit" value = "Submit"></td>
+</tr>
+
+</table>
 </form>
 </body>
 </html>

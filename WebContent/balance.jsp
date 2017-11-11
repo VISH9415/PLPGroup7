@@ -7,10 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="loginMethod.htm" method="post">
-Enter UserName:<input type="text" name="userName" required/><br>
-Enter LoginPassword:<input type="password" name="loginPassword" required/><br>
-<input type="submit" name="submit" value="Login"/>
-</form>
+<h2>On the balance page</h2><br>
+<a href = "ministatement.htm">Mini Statement</a>
+<a href = "detailedstatement.htm">Detailed Statement</a>
 </body>
 </html>

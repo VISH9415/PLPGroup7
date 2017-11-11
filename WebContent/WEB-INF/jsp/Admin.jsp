@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-${message}<br>
-<a href="index.jsp">Home</a>
+${username}<br>
 </body>
 </html>

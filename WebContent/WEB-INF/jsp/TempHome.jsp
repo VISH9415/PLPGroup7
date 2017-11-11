@@ -7,10 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="loginMethod.htm" method="post">
-Enter UserName:<input type="text" name="userName" required/><br>
-Enter LoginPassword:<input type="password" name="loginPassword" required/><br>
-<input type="submit" name="submit" value="Login"/>
-</form>
+${message}<br>
+ <a href="openAccount.htm?userName=${username}">AdminPage</a>
+<!-- <a href="home.jsp">Home</a> -->
 </body>
 </html>

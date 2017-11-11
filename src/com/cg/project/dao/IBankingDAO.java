@@ -1,12 +1,17 @@
 package com.cg.project.dao;
 
+import java.sql.Date;
+import java.util.List;
+
 import com.cg.project.bean.AccountBean;
 import com.cg.project.bean.CustomerBean;
+import com.cg.project.bean.FundTransferBean;
+import com.cg.project.bean.PayeeBean;
+import com.cg.project.bean.TransactionsBean;
 import com.cg.project.bean.UserBean;
 
 public interface IBankingDAO 
 {
-
 	public void registerUser(UserBean userBean);
 	
 	public UserBean fetchUserById(String uid);
@@ -17,18 +22,53 @@ public interface IBankingDAO
 	
 	public UserBean updateAccountIdinUser(UserBean userBean);
 	
-	public CustomerBean insertIntoCustomer(CustomerBean customer);
+	public void insertIntoCustomer(CustomerBean customer);
 	
 	public void updateUserDetails(String uid,long actId);
 	
 	public void insertIntoAccountMaster(AccountBean accountBean);
+		
+	public UserBean openAccount(UserBean userBean);
 	
-	public CustomerBean fetchCustomerByUserId(String uid);
+	public CustomerBean changeAddress(CustomerBean customer);
+	
+	public CustomerBean viewCustomer(long accId);
+	
+	public UserBean viewAccountId(String userId);
+	
+	public AccountBean viewAccount(long accId);
+	
+	public AccountBean updateBalance(long accId,AccountBean account);
+	
+	public UserBean getUserName(long accId);
+
+	public AccountBean updateBalance(long accId,double amount);
+	
+	public TransactionsBean viewDetailsOfTransactions(long accId);
+	
+	public List<TransactionsBean> viewDetailStatement(long accId,Date initDate,Date finDate);
+	
+	public AccountBean fetchAccountByAccountId(long accountId);
 	
 	public void updateCustomerAddress(CustomerBean customer);
 	
+	public CustomerBean fetchCustomerByAccountId(long accountId);
 	
+
+	public List<TransactionsBean> adminViewTransactions(long accId);
 	
+	public UserBean validateUser(String userId);
+
+	public long fetchAccountIdFromCustomer(String userName);
+
+	List<TransactionsBean> viewMiniStatement(long accId);
+
+	TransactionsBean insertTransactionDetails(TransactionsBean transaction);
+	
+	public PayeeBean insertPayeeDetails(PayeeBean payee);
+
+	public void insertFundTransferDetails(FundTransferBean fundTransfer);
+
 	/* public AccountBean fetchAccounts(long actId) throws BankingException;
 	 public double fetchAmount(long actId) throws BankingException;
 	 public void openAccount(CustomerBean customerBean) throws BankingException;

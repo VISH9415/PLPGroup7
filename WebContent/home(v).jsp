@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<<<<<<< HEAD:WebContent/home.jsp
         <link rel="stylesheet" type="text/css" href="styles/forms.css">
         <link rel="stylesheet" type="text/css" href="styles/home.css">
         <link href="https://fonts.googleapis.com/css?family=Spectral+SC|Josefin+Sans|Nunito|Ubuntu" rel="stylesheet">
@@ -191,3 +192,14 @@
     </body>
 </html>
 
+=======
+<title>HomePage</title>
+</head>
+<body>
+<a href = "user.htm">User</a><br>
+<a href = "admin.htm">Administrator</a><br>
+<a href = "login.htm">Already User...Login</a><br>
+<!-- <a href = "login.htm">Existing User</a> -->
+</body>
+</html>
+>>>>>>> bf6b94265a72433b0d72482278ea3b597142a30a:WebContent/home(v).jsp
