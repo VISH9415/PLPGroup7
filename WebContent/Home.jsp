@@ -7,8 +7,10 @@
 <title>HomePage</title>
 </head>
 <body>
+<form>
 <a href = "user.htm">NewUser</a><br>
 <a href = "admin.htm">Administrator</a><br>
 <!-- <a href = "login.htm">Existing User</a> -->
+</form>
 </body>
 </html>
