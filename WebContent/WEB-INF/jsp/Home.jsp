@@ -16,7 +16,7 @@
                     <li id="logoContainer"><a href="home.jsp"><span id="headerLogo"></span></a></li>
                     <li><span>Welcome to Vivahaka Bank Online Portal</span></li>
                     <li class="headerRight"><span><a href="">Logout</a></span></li>
-                     <li class="headerRight"><span>Welcome username:${username}</span></li>
+                     <li class="headerRight"><span>Welcome username</span></li>
                 </ul>
             </div>
             
@@ -36,11 +36,8 @@
                     <!-- Open Account Form -->
                     <div id="openAccountForm">
                         <h1>Enter your details</h1>
-                        <form action="openAccount.htm" method="post">
-                            <p>
-                            <input type="hidden" name="userName" id="userName"/>
-                            </p>
-                                                           
+                        <form action="" method="post">
+                            
                             <p>
                                 <label for="openFormUserName">Customer Name</label>
                                 <input type="text" name="openFormUserName" id="openFormUserName" required placeholder="Enter your name"/>
@@ -110,7 +107,7 @@
                         <div id="hr-fundTransfer">
                             <div id="hr-ft-formContainer">
                                 <h1>Fund Transfer</h1>
-                                <form action="fundTransfer.htm" method="post">
+                                <form action="" method="post">
                                     <p>
                                         <label for="ft-userid">Enter your account id:</label>
                                         <input type="text" id="ft-userid" name="ft-userid" placeholder="Enter your account id" required/>
@@ -138,7 +135,7 @@
                         <div id="hr-changePassword">
                             <div id="hr-ft-formContainer">
                                 <h1>Change Password</h1>
-                                <form action="changePassword.htm" method="post">
+                                <form action="" method="post">
                                     <p>
                                         <label for="ft-oldpswd">Old Password:</label>
                                         <input type="password" id="ft-oldpswd" name="ft-oldpswd" placeholder="Enter your old password" required/>
@@ -163,11 +160,7 @@
                         
                             <div id="hr-ft-formContainer">
                                 <h1>Change Address</h1>
-                                <form action="changeAddress.htm" method="post">
-                                <p>
-                                    <input type="hidden" name="userName" id="userName"/>
-                                   </p>
-                                   
+                                <form action="" method="post">
                                     <p>
                                         <label for="ft-newAddress">New Address:</label>
                                         <input type="text" id="ft-newAddress" name="ft-newAddress" placeholder="Enter your new address" required/>

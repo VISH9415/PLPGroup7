@@ -234,15 +234,17 @@ public class BankController {
 	 */
 	@RequestMapping(value="/openAccount",method=RequestMethod.POST)
 	public String openAccount(
-			@RequestParam("customername") String customername,
-			@RequestParam("email") String email,
-			@RequestParam("address") String address,
-			@RequestParam("pancard") String pancard,
-			@RequestParam("accountType") String accType,
-			@RequestParam("username") String username,
+			@RequestParam("openFormUserName") String customername,
+			@RequestParam("openFormUseremail") String email,
+			@RequestParam("openFormUserAddress") String address,
+			@RequestParam("openFormUserPan") String pancard,
+			@RequestParam("openUserAccountType") String accType,
+			@RequestParam("userName") String username,
 			Model model) throws BankingException {
 		
+		
 		String redirect = "";
+		
 		CustomerBean customer = new CustomerBean();
 		customer.setAccountType(accType);
 		customer.setAddress(address);
@@ -282,18 +284,26 @@ public class BankController {
 
 	@RequestMapping("/Viewbalance")
 	public String viewStatement() {
-     return null;
+     
 	}
-
-	@RequestMapping("/changeAddress")
-	public String changeRequest() {
-		return null;
+	
+	//***************************change address*************************
+	@RequestMapping(value="/changeAddress",method=RequestMethod.POST)
+	public String changeRequest(@RequestParam("ft-newAddress") String newAddress,@RequestParam("userName") String username,Model model) {
+		// for same user as in the form...
+		CustomerBean customer = service.fetchCustomerByUserId(username);
+		customer.setAddress(newAddress);
+	    service.updateCustomerAddress(customer);
+		return "Temp";
 	}
 
 
 	@RequestMapping("/fundTransfer")
 	public String fundTransfer() {
-		return null;
+		
+		
+		
+		
 	}
   
 	@RequestMapping("/changepass")

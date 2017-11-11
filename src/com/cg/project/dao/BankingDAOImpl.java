@@ -67,6 +67,12 @@ public class BankingDAOImpl implements IBankingDAO{
 		return customer;
 	}
 	
+	public CustomerBean fetchCustomerByUserId(String uid)
+	{
+		CustomerBean customerFound = new CustomerBean();
+		customerFound = entityManager.find(CustomerBean.class, uid);
+		return customerFound;	
+	}
 /*	public void updateAccountIdinUser(long accountId)
 	{
 		entityManager.merge(accountId);
@@ -90,6 +96,13 @@ public class BankingDAOImpl implements IBankingDAO{
 			// TODO Auto-generated method stub
 			entityManager.persist(accountBean);
 			entityManager.flush();
+		}
+
+		@Override
+		public void updateCustomerAddress(CustomerBean customer) {
+			// TODO Auto-generated method stub
+		    entityManager.merge(customer);
+		    entityManager.flush();
 		}
 		
 /*		@Override

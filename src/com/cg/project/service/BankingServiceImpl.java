@@ -37,6 +37,10 @@ public class BankingServiceImpl implements IBankingService {
 		return dao.insertIntoCustomer(customer);
 	}
 
+	public CustomerBean fetchCustomerByUserId(String uid)
+	{
+		return dao.fetchCustomerByUserId(uid);
+	}
 	/*@Override
 	public void updateAccountIdinUser(String accountId) {
 		// TODO Auto-generated method stub

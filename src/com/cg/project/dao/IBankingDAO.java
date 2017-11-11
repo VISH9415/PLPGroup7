@@ -23,8 +23,12 @@ public interface IBankingDAO
 	
 	public void insertIntoAccountMaster(AccountBean accountBean);
 	
+	public CustomerBean fetchCustomerByUserId(String uid);
 	
-
+	public void updateCustomerAddress(CustomerBean customer);
+	
+	
+	
 	/* public AccountBean fetchAccounts(long actId) throws BankingException;
 	 public double fetchAmount(long actId) throws BankingException;
 	 public void openAccount(CustomerBean customerBean) throws BankingException;

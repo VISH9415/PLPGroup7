@@ -2,12 +2,8 @@ package com.cg.project.bean;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-@Entity
-@Table(name="Transactions")
 public class TransactionsBean {
+
 private long transactionId;
 private String transDescription;
 private Date dateOfTransaction;
