@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <form action="openAccount" modelAttribute="customer">
+    <form action="openAccount.htm" modelAttribute="customer" method="post">
     
      <%-- <input type="hidden" name="username" value="${username}"/>  --%>
-    
+    Enter UserName: <input type="text" name="username"/>
     Enter Name:<input type="text" name="customerName"/>
     Enter Email:<input type="text" name="email"/>
     Enter Address:<input type="text" name="address"/>

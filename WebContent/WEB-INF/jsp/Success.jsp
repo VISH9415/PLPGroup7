@@ -8,15 +8,27 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h3>Thanks you are successfully logged in ...</h3>
+<h3>Thank you are successfully logged in ...</h3>
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 72f03477986789780ee06ed8fad6e0d7183a616a
     <c:if test="${user.accountId==0}">
  
     <form>
     <input type="hidden" name="username" value="${uid}"/>
     <!-- <input type="submit" name="submit" value="OpenAccount"/> -->
-     <a href="openAccountRequest.htm">OpenAccount</a> 
+     <a href="AccountOpen.htm">OpenAccount</a> 
     </form> 
+<<<<<<< HEAD
+ 	</c:if>    
+ 	
+ 	
+ 	<c:if test="${user.accountId!=0 }">
+    <h3>Hello ${customer.customerName} your account is already opened with account number ${user1.accountId}</h3>
+    <h3>Your Account Balance is {}</h3>
+=======
  
  	</c:if>    
  	
@@ -24,15 +36,17 @@
  
     <h3>Hello ${user.userId} your account is already opened with account number ${user.accountId} </h3>
     <h3>Your Account Balance is ${customer.accountBalance} </h3>
+>>>>>>> 72f03477986789780ee06ed8fad6e0d7183a616a
 <form>
 Please select:
 
-<a href="balance">View Mini/Detailed Statement</a>
-<a href="changeRequest">Change in address</a>
-<a href="chequeRequest">ChequeBook request</a>
-<a href="trackService">Track Service Request</a>
-<a href="fundTransfer">Fund Transfer</a>
+<a href="balance.htm">View Mini/Detailed Statement</a><br>
+<a href="changeaddress.htm">Change in address</a><br>
+<a href="chequeRequest">ChequeBook request</a><br>
+<a href="trackService">Track Service Request</a><br>
+<a href="fundTransfer.htm">Fund Transfer</a><br>
 <a href="changePass">Change Password</a>
+
 </form>
 </c:if>
 

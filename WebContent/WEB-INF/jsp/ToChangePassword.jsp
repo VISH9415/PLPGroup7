@@ -7,8 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-<!-- signup message -->
-${message}
-<a href="login.htm">Login</a>
+<form action="changepass.htm" method="post">
+Enter old password:<input type="password" name="oldpassword"/>
+Enter new password:<input type="password" name="newpassword"/>
+Confirm new password:<input type="password" name="renewpassword"/>
+<input type="submit" name="submit" value="Changepassword"/>
+</form>
 </body>
 </html>

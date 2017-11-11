@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>HomePage</title>
+<title>Insert title here</title>
 </head>
 <body>
-<form>
-<a href = "user.htm">NewUser</a><br>
-<a href = "admin.htm">Administrator</a><br>
-<!-- <a href = "login.htm">Existing User</a> -->
+<form action="loginMethod.htm" method="post">
+Enter UserName:<input type="text" name="userName" required/><br>
+Enter LoginPassword:<input type="password" name="loginPassword" required/><br>
+<input type="submit" name="submit" value="Login"/>
 </form>
 </body>
 </html>

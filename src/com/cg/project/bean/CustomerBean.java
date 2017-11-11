@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -12,7 +13,8 @@ import javax.persistence.Table;
 public class CustomerBean {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name="seq1",sequenceName="acctid_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator="seq1")
 	@Column(name = "Account_Id")
 	private long accountId;
 	@Column(name = "Customer_Name")
@@ -25,7 +27,9 @@ public class CustomerBean {
 	private String pancard;
 	@Column(name="account_type")
 	private String accountType;
-
+    @Column(name="user_id")
+    private String userId;
+    
 	public CustomerBean() {
 		super();
 	}
@@ -77,4 +81,22 @@ public class CustomerBean {
 	public void setPancard(String pancard) {
 		this.pancard = pancard;
 	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	@Override
+	public String toString() {
+		return "CustomerBean [accountId=" + accountId + ", customerName="
+				+ customerName + ", email=" + email + ", address=" + address
+				+ ", pancard=" + pancard + ", accountType=" + accountType
+				+ ", userId=" + userId + "]";
+	}
+	
+	
 }

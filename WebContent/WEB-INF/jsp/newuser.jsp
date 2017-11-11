@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <form action = "signup.htm" method = "post">
 <table>
 
@@ -35,7 +36,6 @@
 <tr>
 <td><input type="submit" value="Submit"></td>
 </tr>
-
 </table>
 </form>
 </body>

@@ -7,7 +7,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-${message}
-<a href="Home.htm">Login</a>
+<form action = "validateid.htm" method = "post">
+<table>
+
+<tr>
+<td>Enter your Account Id</td>
+<td><input type = "text" name = "accId"></td>
+</tr>
+<tr>
+<td><input type = "submit" value = "Submit"></td>
+</tr>
+
+</table>
+</form>
 </body>
 </html>

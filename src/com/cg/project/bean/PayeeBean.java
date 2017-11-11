@@ -1,9 +1,17 @@
 package com.cg.project.bean;
 
-public class PayeeBean {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="Payeetable")
+public class PayeeBean {
+    @Column(name="account_id")
 	long accountId;
+    @Column(name="payee_account_id")
 	long payeeAccountId;
+    @Column(name="nickname")
 	String nickName;
 	
 	public PayeeBean() {
