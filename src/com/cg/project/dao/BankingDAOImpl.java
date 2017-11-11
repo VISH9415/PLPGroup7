@@ -27,6 +27,8 @@ public class BankingDAOImpl implements IBankingDAO{
 
 	@Override
 	public void registerUser(UserBean userBean) {
+		System.out.println("userBean is: "+userBean);
+		System.out.println("in dao..register");
 		entityManager.persist(userBean);
 		entityManager.flush();
 	}
@@ -34,10 +36,8 @@ public class BankingDAOImpl implements IBankingDAO{
 	@Override
 	public UserBean fetchUserById(String uid) 
 	{
-		//HashMap<String,UserBean> userMap = new HashMap<String,UserBean>();
 		UserBean userFound= new UserBean();
 		userFound = entityManager.find(UserBean.class, uid);
-		//userMap.put(uid,userFound);
 		return userFound;	
 	}
 	
@@ -45,56 +45,25 @@ public class BankingDAOImpl implements IBankingDAO{
 	public int validateAdmin(String adminId, String adminPassword) {
 		// TODO Auto-generated method stub
 		int count = 0;
+		System.out.println("in dao ... validate admin");
 	if(adminId.equals("ViVaHaKa")&&adminPassword.equals("ADMIN1234"))
 	{
 		count++;
 	}
 	return count;
 	}
-/*
-
-	@Override
-	public UserBean registerUser(UserBean userBean) {
-		entityManager.persist(userBean);
+	
+	public void updateloginpassword(UserBean userBean)
+	{
+		entityManager.merge(userBean);
 		entityManager.flush();
-		return userBean;
 	}
 
-	@Override
-	public HashMap<String, UserBean> fetchUserById(String uid) {
-		HashMap<String,UserBean> userMap = new HashMap<String,UserBean>();
-		UserBean userFound= new UserBean();
-		userFound = entityManager.find(UserBean.class, uid);
-		userMap.put(uid,userFound);
-		return userMap;	
-	}
-
-	@Override
-	public UserBean validateUser(String userId) {
-		String qry = "SELECT user from UserBean user where userId =:puserId";
-		TypedQuery<UserBean> query = entityManager.createQuery(qry, UserBean.class);
-		query.setParameter("puserId", userId);
-		user = query.getSingleResult();
+	public UserBean updateAccountIdinUser(UserBean userBean)
+	{
+		 UserBean user = entityManager.merge(userBean);
 		return user;
 	}
-
-	@Override
-	public UserBean openAccount(UserBean userBean) {
-		entityManager.persist(userBean);
-		entityManager.flush();
-		return userBean;
-	}
-	public CustomerBean selectCustomer(CustomerBean customerBean){
-		String qry = "SELECT customer from CustomerBean customer where accountId=:paccountId";
-		TypedQuery<CustomerBean> query = entityManager.createQuery(qry, CustomerBean.class);
-		query.setParameter("paccountId", customerBean.getAccountId());
-		customerBean = query.getSingleResult();
-		return customerBean;
-	}*/
-	
-
-	
-
 	
 	public CustomerBean insertIntoCustomer(CustomerBean customer)
 	{
@@ -103,11 +72,12 @@ public class BankingDAOImpl implements IBankingDAO{
 		return customer;
 	}
 	
-	public void updateAccountIdinUser(long accountId)
+/*	public void updateAccountIdinUser(long accountId)
 	{
 		entityManager.merge(accountId);
 		
-	}
+	}*/
+	
 	//updating address and password based on request..
 		@Override
 		public void updateUserDetails(String uid,long actId) 
@@ -119,178 +89,50 @@ public class BankingDAOImpl implements IBankingDAO{
 			
 			//String sql = "UPDATE USERTABLE SET ACCOUNT_ID=?,LOGIN_PASSWORD=? WHERE USER_ID=?";	
 		}
-	
-		
-		
-		/*@Override
-		public int insertAccount(AccountBean account) throws BankingException {
-			Connection conn = null;
-			PreparedStatement pst = null;
-			try{
-				conn = DBUtil.createConnection();
-				String sql2 = "INSERT INTO ACCOUNTMASTER VALUES(?,?,?,?)";
-				int count = 0;
-				pst = conn.prepareStatement(sql2);
-				pst.setLong(1,account.getAccountId());
-				pst.setString(2,account.getAccountType());
-				pst.setDouble(3,account.getAccountBalance());
-				pst.setDate(4,account.getOpenDate());
-				count = pst.executeUpdate();
-				//logger.info("");
-
-				System.out.println(count+"accounts inserted...");
-				return count;
-			}catch(SQLException se){
-				//logger.error("");
-				throw new BankingException("Error in insertion into accountmaster");
-			}
-		}*/
-/*	@Override
-	public AccountBean fetchAccounts(long actId) throws BankingException
-	{
-		AccountBean account = new AccountBean();
-		account = entityManager.find(AccountBean.class, actId);
-		return account;
-		//logger.info("Account records fetched for given account id");
-		
-		//logger.error("Error in fetching records..");
-		//throw new BankingException("Error in fetching records..");
-	}
-
-	//show balance
-	@Override  
-	public double fetchAmount(long actId) throws BankingException
-	{
-		AccountBean account = new AccountBean();
-		account = entityManager.find(AccountBean.class, actId);
-		return account.getAccountBalance();
-	}
-
-    @Override
-	public void openAccount(CustomerBean customerBean) throws BankingException
-	{
-	entityManager.persist(customerBean);
-	//acc_seq for acct id ...
-	}
-	
-	@Override
-	public CustomerBean validateId(long actId) throws BankingException
-	{
-		CustomerBean customerBean= new CustomerBean();
-		customerBean= entityManager.find(CustomerBean.class, actId);
-		return customerBean;
-	}
-
-		public int validateAccountByUserId(long userId) throws SQLException
-	{
-		Connection conn = null;
-		PreparedStatement pst = null;
-
-		conn = DBUtil.createConnection();
-		String sql = "Select  from  where account_Id="
-		pst = conn.prepareStatement(sql);
-		ResultSet rs = pst.executeQuery();
-		int count = 0;
-		while(rs.next()) {
-			count = rs.getInt(1);
-		}
-		return count;
-	}
-
-	@Override
-	public void deposit(long actId,double amount,AccountBean accountBean) throws BankingException
-	{
-		AccountBean account = new AccountBean();
-		account = entityManager.find(AccountBean.class, actId);
-		String accountType=  account.getAccountType();
-		System.out.println("act type is: "+accountType);
-       
-		//both setting need to be done in client side..
-		accountBean.setAccountType(accountType);
-		accountBean.setAccountId(actId);
-		accountBean.setAccountBalance(amount);
-		entityManager.persist(accountBean);//check for date also...
-	}
-
-	
-	
-	
-	
-	@Override
-	public AccountBean depositUpdate(long actId,double Amount,AccountBean accountBean) throws BankingException {
-		
-		AccountBean account = new AccountBean();
-		account = entityManager.find(AccountBean.class, actId);
-		
-	  AccountBean depositedAccount= entityManager.merge(account);
-		//String sql1 = "UPDATE ACCOUNTMASTER SET ACCOUNT_BALANCE = ACCOUNT_BALANCE + ? WHERE ACCOUNT_ID = ?";
-        return depositedAccount;
-	}
-   
-	
-	
-	@Override
-	public void transactionUpdate(long accId,TransactionsBean transBean ) throws BankingException
-	{
-	
-	    entityManager.persist(transBean);
-		//String sql1 = "INSERT INTO TRANSACTIONS VALUES(tran_seq.nextval,?,?,?,?,?)";
-	}
-
-	
-	@Override
-	public AccountBean withdraw(long accId,double amount) throws BankingException
-	{
-		AccountBean account = new AccountBean();
-		account = entityManager.find(AccountBean.class, accId);
-		AccountBean withdrawnAccount = entityManager.merge(account);
-		return withdrawnAccount;
-	}
-
-	@Override
-	public void sendfund(double amt, long actId, long pactId,AccountBean accountBean) throws BankingException
-	{
-		//for sender...
-		AccountBean senderAccount = new AccountBean();
-		senderAccount = entityManager.find(AccountBean.class, actId);
-		
-		AccountBean account1 = entityManager.merge(senderAccount);
-		
-		//count records with account_id as actId...
-	
-		AccountBean recieverAccount = new AccountBean();
-		recieverAccount = entityManager.find(AccountBean.class, pactId);
-		
-		AccountBean account2 = entityManager.merge(recieverAccount);
-		
-		
-		entityManager.persist(account1);
-		entityManager.persist(account2);
-		
-        FundTransferBean fundTransfer = new FundTransferBean();
-        entityManager.persist(fundTransfer);
-	}
-	
-	@Override
-	public String validatePassword(String uId) throws BankingException{
-        UserBean userBean = new UserBean();
-        userBean = entityManager.find(UserBean.class, uId);
-	//		String sql = "Select login_password from usertable where user_id=?";
-	return userBean.getLoginPassword();
-	}
-
-	@Override
-	public int registerUser(UserBean userBean) throws BankingException
-	{
-    //UserBean userBean = new UserBean();
-    entityManager.persist(userBean);
-	}*/
 
 		@Override
+		public void insertIntoAccountMaster(AccountBean accountBean) {
+			// TODO Auto-generated method stub
+			entityManager.persist(accountBean);
+			entityManager.flush();
+		}
+
+		@Override
+		public UserBean openAccount(UserBean userBean) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+	/*	@Override
+		public AccountBean viewAccount(long accId) {
+			// TODO Auto-generated method stub
+			return null;
+		}*/
+
+	/*	@Override
+		public AccountBean updateBalance(long accId, AccountBean account) {
+			// TODO Auto-generated method stub
+			return null;
+		}*/
+
+	/*	@Override
+		public UserBean getUserName(long accId) {
+			// TODO Auto-generated method stub
+			return null;
+		}*/
+
+		/*@Override
+		public AccountBean updateBalance(long accId, double amount) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+*/
+			
+	/*	@Override
 		public void updateAccountIdinUser(String accountId) {
 			// TODO Auto-generated method stub
 			
-		}
+		}*/
 
 		@Override
 		public UserBean validateUser(String userId) {
@@ -301,18 +143,12 @@ public class BankingDAOImpl implements IBankingDAO{
 			return user;
 		}
 
-		@Override
-		public UserBean openAccount(UserBean userBean) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
+	/*	@Override
 		public int insertAccount(AccountBean account) {
 			// TODO Auto-generated method stub
 			return 0;
 		}
-
+*/
 		@Override
 		public CustomerBean changeAddress(CustomerBean customer) {
 			entityManager.merge(customer);
@@ -392,5 +228,4 @@ public class BankingDAOImpl implements IBankingDAO{
 			List<TransactionsBean> adminStatement = query.getResultList();
 			return adminStatement;
 		}
-		
-}
+		}

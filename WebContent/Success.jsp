@@ -10,7 +10,10 @@
 <body>
 <h3>Thank you are successfully logged in ...</h3>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 72f03477986789780ee06ed8fad6e0d7183a616a
     <c:if test="${user.accountId==0}">
  
     <form>
@@ -18,12 +21,22 @@
     <!-- <input type="submit" name="submit" value="OpenAccount"/> -->
      <a href="AccountOpen.htm">OpenAccount</a> 
     </form> 
+<<<<<<< HEAD
  	</c:if>    
  	
  	
  	<c:if test="${user.accountId!=0 }">
     <h3>Hello ${customer.customerName} your account is already opened with account number ${user1.accountId}</h3>
     <h3>Your Account Balance is {}</h3>
+=======
+ 
+ 	</c:if>    
+ 	
+ <c:if test="${user.accountId!=0}">
+ 
+    <h3>Hello ${user.userId} your account is already opened with account number ${user.accountId} </h3>
+    <h3>Your Account Balance is ${customer.accountBalance} </h3>
+>>>>>>> 72f03477986789780ee06ed8fad6e0d7183a616a
 <form>
 Please select:
 
@@ -39,3 +52,6 @@ Please select:
 
 </body>
 </html>
+
+
+

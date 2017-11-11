@@ -22,13 +22,10 @@ public class UserBean {
 	private String lockStatus;
 	@Column(name="secret_question")
 	private String secretQuestion;
+	@Column(name="secret_answer")
+    private String secretAnswer;
+	
 
-public String getSecretQuestion() {
-		return secretQuestion;
-	}
-	public void setSecretQuestion(String secretQuestion) {
-		this.secretQuestion = secretQuestion;
-	}
 public UserBean(long accountId, String userId, String loginPassword,
 		 String transactionPassword, String lockStatus) {
 	super();
@@ -65,18 +62,33 @@ public String getTransactionPassword() {
 public void setTransactionPassword(String transactionPassword) {
 	this.transactionPassword = transactionPassword;
 }
+public String getSecretAnswer() {
+	return secretAnswer;
+}
+public void setSecretAnswer(String secretAnswer) {
+	this.secretAnswer = secretAnswer;
+}
+public String getSecretQuestion() {
+	return secretQuestion;
+}
+public void setSecretQuestion(String secretQuestion) {
+	this.secretQuestion = secretQuestion;
+}
 public String getLockStatus() {
 	return lockStatus;
 }
 public void setLockStatus(String lockStatus) {
 	this.lockStatus = lockStatus;
 }
+
 @Override
 public String toString() {
 	return "UserBean [accountId=" + accountId + ", userId=" + userId
 			+ ", loginPassword=" + loginPassword + ", transactionPassword="
 			+ transactionPassword + ", lockStatus=" + lockStatus
-			+ ", secretQuestion=" + secretQuestion + "]";
+			+ ", secretQuestion=" + secretQuestion + ", secretAnswer="
+			+ secretAnswer + "]";
 }
+
 
 }

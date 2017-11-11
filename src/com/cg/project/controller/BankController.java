@@ -1,6 +1,7 @@
 package com.cg.project.controller;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,13 @@ import com.cg.project.bean.AccountBean;
 import com.cg.project.bean.CustomerBean;
 import com.cg.project.bean.TransactionsBean;
 import com.cg.project.bean.UserBean;
+import com.cg.project.exception.BankingException;
 import com.cg.project.service.IBankingService;
 
 @Controller
 public class BankController {
 
+	//check if autowiring for bean is required....
 	UserBean userBean = new UserBean();
 	AccountBean accountBean = new AccountBean();
     CustomerBean customerBean = new CustomerBean();
@@ -39,18 +42,72 @@ public class BankController {
 		userBean.setUserId(userName);
 		userBean.setLoginPassword(confirmPwd);
 		userBean.setTransactionPassword(transPwd);
+=======
+	CustomerBean customerBean = new CustomerBean();
+
+	@Autowired
+	IBankingService service;
+
+	/*
+	 * @RequestMapping(value = "/user.htm") public String newUser(){ return
+	 * "newuser"; }
+	 */
+	// user signup ...
+     //***************************user signup *************************
+	/**
+	 * Method used to sign up
+	 * 
+	 * @param username
+	 * @param pwd
+	 * @param confirmpwd
+	 * @param transpwd
+	 * @param secques
+	 * @param secans
+	 * @param model
+	 * @return
+	 * @throws BankingException
+	 */
+	@RequestMapping(value = "/signup", method = RequestMethod.POST)
+	public String addUser(@RequestParam("usernamesignup") String username,
+			@RequestParam("passwordsignup") String pwd,
+			@RequestParam("passwordsignup_confirm") String confirmpwd,
+			@RequestParam("transactionpassword") String transpwd,
+			@RequestParam("secretquestion") String secques,
+			@RequestParam("secretanswer") String secans, Model model)
+			throws BankingException {
+		// String msg = null;
+		System.out.println("in signup");
+
+		userBean.setUserId(username);
+		userBean.setLoginPassword(pwd);
+		userBean.setTransactionPassword(transpwd);
+
 		userBean.setAccountId(0L);
-		userBean.setSecretQuestion(secQues);
+		userBean.setSecretQuestion(secques);
+		userBean.setSecretAnswer(secans);
 		userBean.setLockStatus("nope");
-		
-		service.registerUser(userBean);
-		
-		msg = "You are successfully registered with our bank\nThank you";
-		map.addAttribute("message", msg);
-		
-		return "Temp";
+		// FETCH USER from usertable BY USERID..
+
+		UserBean user = service.fetchUserById(username);
+		System.out.println("user fetched..." + user);
+
+		String redirect = "";
+		if (user == null) {
+			// user not registered
+			System.out.println("userBean: " + userBean);
+			service.registerUser(userBean);
+
+			String msg = "signup done";
+			model.addAttribute("message", msg); // return "index";
+			redirect = "Temp";
+		} else {
+			String msg = "already registered!!";
+			model.addAttribute("message", msg); // return "index";
+			redirect = "Error";
+		}
+		return redirect;
 	}
-*/
+
 	/*@RequestMapping(value = "/login.htm")
 	public String existingUser(){
 		return "Login";
@@ -75,73 +132,225 @@ public class BankController {
  			model.addAttribute("user", userBean);
 			model.addAttribute("username",user.getUserId()); 
 			return "Success";
+=======
+
+	// user login
+	
+	//***************************user login*************************
+	/**
+	 * Method for user login 
+	 * @param username
+	 * @param password
+	 * @param model
+	 * @return
+	 * @throws BankingException
+	 */
+	@RequestMapping(value = "/userlogin", method = RequestMethod.POST)
+	public String existingUserlogin(@RequestParam("username") String username,
+			@RequestParam("password") String password, Model model)
+			throws BankingException {
+		// userBean.setUserId(username);
+		// validating user...
+		UserBean user = service.fetchUserById(username);
+		// checking user record in usertable..
+		String redirect = "";
+		System.out.println("for login user fetched: " + user);
+		if (user != null) {
+			System.out.println("exists");
+			// validate login password..
+			if (password.equals(user.getLoginPassword())) {
+				// logged in...
+				// send username to forget password page...
+				// model.addAttribute("username",user.getUserId());
+				String msg = "correctPassword!!";
+				model.addAttribute("message", msg); // return "index";
+				redirect = "Temp";
+			} else { // ask for forget password ....
+				String msg = "Please select forget password!!";
+				model.addAttribute("message", msg);
+				redirect = "Error";
+			}
+		} else {
+			String msg = "user isn't registered,please signup!!";
+			model.addAttribute("message", msg);
+			redirect = "Error";
+		}
+		return redirect;
+	}
+
+	//***************************forget password*************************
+	/**
+	 * Method to implement forget password..
+	 * @param username
+	 * @param secques
+	 * @param secans
+	 * @param model
+	 * @return
+	 * @throws BankingException
+	 */
+	@RequestMapping(value="/forgetPass", method = RequestMethod.POST)
+	public String forgetpassword(
+			@RequestParam("usernameForget") String username,
+			@RequestParam("secretquestion") String secques,
+			@RequestParam("forget-passwordq") String secans, Model model)
+			throws BankingException {
+		System.out.println("in forget pass");
+		UserBean user = service.fetchUserById(username);
+		System.out.println("user for forget pass:" + user);
+		String redirect = "";
+		if(user!=null){
+		if (secques.equals(user.getSecretQuestion())) {
+			if (secans.equals(user.getSecretAnswer())) {
+				// generate new password...
+				//make it case insensititive also...
+				String newPass = "newpass";
+				user.setLoginPassword(newPass);
+				// update userpassword ...
+				service.updateloginpassword(user);
+				// user login with new password...
+				String msg = "Password changed,use it for further login!!"+newPass+"";
+				model.addAttribute("message", msg);
+				redirect = "Temp";
+			} else {
+				String msg = "incorrect secret answer ";
+				model.addAttribute("message", msg);
+				redirect = "Error";
+			}
+		} else {
+			String msg = "incorrect secret question chosen ";
+			model.addAttribute("message", msg);
+			redirect = "Error";
+		}
+
 		}
 		else
 		{
-		     String message = "wrong password..";
-				model.addAttribute("message", message);
-				return "Error";
+			String msg = "user not registered... ";
+			model.addAttribute("message", msg);
+			redirect = "Error";
 		}
-			
+		// enter new pass and set ..
+		return redirect;
 	}
-	
+
+	// open account request
 	@RequestMapping("/openAccountRequest")
-	public String sendRequestToAdmin(@RequestParam("userName") String uid,Model model)
-	{
-		//openAccount call //request sent to admin...
-		//model.addAttribute("choice", choice);
+	public String sendRequestToAdmin(@RequestParam("userName") String uid,
+			Model model) {
+		// openAccount call //request sent to admin...
+		// model.addAttribute("choice", choice);
+		String redirect = "";
+		String msg = "Dear Admin you have recieved an open account request from user"+uid+"";
 		model.addAttribute("username", uid);
-	return "Admin";
+		model.addAttribute("message", msg);
+		redirect = "Temp";
+		return redirect;
 	}
-	
-	@RequestMapping("/adminValidate")
-	public String validateAdmin(@RequestParam("adminId") String adminId,@RequestParam("adminPassword") String adminPassword,Model model)
-	{
-		int count =service.validateAdmin(adminId,adminPassword);
-		if(count!=0)
-		{
-			return "AccountOpen";
-		}
-		else
-		{
+
+	//***************************admin login*************************
+	/**
+	 * Method for bank administrator login...
+	 * @param adminId
+	 * @param adminPass
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/adminlogin", method = RequestMethod.POST)
+	public String validateAdmin(@RequestParam("admin-username") String adminId,
+			@RequestParam("admin-password") String adminPass, Model model) {
+		System.out.println("in admin login method");
+		int count = service.validateAdmin(adminId, adminPass);
+		if (count != 0) {
+			return "Temp";
+		} else {
 			return "Error";
 		}
-		
 	}
-	
-	@RequestMapping("/openAccount")
-	public String openAccount(@ModelAttribute("customer") CustomerBean customer,@RequestParam("username") String username ,Model model)
-	{
-		//insert accountid in accountmaster...
-        //update into user...
+
+	//***************************open account*************************
+	/**
+	 * Method to open account of user 
+	 * @param customername
+	 * @param email
+	 * @param address
+	 * @param pancard
+	 * @param accType
+	 * @param username
+	 * @param model
+	 * @return
+	 * @throws BankingException
+	 */
+	@RequestMapping(value="/openAccount",method=RequestMethod.POST)
+	public String openAccount(
+			@RequestParam("customername") String customername,
+			@RequestParam("email") String email,
+			@RequestParam("address") String address,
+			@RequestParam("pancard") String pancard,
+			@RequestParam("accountType") String accType,
+			@RequestParam("username") String username,
+			Model model) throws BankingException {
+		
+		String redirect = "";
+		CustomerBean customer = new CustomerBean();
+		customer.setAccountType(accType);
+		customer.setAddress(address);
+		customer.setCustomerName(customername);
+		customer.setEmail(email);
+		customer.setPancard(pancard);
+		
+		//insert record into customer table..
 		customerBean = service.insertIntoCustomer(customer);
-		//fetch account id from customerbean..
-		//userBean.set
-		UserBean user =service.updateAccountIdinUser(customerBean.getAccountId());
-		//fetch updated account id from usertable ...
-		model.addAttribute("user",user);
+		//fetch customer by account id...if required
+       	//CustomerBean customer = service.fetchFromCustomer()
+		//username fetched from webpage...session attribute
+		userBean = service.fetchUserById(username);
+		//userBean.setAccountId(0);//while opening the account
+		//update user...
+		userBean.setAccountId(customerBean.getAccountId());
+		service.updateAccountIdinUser(userBean);
 		
+		//fetch account from accountmaster
+		// insert accountid in accountmaster...
+		AccountBean account = new AccountBean();
+		account.setAccountBalance(0);
+		account.setAccountId(customer.getAccountId());
+		account.setAccountType(customer.getAccountType());				
+		LocalDate date = LocalDate.now();
+		Date opendate = Date.valueOf(date);
+		account.setOpenDate(opendate);
+
+		service.insertIntoAccountMaster(accountBean);
+        
+		String msg = "Account is opened !!";
+		model.addAttribute("message", msg);
+		redirect = "Error";
 		
-		//service.updateUser();
-		//model.addAttribute("accountId",accountBean.getAccountId());
-		//model.addAttribute("balance", accountBean.getAccountBalance());
-	//	model.addAttribute("count",count);        
-		return "Success" ;
+		return redirect;
 	}
-	*/
+
 	@RequestMapping("/balance")
 	public String viewStatement()
 	{
 		return null;
-
 	}
-	
+/*	
 //	By Vaibhav new functions
+	//***************************change request*************************
+	
+	*//**
+	 * @return
+	 *//*
 	@RequestMapping("/changeaddress.htm")
-	public String changeRequest()
-	{
+	public String changeRequest() {
 		return "changeaddress";
 	}
+	//***************************validate user*************************
+	
+	*//**Method to validate customer
+	 * @param accId
+	 * @param map
+	 * @return
+	 *//*
 	@RequestMapping(value = "/validateid.htm",method = RequestMethod.POST)
 	public String viewDetails(@RequestParam("accId") long accId,Model map)
 	{
@@ -157,9 +366,19 @@ public class BankController {
 			redirect = "change";
 		}
 		return redirect;
-	}
+	}*/
 	
-	@RequestMapping(value = "/changeAddress.htm", method = RequestMethod.POST)
+	/**
+	 * @param custName
+	 * @param address
+	 * @param accId
+	 * @param email
+	 * @param accType
+	 * @param panCard
+	 * @param map
+	 * @return
+	 */
+	/*@RequestMapping(value = "/changeAddress.htm", method = RequestMethod.POST)
 	public String changeAddress(@RequestParam("custName") String custName,@RequestParam("address") String address,
 			@RequestParam("accountId") long accId, @RequestParam("email") String email,
 			@RequestParam("accType") String accType, @RequestParam("panCard") String panCard,Model map){
@@ -174,8 +393,11 @@ public class BankController {
 		map.addAttribute("message", msg);
 		return "changeaddress";
 		
-	}
+	}*/
 
+	/**
+	 * @return
+	 */
 	@RequestMapping(value = "/fundTransfer.htm")
 	public String fundTransfer()
 	{
@@ -183,6 +405,13 @@ public class BankController {
 		return "fundTransfer";
 
 	}
+	/**
+	 * @param accId
+	 * @param payeeId
+	 * @param amount
+	 * @param map
+	 * @return
+	 */
 	@RequestMapping(value = "/validatebothid.htm", method = RequestMethod.POST)
 	public String changePassword(@RequestParam("accId") long accId, @RequestParam("payeeId") long payeeId,
 			@RequestParam("amount") double amount,Model map)
@@ -212,20 +441,6 @@ public class BankController {
 		return redirect;
 	}
 
-	@RequestMapping("/chequeRequest")
-	public String chequeRequest()
-	{
-		return null;
-
-	}
-	
-	@RequestMapping("/trackService")
-	public String trackService()
-	{
-		return null;
-
-	}	
-	
 	@RequestMapping("/balance.htm")
 	public String viewBalance(){
 		return "balance";
@@ -261,5 +476,40 @@ public class BankController {
 		map.addAttribute("adminList", adminStmt);
 		return "";
 	}
+	
+  
+	@RequestMapping("/changepass")
+	public String changePassword(@RequestParam("username") String uid,@RequestParam("newpassword") String newpassword,@RequestParam("renewpassword") String renewpassword,Model model) throws BankingException {
+		{
+	   	//fetch user by id...
+			//username shall come in almost every method from page..
+			UserBean user = service.fetchUserById(uid);
+			String redirect ="";
+			if(user!=null)
+			{ //reenter new password need to matched in the form only..
+				if(renewpassword.equals(newpassword)){
+			     user.setLoginPassword(newpassword);
+			     String msg = "Login Password is changed !!";
+				 model.addAttribute("message", msg);
+			     redirect = "Temp";
+			         }
+				else
+				{
+					String msg = "password not matching !!";
+					model.addAttribute("message", msg);
+					redirect = "Error";
+				}
+			}
+			else
+			{
+				String msg = "user doesn't exists";
+				model.addAttribute("message", msg);
+				redirect = "Error";
+			}
+		
+		return redirect;
+	}
+	}
+	
 	
 }

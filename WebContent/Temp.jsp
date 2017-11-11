@@ -8,7 +8,12 @@
 </head>
 <body>
 <!-- signup message -->
+<<<<<<< HEAD
 ${message}<br>
 <a href="login.htm">Login</a>
+=======
+${message} <br>
+<a href="index.jsp">Home</a>
+>>>>>>> 72f03477986789780ee06ed8fad6e0d7183a616a
 </body>
 </html>

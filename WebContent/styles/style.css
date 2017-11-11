@@ -1,0 +1,308 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Spectral SC', serif;
+    font-family: 'Nunito', sans-serif;
+}
+form {
+    margin: 0;
+    width: 300px;
+}
+
+label {
+    cursor: pointer;
+}
+
+#admin-login, #user-login {
+    background-color: cadetblue;
+    width: 300px;
+    height: 40px;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: 30px;
+    color: black;
+}
+
+#admin-login:hover, #user-login:hover {
+    background-color: cornflowerblue;
+}
+
+#form-switch {
+    display: none;
+}
+
+#p-form-switch {
+    display: none;
+}
+
+#user-sel {
+    display: none;
+}
+#user-sel:checked~#login-form {
+    display: block;
+}
+#user-sel:checked~#userTypes {
+    display: none;
+}
+
+#admin-sel {
+    display: none;
+}
+#admin-sel:checked~#admin-login-form {
+    display: block;
+}
+#admin-sel:checked~#userTypes {
+    display: none;
+}
+
+#admin-login-form {
+    display: none;
+}
+#login-form {
+    display: none;
+}
+#register-form {
+    display: none;
+}
+
+#forgetpassword-form {
+    display: none;
+}
+
+#form-switch:checked~#register-form {
+    display:block;
+}
+#form-switch:checked~#login-form {
+    display:none;
+}
+
+#p-form-switch:checked~#forgetpassword-form {
+    display: block;
+}
+#p-form-switch:checked~#login-form {
+    display:none;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#header {
+    position: absolute;
+    height: 7%;
+    width: 100%;
+    background-color: aqua;
+    margin: auto;
+}
+
+#imageLogo {
+    position: absolute;
+    width: 100px;
+    height: 100%;
+    left: 50%;
+    margin-left: -25px;
+}
+
+#body {
+    position: absolute;
+    height: 90%;
+    width: 100%;
+    top: 7%;
+    background-color: aquamarine;
+    overflow-y: scroll;
+}
+
+#wrapper {
+    position: absolute;
+    width: 600px;
+    height: 60%;
+    left: 50%;
+    margin-left: -300px;
+}
+
+
+#footer {
+    position: absolute;
+    height: 3%;
+    width: 100%;
+    background-color: black;
+    top: 97%;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+}
+
+#logo {
+    position: absolute;
+    height: 100%;
+}
+
+#userTypes {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -170px;
+    margin-top: -80px;
+}
+
+#admin-login-form {
+    position: absolute;
+    top: 20%;
+    left: 16%;
+    width: 400px;
+    
+}
+
+#admin-login-form h1 {
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+}
+
+#admin-login-form p {
+    padding: 10px;
+}
+
+
+#admin-login-form input[type=text],input[type=password] {
+    padding: 10px;
+    width: 355px;
+    border: 1px solid #ccc;
+}
+
+#admin-login-form input[type=submit] {
+    width: 300px;
+    height: 40px;
+    margin-left: 40px;
+    background-color: aquamarine;
+}
+#admin-login-form input[type=submit]:hover {
+    background-color: beige;
+    cursor: pointer;
+}
+
+
+#login-form {
+    position: absolute;
+    width: 400px;
+    left: 16%;
+    top: 27%;
+}
+
+#login-form h1 {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+}
+
+#login-form p {
+    padding: 10px;
+}
+
+#login-form input[type=text],input[type=password] {
+    padding: 10px;
+    width: 355px;
+    border: 1px solid #ccc;
+}
+
+#login-form input[type=submit] {
+    width: 300px;
+    height: 40px;
+    margin-left: 40px;
+    background-color: aquamarine;
+}
+#login-form input[type=submit]:hover {
+    background-color: beige;
+    cursor: pointer;
+}
+
+.link-switch {
+    display: block;
+    color: blue;
+}
+
+#forgetpassword-form {
+    position: absolute;
+    width: 400px;
+    left: 16%;
+    top: 20%;
+}
+#forgetpassword-form h1 {
+    text-align: center;
+}
+
+#forgetpassword-form p {
+    padding: 10px;
+}
+
+#forgetpassword-form select {
+    padding: 10px;
+    width: 380px;
+    border 1px solid #ccc;
+}
+
+#forgetpassword-form input[type=text]{
+    padding: 10px;
+    width: 358px;
+    border: 1px solid #ccc;
+}
+
+#forgetpassword-form input[type=submit] {
+    width: 300px;
+    height: 40px;
+    margin-left: 40px;
+    background-color: aquamarine;
+}
+#forgetpassword-form input[type=submit]:hover {
+    background-color: beige;
+    cursor: pointer;
+}
+
+#register-form {
+    position: absolute;
+    width: 400px;
+    left: 17%;
+}
+
+#register-form p {
+    padding: 10px;
+}
+
+#register-form h1 {
+    text-align: center;
+}
+
+#register-form select {
+    padding: 10px;
+    width: 380px;
+    border 1px solid #ccc;
+}
+
+#register-form input[type=text]{
+    padding: 10px;
+    width: 358px;
+    border: 1px solid #ccc;
+}
+
+#register-form input[type=submit] {
+    width: 300px;
+    height: 40px;
+    margin-left: 40px;
+    background-color: aquamarine;
+}
+#register-form input[type=submit]:hover {
+    background-color: beige;
+    cursor: pointer;
+}
+
+.link-switch {
+    display: block;
+    color: blue;
+}

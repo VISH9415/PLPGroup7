@@ -11,17 +11,21 @@ import com.cg.project.exception.BankingException;
 
 public interface IBankingService
 {
-	 public UserBean fetchUserById(String uid) throws BankingException;
-
+	public void registerUser(UserBean userBean);
+	
+	public UserBean fetchUserById(String uid) throws BankingException;
+	
 	public int validateAdmin(String adminId, String adminPassword);
-
+	
+	public void updateloginpassword(UserBean userBean);
+	
+	public UserBean updateAccountIdinUser(UserBean userBean);
+	
 	public CustomerBean insertIntoCustomer(CustomerBean customer);
 
 	public UserBean updateAccountIdinUser(long accountId);
 
 	public UserBean validateUser(String userId);
-	
-	public void registerUser(UserBean userBean);
 	
 	public CustomerBean changeAddress(CustomerBean customer);
 	
@@ -38,6 +42,10 @@ public interface IBankingService
 	public List<TransactionsBean> viewDetailStatement(long accId,Date initDate, Date finDate);
 
 	public List<TransactionsBean> adminViewTransactions(long accId);
+	
+	public void updateUserDetails(String uid,long actId);
+	
+	public void insertIntoAccountMaster(AccountBean accountBean);
 
 	 /*public AccountBean fetchAccounts(long actId) throws BankingException;
 	 public double fetchAmount(long actId) throws BankingException;

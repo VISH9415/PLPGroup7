@@ -10,22 +10,22 @@ import com.cg.project.bean.UserBean;
 
 public interface IBankingDAO 
 {
-	public UserBean fetchUserById(String uid);
-
-	public int validateAdmin(String adminId, String adminPassword);
-
-	void updateUserDetails(String uid, long actId);
-
-	int insertAccount(AccountBean account);
-	
 	public void registerUser(UserBean userBean);
-
+	
+	public UserBean fetchUserById(String uid);
+	
+	public int validateAdmin(String adminId, String adminPassword);
+	
+	public void updateloginpassword(UserBean userBean);
+	
+	public UserBean updateAccountIdinUser(UserBean userBean);
+	
 	public CustomerBean insertIntoCustomer(CustomerBean customer);
-
-	public void updateAccountIdinUser(String accountId);
 	
-	public UserBean validateUser(String userId);
+	public void updateUserDetails(String uid,long actId);
 	
+	public void insertIntoAccountMaster(AccountBean accountBean);
+		
 	public UserBean openAccount(UserBean userBean);
 	
 	public CustomerBean changeAddress(CustomerBean customer);
@@ -49,7 +49,8 @@ public interface IBankingDAO
 	public List<TransactionsBean> viewDetailStatement(long accId,Date initDate,Date finDate);
 	
 	public List<TransactionsBean> adminViewTransactions(long accId);
-		
+	
+	public UserBean validateUser(String userId);
 
 	/* public AccountBean fetchAccounts(long actId) throws BankingException;
 	 public double fetchAmount(long actId) throws BankingException;

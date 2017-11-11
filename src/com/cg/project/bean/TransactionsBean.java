@@ -4,13 +4,16 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 @Entity
-@Table(name = "transactions")
+@Table(name="Transactions")
+
 public class TransactionsBean {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "transaction_Id")
 	private long transactionId;
 	@Column(name = "tran_description")

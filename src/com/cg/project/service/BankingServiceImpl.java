@@ -29,6 +29,11 @@ public class BankingServiceImpl implements IBankingService {
 		return dao.validateAdmin(adminId, adminPassword);
 		
 	}
+	
+	public void updateloginpassword(UserBean userBean)
+	{
+	    dao.updateloginpassword(userBean);
+	}
 
 	@Override
 	public CustomerBean insertIntoCustomer(CustomerBean customer) {
@@ -87,12 +92,34 @@ public class BankingServiceImpl implements IBankingService {
 	public List<TransactionsBean> viewDetailStatement(long accId,Date initDate,Date finDate) {
 		return dao.viewDetailStatement(accId,initDate,finDate);
 	}
+	public UserBean updateAccountIdinUser(UserBean userBean) {
+		// TODO Auto-generated method stub
+		return dao.updateAccountIdinUser(userBean);
+	}
 
 	@Override
 	public List<TransactionsBean> adminViewTransactions(long accId) {
 		return dao.adminViewTransactions(accId);
 	}
 
+	@Override
+	public void insertIntoAccountMaster(AccountBean accountBean) {
+		// TODO Auto-generated method stub
+		dao.insertIntoAccountMaster(accountBean);
+	}
+
+/*	@Override
+	public void updateAccountIdinUser(long accountId) {
+		// TODO Auto-generated method stub
+		dao.updateAccountIdinUser(accountId);
+	}*/
+
+	@Override
+	public void updateUserDetails(String uid, long actId) {
+		// TODO Auto-generated method stub
+		dao.updateUserDetails(uid, actId);
+	}
+	
 	/*@Override
 	public int updateUserDetails(UserBean userBean, String uid, long actId)
 			throws BankingException {
