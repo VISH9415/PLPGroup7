@@ -13,7 +13,56 @@ import com.cg.project.exception.BankingException;
 
 public interface IBankingService
 {
-	public void registerUser(UserBean userBean);
+
+	public UserBean fetchUserById(String userName) throws BankingException;
+
+	public int validateAdmin(String adminId, String adminPassword) throws BankingException;
+
+	public void updateUserDetails(String uid, long actId) throws BankingException;
+
+	public void registerUser(UserBean userBean) throws BankingException;
+
+	public List<TransactionsBean> viewDetailStatement(long accId, Date initDate, Date finDate) throws BankingException;
+
+	public List<TransactionsBean> adminViewTransactions(long accId) throws BankingException;
+
+	public void insertIntoAccountMaster(AccountBean accountBean) throws BankingException;
+
+	public void updateCustomerAddress(CustomerBean customer) throws BankingException;
+
+	public CustomerBean fetchCustomerByAccountId(long accountId) throws BankingException;
+
+	public long fetchAccountIdFromCustomer(String userName) throws BankingException;
+
+	public AccountBean fetchAccountByAccountId(long accountId) throws BankingException;
+
+	public List<TransactionsBean> viewMiniStatement(long accId) throws BankingException;
+
+	public PayeeBean insertPayeeDetails(PayeeBean payee) throws BankingException;
+
+	public void insertFundTransferDetails(FundTransferBean fundTransfer) throws BankingException;
+
+	public AccountBean updateBalance(AccountBean account) throws BankingException;
+
+	public AccountBean updateBalanceForPayee(AccountBean accountByPayeeId) throws BankingException;
+
+	public String randPassword();
+
+	public void updateloginpassword(UserBean userBean) throws BankingException;
+
+	public void insertIntoCustomer(CustomerBean customer) throws BankingException;
+
+	public UserBean updateAccountIdinUser(UserBean userBean) throws BankingException;
+
+	public TransactionsBean insertTransactionDetails(TransactionsBean transaction) throws BankingException;
+
+	/*UserBean updateAccountIdinUser(UserBean userBean) throws BankingException;*/
+
+	/*void insertIntoCustomer(CustomerBean customer) throws BankingException;*/
+	
+	
+	
+/*	public void registerUser(UserBean userBean) throws BankingException;
 	
 	public UserBean fetchUserById(String uid) throws BankingException;
 	
@@ -61,33 +110,13 @@ public interface IBankingService
 	public PayeeBean insertPayeeDetails(PayeeBean payee);
 
 	public void insertFundTransferDetails(FundTransferBean fundTransfer);
+
+	public AccountBean updateBalance(AccountBean account);
+
+	public AccountBean updateBalanceForPayee(AccountBean accountByPayeeId);
+
+	public String randPassword();*/
 	
-	
-	
-	 /*public AccountBean fetchAccounts(long actId) throws BankingException;
-	 public double fetchAmount(long actId) throws BankingException;
-	 public long openAccount(CustomerBean customerBean) throws BankingException;
-	 public CustomerBean validateId(long actId) throws BankingException;
-	 public String deposit(long actId,double amount,AccountBean accountBean) throws BankingException;
-	 public String depositUpdate(long actId,double amount) throws BankingException;
-	 public void transactionUpdate(long accId,TransactionsBean transBean ) throws BankingException;
-	 public String withdraw(long accId,double amount) throws BankingException;
-	 public void sendfund(double amt, long actId, long pactId) throws BankingException;
-	 public String validatePassword(String uId) throws BankingException;
-	 public int registerUser(UserBean userBean) throws BankingException;
-	 public int updateUserDetails(UserBean userBean,String uid,long actId) throws BankingException;
-	 public int fetchUserByActId(long acid) throws BankingException;
-	 public int updateCustomerAddress(long actId,String address) throws BankingException;
-	 public HashMap<Long, List<TransactionsBean>> viewMiniStatement(long accId) throws BankingException;
-	 public HashMap<Long, List<TransactionsBean>> viewDetailedStatement(long accId,Date date1,Date date2) throws BankingException;
-	 public int serviceTracking(ServiceTrackerBean service,long accId) throws BankingException;
-	 public Date fetchOpenDate(long accId) throws BankingException;
-	 public int insertAccount(AccountBean account) throws BankingException;
-	 public long getPreviousUser(String uId) throws BankingException;
-	 public int insertService(ServiceTrackerBean serviceTracker) throws BankingException;
-	 public int insertPayee(PayeeBean payeeBean) throws BankingException;
-	 public List<UserBean> viewAccountHolders() throws BankingException;
-	 public List<TransactionsBean> viewTransactionsDetails() throws BankingException;*/
 
 
 }

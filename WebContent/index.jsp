@@ -78,6 +78,7 @@
                         <div id="register-form">
                              <h1>Sign up</h1>
                             <form action="signup.htm" method="post" onsubmit="return validateFields();">
+                                
                                 <p>
                                     <label for="usernamesignup">Your username</label>
                                     <input id="usernamesignup" name="usernamesignup" type="text" placeholder="Enter preferred username" required/>
@@ -116,10 +117,18 @@
                                      Go and log in</span>
                                 </label>
                             </form>
+                            
+                         <!-- ${message} --> 
+                         
                         </div>
                         <div id="forgetpassword-form">
                             <h1>Forget Password?</h1>
                             <form action="forgetPass.htm" method="post">
+                            
+                             <!--if(request.getAttribute("Error")!=null){
+                                 <script>alert("hi")</script>
+                                                 } -->
+                                                 
                             	 <p>
                                     <label for="usernameForget">Please enter username</label>
                                     <input id="usernameForget" name="usernameForget" type="text" placeholder="Enter your username" required/>

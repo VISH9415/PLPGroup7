@@ -2,11 +2,13 @@ package com.cg.project.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="Payeetable")
 public class PayeeBean {
+	@Id
     @Column(name="account_id")
 	long accountId;
     @Column(name="payee_account_id")
