@@ -9,6 +9,7 @@
         <link rel="stylesheet" type="text/css" href="styles/style.css">
         <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Nunito|Spectral+SC|Ubuntu" rel="stylesheet">
         <script src="scripts/index.js"></script>
+        <script type="text/javascript" src="scripts/test.js"></script>
     </head>
     <body>
         <div id="container">
