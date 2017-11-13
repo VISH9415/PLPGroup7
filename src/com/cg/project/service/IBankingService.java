@@ -56,5 +56,7 @@ public interface IBankingService
 
 	public TransactionsBean insertTransactionDetails(TransactionsBean transaction) throws BankingException;
 
+	public CustomerBean fetchCustomerByUserId(String username) throws BankingException;
+
 
 }

@@ -424,5 +424,16 @@ public class BankingDAOImpl implements IBankingDAO{
 			throw new BankingException("Exception occured in updating balance for payee");
 		}
 	}
+  /**
+   * Method to fetch customer record for username provided
+   */
+	@Override
+	public CustomerBean fetchCustomerByUserId(String username) {
+		// TODO Auto-generated method stub
+		TypedQuery<CustomerBean> query = entityManager.createQuery(QueryMapper.selectCustomerQuery, CustomerBean.class);
+		query.setParameter("puId", username);
+		CustomerBean customer = query.getSingleResult();
+        return customer;
+	}
 
 }

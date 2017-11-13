@@ -4,12 +4,17 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cg.project.bean.AccountBean;
 import com.cg.project.bean.CustomerBean;
@@ -104,7 +109,7 @@ public class BankController {
 	 */
 	@RequestMapping(value = "/userlogin", method = RequestMethod.POST)
 	public String existingUserlogin(@RequestParam("username") String username,
-			@RequestParam("password") String password, Model model) {
+			@RequestParam("password") String password,HttpServletRequest request,Model model) {
 		try {
 			UserBean user = service.fetchUserById(username);
 			System.out.println("for login user fetched: " + user);
@@ -112,13 +117,14 @@ public class BankController {
 			if (user != null) {
 				System.out.println("exists");
 				if (password.equals(user.getLoginPassword())) {
-					String msg = "correctPassword!!";
-					// set username as session object and send to home page...
-					System.out.println(msg);
-					model.addAttribute("message", msg); // return "index";
-					model.addAttribute("userName", username);
-					model.addAttribute("user", user);
+					
+					long tempAccountId = user.getAccountId();
+					model.addAttribute("check", tempAccountId);
+					
+					HttpSession session = request.getSession();
+					session.setAttribute("userName" , username);
 					return "home";
+					
 				} else { 
 					String msg = "Password incorrect, try again !!";
 					System.out.println(msg);
@@ -327,7 +333,8 @@ public class BankController {
 			customer.setAddress(newAddress);
 
 			service.updateCustomerAddress(customer);
-			model.addAttribute("userName", userName);
+			String message = "Addresss successfully changed";
+			model.addAttribute("message", message);
 			return "TempHome";
 		} catch (BankingException be) {
 			model.addAttribute("message", be.getMessage());
@@ -478,25 +485,30 @@ public class BankController {
 		}
 	}
 
-	@RequestMapping("/balance.htm")
+/*	@RequestMapping("/balance.htm")
 	public String viewBalance() {
 		return "balance";
-	}
+	}*/
 
-	@RequestMapping("/home.htm")
+/*	@RequestMapping("/home.htm")
 	public String miniStatement() {
 		return "ministatement";
-	}
+	}*/
 
 	@RequestMapping(value = "/miniStatement.htm", method = RequestMethod.POST)
-	public String viewMiniStatement(@RequestParam("accId") long accId,
+	public String viewMiniStatement(@RequestParam("miniAccountNumber") long accountId,
 			@RequestParam("userName") String userName, Model map) {
 		try {
+			System.out.println("in mini...");
+			System.out.println("username "+userName);
 			long actIdForUser = service.fetchUserById(userName).getAccountId();
-			if (actIdForUser == accId) {
-				List<TransactionsBean> miniStatement = service
-						.viewMiniStatement(accId);
+			if (actIdForUser == accountId) {
+				List<TransactionsBean> miniStatement = service.viewMiniStatement(accountId);
+				//System.out.println("before list");
+				//System.out.println(miniStatement);
 				map.addAttribute("miniList", miniStatement);
+				boolean check = true;
+				map.addAttribute("var",check);
 				return "ViewList";
 			} else {
 				String msg = "wrong account Id..";
@@ -520,16 +532,23 @@ public class BankController {
 	 * @param map
 	 */
 	@RequestMapping(value = "/detailedStatement.htm", method = RequestMethod.POST)
-	public String viewDetailedStatement(@RequestParam("accId") long accId,
+	public String viewDetailedStatement(@RequestParam("miniAccountNumber") long accountId,
 			@RequestParam("userName") String userName,
-			@RequestParam("inidate") Date iniDate,
-			@RequestParam("findate") Date finDate, Model map) {
+			@RequestParam("startDate") Date iniDate,
+			@RequestParam("endDate") Date finDate, Model map) {
 		try {
+			System.out.println("in detailed");
 			long actIdForUser = service.fetchUserById(userName).getAccountId();
-			if (actIdForUser == accId) {
-				List<TransactionsBean> detailStatement = service
-						.viewDetailStatement(accId, iniDate, finDate);
+			if (actIdForUser == accountId) {
+				System.out.println(userName);
+				List<TransactionsBean> detailStatement = service.viewDetailStatement(accountId,iniDate,finDate);
+				System.out.println(userName);
+				System.out.println("account id "+accountId);
 				map.addAttribute("detailList", detailStatement);
+				System.out.println(detailStatement);
+				System.out.println();
+				boolean check = false;
+				map.addAttribute("var",check);
 				return "ViewList";
 			} else {
 				String msg = "Incorrect account Id";

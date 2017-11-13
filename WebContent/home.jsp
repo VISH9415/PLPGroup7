@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
     <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <link rel="stylesheet" type="text/css" href="styles/forms.css">
-        <link rel="stylesheet" type="text/css" href="styles/home.css">
-        <link href="https://fonts.googleapis.com/css?family=Spectral+SC|Josefin+Sans|Nunito|Ubuntu" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="styles/forms.css">
+    	<link rel="stylesheet" type="text/css" href="styles/homeScreen.css">
+        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Nunito|Spectral+SC|Ubuntu" rel="stylesheet">
         <script src="scripts/index.js"></script>
     </head>
     <body>
@@ -27,12 +27,12 @@
                 
                 <div id="openAccountDiv">
                     
-<!--                     <input type="checkbox" id="openAccountform-switch"/>
+                  <input type="checkbox" id="openAccountform-switch"/>
                     <div id="openAccountButton">
                         <label for="openAccountform-switch">
                          <div id="openAccount">Open Account</div>
                         </label>
-                    </div> -->
+                    </div> 
                             
                     <!-- Open Account Form -->
                     <!--  conditional open account.. if user hasn't opened only then -->
@@ -90,10 +90,10 @@
                     <div id="body-left">
                     
                         <div id="homeButtonsTab"> 
-                            <a href="home.html#hr-viewBalance"><div id="h-viewBalance" class="homeButtons"> View Balance</div></a>
-                            <a href="home.html#hr-fundTransfer"><div id="h-fundTransfer" class="homeButtons">Fund Transfer</div></a>
-                            <a href="home.html#hr-changePassword"><div id="h-changePassword" class="homeButtons">Change Password</div></a>
-                            <a href="home.html#hr-changeAddress"><div id="h-changeAddress" class="homeButtons">Change Address</div></a>
+                            <a href="home.jsp#hr-viewBalance"><div id="h-viewBalance" class="homeButtons"> View Balance</div></a>
+                            <a href="home.jsp#hr-fundTransfer"><div id="h-fundTransfer" class="homeButtons">Fund Transfer</div></a>
+                            <a href="home.jsp#hr-changePassword"><div id="h-changePassword" class="homeButtons">Change Password</div></a>
+                            <a href="home.jsp#hr-changeAddress"><div id="h-changeAddress" class="homeButtons">Change Address</div></a>
                         </div>       
                     </div>
                 
@@ -103,8 +103,8 @@
                         </div>
                         <div id="hr-viewBalance">
                             <div id="bal-container">
-                                <a href="home.html#hr-miniStatementForm"><div id="miniStatement">Mini Statement</div></a>
-                                <a href="home.html#hr-detailedStatementForm"><div id="detailedStatement">Detailed Statement</div></a>
+                                <a href="home.jsp#hr-miniStatementForm"><div id="miniStatement">Mini Statement</div></a>
+                                <a href="home.jsp#hr-detailedStatementForm"><div id="detailedStatement">Detailed Statement</div></a>
                             </div>
                         </div>
                         
@@ -267,7 +267,7 @@
                                         <tbody>
                                         <c:forEach items="${miniList}" var="trans">
                                             <tr>
-                                                <td scope="row">Dummy data</td>
+                                               <!--  <td scope="row">Dummy data</td> -->
                                               <td>${trans.transactionId}</td>
                                               <td>${trans.transDescription}</td>
                                               <td>${trans.dateOfTransaction}</td>
@@ -286,6 +286,7 @@
                         <div id="hr-vb-detailedstatement">
                             <div id="detailedStatementViewer">
                                <div id="detailedStatementTable">
+                               <form>
                                    <table>
                                         <caption>Detailed Statement as:</caption>
                                         <thead>
@@ -298,7 +299,21 @@
                                                 <th scope="col">Account Number</th>
                                             </tr>
                                         </thead>
+                                        <tbody>
+                                        <c:forEach items="${detailedList}" var="trans">
+                                            <tr>
+                                              <!--   <td scope="row">Dummy data</td> -->
+                                              <td>${trans.transactionId}</td>
+                                              <td>${trans.transDescription}</td>
+                                              <td>${trans.dateOfTransaction}</td>
+                                              <td>${trans.transactionType}</td>
+                                              <td>${trans.transactionAmount}</td>
+                                              <td>${trans.accountNumber}</td>
+                                            </tr>
+                                            </c:forEach>                                            
+                                       </tbody>                                            
                                     </table>
+                              </form>
                                </div>
                             </div>
                         </div>

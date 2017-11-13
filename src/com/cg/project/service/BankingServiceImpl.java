@@ -186,4 +186,10 @@ public class BankingServiceImpl implements IBankingService {
         return newPassword;
 	}
 
+	@Override
+	public CustomerBean fetchCustomerByUserId(String username)
+			throws BankingException {
+		return dao.fetchCustomerByUserId(username);
+	}
+
 }

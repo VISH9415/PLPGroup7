@@ -5,6 +5,7 @@
 <html>
     <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    	<link rel="stylesheet" type="text/css" href="styles/forms.css">
         <link rel="stylesheet" type="text/css" href="styles/style.css">
         <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Nunito|Spectral+SC|Ubuntu" rel="stylesheet">
         <script src="scripts/index.js"></script>

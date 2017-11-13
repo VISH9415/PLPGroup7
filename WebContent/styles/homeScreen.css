@@ -85,7 +85,7 @@ li a {
 }
 
 #openAccountform-switch {
-    display: none;
+    display: block;
 }
 
 #openAccountDiv {

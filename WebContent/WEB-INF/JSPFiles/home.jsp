@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
     <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <link rel="stylesheet" type="text/css" href="styles/forms.css">
-        <link rel="stylesheet" type="text/css" href="styles/home.css">
-        <link href="https://fonts.googleapis.com/css?family=Spectral+SC|Josefin+Sans|Nunito|Ubuntu" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="styles/forms.css">
+    	<link rel="stylesheet" type="text/css" href="styles/homeScreen.css">
+        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Nunito|Spectral+SC|Ubuntu" rel="stylesheet">
         <script src="scripts/index.js"></script>
     </head>
     <body>
@@ -24,19 +24,18 @@
             
             <div id="body">
                 
-                
-                <div id="openAccountDiv">
-                    
-<!--                     <input type="checkbox" id="openAccountform-switch"/>
+                <div id="openAccountDiv">  
+                  <input type="checkbox" id="openAccountform-switch"/>
                     <div id="openAccountButton">
                         <label for="openAccountform-switch">
                          <div id="openAccount">Open Account</div>
                         </label>
-                    </div> -->
+                    </div> 
                             
                     <!-- Open Account Form -->
                     <!--  conditional open account.. if user hasn't opened only then -->
                     <%-- <c:if test="${user.accountId==0}"> --%>
+                    <c:if test="${check!=0}">
                     <div id="openAccountForm">
                         <h1>Enter your details</h1>
                         <form action="openAccount.htm" method="post">
@@ -81,30 +80,30 @@
                         </form>
                     
                     </div>
-                    <%-- </c:if> --%>
-                    
-                </div> <!-- End of openAccount div -->
+                       </c:if> 
+                    </div>
+                 
                 
-                
+                <c:if test="${check!=0}">
                 <div id="homePage">
                     <div id="body-left">
                     
                         <div id="homeButtonsTab"> 
-                            <a href="home.html#hr-viewBalance"><div id="h-viewBalance" class="homeButtons"> View Balance</div></a>
-                            <a href="home.html#hr-fundTransfer"><div id="h-fundTransfer" class="homeButtons">Fund Transfer</div></a>
-                            <a href="home.html#hr-changePassword"><div id="h-changePassword" class="homeButtons">Change Password</div></a>
-                            <a href="home.html#hr-changeAddress"><div id="h-changeAddress" class="homeButtons">Change Address</div></a>
+                            <a href="home.jsp#hr-viewBalance"><div id="h-viewBalance" class="homeButtons"> View Balance</div></a>
+                            <a href="home.jsp#hr-fundTransfer"><div id="h-fundTransfer" class="homeButtons">Fund Transfer</div></a>
+                            <a href="home.jsp#hr-changePassword"><div id="h-changePassword" class="homeButtons">Change Password</div></a>
+                            <a href="home.jsp#hr-changeAddress"><div id="h-changeAddress" class="homeButtons">Change Address</div></a>
                         </div>       
                     </div>
                 
                     <div id="body-right">
                         <div id="hr-initialView">
-                            <div id="hrb-welcome">Some Message</div>
+                            <div id="hrb-welcome"></div>
                         </div>
                         <div id="hr-viewBalance">
                             <div id="bal-container">
-                                <a href="home.html#hr-miniStatementForm"><div id="miniStatement">Mini Statement</div></a>
-                                <a href="home.html#hr-detailedStatementForm"><div id="detailedStatement">Detailed Statement</div></a>
+                                <a href="home.jsp#hr-miniStatementForm"><div id="miniStatement">Mini Statement</div></a>
+                                <a href="home.jsp#hr-detailedStatementForm"><div id="detailedStatement">Detailed Statement</div></a>
                             </div>
                         </div>
                         
@@ -223,7 +222,7 @@
                         <div id="hr-detailedStatementForm">
                             <div id="hr-detailedDetailAsk">
                                 <h1>View Detailed Statement</h1>
-                                <form action="detailedStatement.htm" method="post" onsubmit="return validateDetailSummaryForm;">
+                                <form action="detailedStatement.htm" method="post">
                             <p>
                             <input type="hidden" name="userName" value="${userName}"/>
                             </p>    
@@ -233,11 +232,11 @@
                                     </p>
                                     <p>
                                         <label for="startDate">Enter Starting Date</label>
-                                        <input type="date" id="startDate" required>
+                                        <input type="date" id="startDate" name="startDate" required>
                                     </p>
                                     <p>
                                         <label for="endDate">Enter Ending Date</label>
-                                        <input type="date" id="endDate" required>
+                                        <input type="date" id="endDate" name="endDate" required>
                                     </p>
                                     <p>
                                         <input type="submit" value="View Detailed Statement">
@@ -245,7 +244,6 @@
                                 </form>
                             </div>
                         </div>
-                        
                         
                         <div id="hr-vb-ministatement">
                             <div id="miniStatementViewer">
@@ -267,7 +265,7 @@
                                         <tbody>
                                         <c:forEach items="${miniList}" var="trans">
                                             <tr>
-                                                <td scope="row">Dummy data</td>
+                                                <!-- <td scope="row">Dummy data</td> -->
                                               <td>${trans.transactionId}</td>
                                               <td>${trans.transDescription}</td>
                                               <td>${trans.dateOfTransaction}</td>
@@ -287,6 +285,7 @@
                             <div id="detailedStatementViewer">
                                <div id="detailedStatementTable">
                                    <table>
+                                   
                                         <caption>Detailed Statement as:</caption>
                                         <thead>
                                             <tr>
@@ -298,6 +297,21 @@
                                                 <th scope="col">Account Number</th>
                                             </tr>
                                         </thead>
+                                        
+                                        <tbody>
+                                        <c:forEach items="${detailedList}" var="trans">
+                                            <tr>
+                                              <!--   <td scope="row">Dummy data</td> -->
+                                              <td>${trans.transactionId}</td>
+                                              <td>${trans.transDescription}</td>
+                                              <td>${trans.dateOfTransaction}</td>
+                                              <td>${trans.transactionType}</td>
+                                              <td>${trans.transactionAmount}</td>
+                                              <td>${trans.accountNumber}</td>
+                                            </tr>
+                                            </c:forEach>                                            
+                                       </tbody>  
+                                             
                                     </table>
                                </div>
                             </div>
@@ -305,12 +319,11 @@
                         
                     </div>
                 </div>
-
+                </c:if>
             </div>
             
-            
             <div id="footer">&copy; Vivahaka Bank</div>
-        </div>
+       </div>
     </body>
 </html>
 

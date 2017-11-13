@@ -64,4 +64,6 @@ public interface IBankingDAO
 
 	public UserBean updateAccountIdinUser(UserBean userBean) throws BankingException;
 
+	public CustomerBean fetchCustomerByUserId(String username);
+
 }

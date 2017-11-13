@@ -8,7 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table>
+
+<c:if test="${var eq true}">
+<table border="1">
+<tr>Mini Statement for ${userName}</tr>
 <tr>
 <th>Transaction Id</th>
 <th>Transaction Description</th>
@@ -27,5 +30,30 @@
 <td>${trans.accountNumber }</td>
 </c:forEach>
 </table>
+</c:if>
+
+<c:if test="${var eq false}">
+<table border="1">
+<tr>Detailed Statement for ${userName}</tr>
+<tr>
+<th>Transaction Id</th>
+<th>Transaction Description</th>
+<th>Date of Transaction</th>
+<th>Transaction Type</th>
+<th>Transaction Amount</th>
+<th>Account Number</th>
+</tr>
+<c:forEach items = "${detailList}" var = "trans">
+<tr>
+<td>${trans.transactionId }</td>
+<td>${trans.transDescription }</td>
+<td>${trans.dateOfTransaction }</td>
+<td>${trans.transactionType }</td>
+<td>${trans.transactionAmount }</td>
+<td>${trans.accountNumber }</td>
+</c:forEach>
+</table>
+</c:if>
+
 </body>
 </html>
