@@ -18,7 +18,7 @@ public class FundTransferBean {
 	@Column(name="fundtransfer_id")
 	@SequenceGenerator(name="seq1",sequenceName="fundid_seq")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator="seq1")
-	private String fundTransferId;
+	private long fundTransferId;
 	@Column(name="account_id")
 	private long accountId;
 	@Column(name="payee_account_id")
@@ -28,10 +28,10 @@ public class FundTransferBean {
 	@Column(name="transfer_amount")
 	private double transferAmount;
 	
-	public String getFundTransferId() {
+	public long getFundTransferId() {
 		return fundTransferId;
 	}
-	public void setFundTransferId(String fundTransferId) {
+	public void setFundTransferId(long fundTransferId) {
 		this.fundTransferId = fundTransferId;
 	}
 	public long getAccountId() {

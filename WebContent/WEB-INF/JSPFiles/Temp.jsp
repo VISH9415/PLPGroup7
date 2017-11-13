@@ -8,8 +8,7 @@
 </head>
 <body>
 <!-- signup message -->
-${message}<br>
-<a href="home.jsp">Home</a>
-
+${message}
+<a href="index.jsp">Home</a>
 </body>
 </html>

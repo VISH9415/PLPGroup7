@@ -3,43 +3,47 @@
        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <link rel="stylesheet" type="text/css" href="styles/forms.css">
         <link rel="stylesheet" type="text/css" href="styles/home.css">
         <link href="https://fonts.googleapis.com/css?family=Spectral+SC|Josefin+Sans|Nunito|Ubuntu" rel="stylesheet">
-        <script src="scripts/home.js"></script>
+        <script src="scripts/index.js"></script>
     </head>
     <body>
         <div id="container">
             <div id="header">
                 <ul>
-                    <li id="logoContainer"><a href="home.jsp"><span id="headerLogo"></span></a></li>
+                    <li id="logoContainer"><a href="home.html"><span id="headerLogo"></span></a></li>
                     <li><span>Welcome to Vivahaka Bank Online Portal</span></li>
                     <li class="headerRight"><span><a href="">Logout</a></span></li>
                      <li class="headerRight"><span>Welcome ${userName}</span></li>
                 </ul>
             </div>
             
-
+            
             <div id="body">
+                
+                
                 <div id="openAccountDiv">
                     
-                    <input type="checkbox" id="openAccountform-switch"/>
+<!--                     <input type="checkbox" id="openAccountform-switch"/>
                     <div id="openAccountButton">
                         <label for="openAccountform-switch">
                          <div id="openAccount">Open Account</div>
                         </label>
-                    </div>
+                    </div> -->
                             
                     <!-- Open Account Form -->
+                    <!--  conditional open account.. if user hasn't opened only then -->
+                    <%-- <c:if test="${user.accountId==0}"> --%>
                     <div id="openAccountForm">
                         <h1>Enter your details</h1>
                         <form action="openAccount.htm" method="post">
                             <p>
                             <input type="hidden" name="userName" value="${userName}"/>
                             </p>
-                            
+							
                             <p>
                                 <label for="openFormUserName">Customer Name</label>
                                 <input type="text" name="openFormUserName" id="openFormUserName" required placeholder="Enter your name"/>
@@ -77,7 +81,7 @@
                         </form>
                     
                     </div>
-                    
+                    <%-- </c:if> --%>
                     
                 </div> <!-- End of openAccount div -->
                 
@@ -99,23 +103,22 @@
                         </div>
                         <div id="hr-viewBalance">
                             <div id="bal-container">
-                                <a href="home.html#hr-vb-ministatement"><div id="miniStatement">Mini Statement</div></a>
-                                <a href="home.html#hr-vb-detailedstatement"><div id="detailedStatement">Detailed Statement</div></a>
+                                <a href="home.html#hr-miniStatementForm"><div id="miniStatement">Mini Statement</div></a>
+                                <a href="home.html#hr-detailedStatementForm"><div id="detailedStatement">Detailed Statement</div></a>
                             </div>
                         </div>
                         
                         
                         <!-- Fund transfer Form -->
+                        
                         <div id="hr-fundTransfer">
                             <div id="hr-ft-formContainer">
                                 <h1>Fund Transfer</h1>
                                 <form action="fundTransfer.htm" method="post">
-                               
-                                <p>
+								    <p>
                                 <input type="hidden" name="userName" value="${userName}"/>
                                 </p>
-                            
-                                  
+								
                                     <p>
                                         <label for="ft-userid">Enter your account id:</label>
                                         <input type="text" id="ft-userid" name="ft-userid" placeholder="Enter your account id" required/>
@@ -132,12 +135,16 @@
                                         <label for="ft-amount">Enter amount to transfer:</label>
                                         <input type="text" id="ft-amount" name="ft-amount" placeholder="Enter amount to transfer" pattern="[0-9]{1,}" required/>
                                     </p>
-                                    
-                                    <p>
+									 <p>
                                         <label for="ft-describe">Payment description:</label>
                                         <input type="text" id="ft-describe" name="ft-describe" placeholder="Enter payment description:" required/>                                    
                                     </p>
-                                    
+									 <p>
+                                        <label for="ft-nickname">Nick name:</label>
+                                        <input type="text" id="ft-nickname" name="ft-nickname" placeholder="Enter nick name for payee:" required/>                                    
+                                    </p>
+										
+																	
                                     <p><input type="submit" value="Transfer Money"/></p>
                                 </form>
                             
@@ -150,10 +157,9 @@
                             <div id="hr-ft-formContainer">
                                 <h1>Change Password</h1>
                                 <form action="changePassword.htm" method="post">
-                             <p>
+							<p>
                             <input type="hidden" name="userName" value="${userName}"/>
                             </p>
-                            
                                     <p>
                                         <label for="ft-oldpswd">Old Password:</label>
                                         <input type="password" id="ft-oldpswd" name="ft-oldpswd" placeholder="Enter your old password" required/>
@@ -177,15 +183,14 @@
                         <div id="hr-changeAddress">
                         
                             <div id="hr-ft-formContainer">
-                                <h1>Change Address </h1>
+                                <h1>Change Address</h1>
                                 <form action="changeAddress.htm" method="post">
-                            <p>
+							<p>
                             <input type="hidden" name="userName" value="${userName}"/>
-                            </p>
-                            
+                            </p>	
                                     <p>
                                         <label for="ft-newAddress">New Address:</label>
-                                        <input type="text" id="ft-newAddress" name="ft-newAddress" placeholder="Enter your new address ${userName} " required/>
+                                        <input type="text" id="ft-newAddress" name="ft-newAddress" placeholder="Enter your new address" required/>
                                     </p>
                                     <p><input type="submit" value="Change Address"/></p>
                                 </form>
@@ -193,8 +198,111 @@
                             </div>
                         
                         </div>
-                        <div id="hr-vb-ministatement">Mini Statement will be displayed here</div>
-                        <div id="hr-vb-detailedstatement">Detailed statement will be displayed here</div>
+                        
+                        <!-- mini statement form -->
+                        <div id="hr-miniStatementForm">
+                            <div id="hr-miniDetailAsk">
+                                <h1>View Mini Statement</h1>
+                                <form action="miniStatement.htm" method="post">
+							<p>
+                            <input type="hidden" name="userName" value="${userName}"/>
+                            </p>
+                                    <p>
+                                        <label for="miniAccountNumber">Account Number</label>
+                                        <input type="text" id="miniAccountNumber" name="miniAccountNumber" placeholder="Enter your account number" required />
+                                    </p>
+                                    <p>
+                                        <input type="submit" value="View Mini Statement">
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        
+                        <!-- detailed statement form -->
+                        <div id="hr-detailedStatementForm">
+                            <div id="hr-detailedDetailAsk">
+                                <h1>View Detailed Statement</h1>
+                                <form action="detailedStatement.htm" method="post" onsubmit="return validateDetailSummaryForm;">
+                            <p>
+                            <input type="hidden" name="userName" value="${userName}"/>
+                            </p>    
+									<p>
+                                        <label for="detailedAccountNumber">Account Number</label>
+                                        <input type="text" id="miniAccountNumber" name="miniAccountNumber" placeholder="Enter your account number" required />
+                                    </p>
+                                    <p>
+                                        <label for="startDate">Enter Starting Date</label>
+                                        <input type="date" id="startDate" required>
+                                    </p>
+                                    <p>
+                                        <label for="endDate">Enter Ending Date</label>
+                                        <input type="date" id="endDate" required>
+                                    </p>
+                                    <p>
+                                        <input type="submit" value="View Detailed Statement">
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        
+                        <div id="hr-vb-ministatement">
+                            <div id="miniStatementViewer">
+                                <div id="miniStatementTable">
+                                <form>
+                                    <table>
+                                        <caption>Some of your latest transactions are as:</caption>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Transaction id</th>
+                                                <th scope="col">Transaction Description</th>
+                                                <th scope="col">Date of Transaction</th>
+                                                <th scope="col">Transaction Type</th>
+                                                <th scope="col">Transaction Amount</th>
+                                                <th scope="col">Account Number</th>
+                                            </tr>
+                                        </thead>
+                                        
+                                        <tbody>
+                                        <c:forEach items="${miniList}" var="trans">
+                                            <tr>
+                                                <td scope="row">Dummy data</td>
+                                              <td>${trans.transactionId}</td>
+                                              <td>${trans.transDescription}</td>
+                                              <td>${trans.dateOfTransaction}</td>
+                                              <td>${trans.transactionType}</td>
+                                              <td>${trans.transactionAmount}</td>
+                                              <td>${trans.accountNumber}</td>
+                                            </tr>
+                                            </c:forEach>                                            
+                                            </tbody>
+                                        </table>
+                                        </form>
+                                </div>
+                            </div>
+                        </div>
+						
+                        <div id="hr-vb-detailedstatement">
+                            <div id="detailedStatementViewer">
+                               <div id="detailedStatementTable">
+                                   <table>
+                                        <caption>Detailed Statement as:</caption>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Transaction id</th>
+                                                <th scope="col">Transaction Description</th>
+                                                <th scope="col">Date of Transaction</th>
+                                                <th scope="col">Transaction Type</th>
+                                                <th scope="col">Transaction Amount</th>
+                                                <th scope="col">Account Number</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                               </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
 

@@ -26,15 +26,18 @@ public class UserBean {
     private String secretAnswer;
 	
 
-public UserBean(long accountId, String userId, String loginPassword,
-		 String transactionPassword, String lockStatus) {
-	super();
-	this.accountId = accountId;
-	this.userId = userId;
-	this.loginPassword = loginPassword;
-	this.transactionPassword = transactionPassword;
-	this.lockStatus = lockStatus;
-}
+
+public UserBean(long accountId, String userId, String loginPassword, String transactionPassword, String lockStatus,
+			String secretQuestion, String secretAnswer) {
+		super();
+		this.accountId = accountId;
+		this.userId = userId;
+		this.loginPassword = loginPassword;
+		this.transactionPassword = transactionPassword;
+		this.lockStatus = lockStatus;
+		this.secretQuestion = secretQuestion;
+		this.secretAnswer = secretAnswer;
+	}
 public UserBean() {
 	super();
 }

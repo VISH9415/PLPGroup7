@@ -8,7 +8,6 @@
 </head>
 <body>
 ${message}<br>
- <a href="openAccount.htm?userName=${username}">AdminPage</a>
-<!-- <a href="home.jsp">Home</a> -->
+<a href="home.jsp">Home</a>
 </body>
 </html>

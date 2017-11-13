@@ -2,6 +2,7 @@ package com.cg.project.service;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,54 +28,56 @@ public class BankingServiceImpl implements IBankingService {
 	}
 	
 	@Override
-	public int validateAdmin(String adminId, String adminPassword) {
+	public int validateAdmin(String adminId, String adminPassword) throws BankingException  {
 		return dao.validateAdmin(adminId, adminPassword);
 		
 	}
 	
-	public void updateloginpassword(UserBean userBean)
+	@Override
+	public void updateloginpassword(UserBean userBean) throws BankingException 
 	{
 	    dao.updateloginpassword(userBean);
 	}
 
 	@Override
-	public void insertIntoCustomer(CustomerBean customer) {
+	public void insertIntoCustomer(CustomerBean customer) throws BankingException {
 		// TODO Auto-generated method stub
-		dao.insertIntoCustomer(customer);
-	}
+		dao.insertIntoCustomer(customer); }
 	
-	public TransactionsBean insertTransactionDetails(TransactionsBean transaction)
+	
+	@Override
+	public TransactionsBean insertTransactionDetails(TransactionsBean transaction) throws BankingException 
 	{
 		return dao.insertTransactionDetails(transaction);
 	}
 
 
 	@Override
-	public void updateUserDetails(String uid, long actId) {
+	public void updateUserDetails(String uid, long actId) throws BankingException  {
 		// TODO Auto-generated method stub
 		dao.updateUserDetails(uid, actId);
 	}
 
 	@Override
-	public void registerUser(UserBean userBean) {
+	public void registerUser(UserBean userBean) throws BankingException{
 		// TODO Auto-generated method stub
-		
+		dao.registerUser(userBean);
 	}
 
 	@Override
-	public UserBean updateAccountIdinUser(UserBean userBean) {
+	public UserBean updateAccountIdinUser(UserBean userBean) throws BankingException {
 		// TODO Auto-generated method stub
 		return dao.updateAccountIdinUser(userBean);
 	}
 
-	@Override
-	public UserBean validateUser(String userId) {
+/*	@Override
+	public UserBean validateUser(String userId) throws BankingException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CustomerBean changeAddress(CustomerBean customer) {
+	public CustomerBean changeAddress(CustomerBean customer) throws BankingException  {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -101,66 +104,86 @@ public class BankingServiceImpl implements IBankingService {
 	public UserBean getUserName(long accId) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 
 	@Override
 	public List<TransactionsBean> viewDetailStatement(long accId,
-			Date initDate, Date finDate) {
+			Date initDate, Date finDate) throws BankingException {
 		// TODO Auto-generated method stub
 		return dao.viewDetailStatement(accId, initDate, finDate);
 	}
 
 	@Override
-	public List<TransactionsBean> adminViewTransactions(long accId) {
+	public List<TransactionsBean> adminViewTransactions(long accId) throws BankingException {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.adminViewTransactions(accId);
 	}
 
 	@Override
-	public void insertIntoAccountMaster(AccountBean accountBean) {
+	public void insertIntoAccountMaster(AccountBean accountBean) throws BankingException {
 		// TODO Auto-generated method stub
-		
+		dao.insertIntoAccountMaster(accountBean);
 	}
 
 	@Override
-	public void updateCustomerAddress(CustomerBean customer) {
+	public void updateCustomerAddress(CustomerBean customer) throws BankingException {
 		// TODO Auto-generated method stub
 		dao.updateCustomerAddress(customer);  
 	}
 
 	@Override
-	public CustomerBean fetchCustomerByAccountId(long accountId) {
+	public CustomerBean fetchCustomerByAccountId(long accountId) throws BankingException {
 		// TODO Auto-generated method stub
 		return dao.fetchCustomerByAccountId(accountId);
 	}
 
 	@Override
-	public long fetchAccountIdFromCustomer(String userName) {
+	public long fetchAccountIdFromCustomer(String userName) throws BankingException {
 		// TODO Auto-generated method stub
 		return dao.fetchAccountIdFromCustomer(userName);
 	}
 
 	@Override
-	public AccountBean fetchAccountByAccountId(long accountId) {
+	public AccountBean fetchAccountByAccountId(long accountId) throws BankingException {
 		// TODO Auto-generated method stub
 		return dao.fetchAccountByAccountId(accountId);
 	}
 
 	@Override
-	public List<TransactionsBean> viewMiniStatement(long accId) {
+	public List<TransactionsBean> viewMiniStatement(long accId) throws BankingException {
 		// TODO Auto-generated method stub
 		return dao.viewMiniStatement(accId);
 	}
 
 	@Override
-	public PayeeBean insertPayeeDetails(PayeeBean payee) {
+	public PayeeBean insertPayeeDetails(PayeeBean payee) throws BankingException {
 		// TODO Auto-generated method stub
 		return dao.insertPayeeDetails(payee);
 	}
 
 	@Override
-	public void insertFundTransferDetails(FundTransferBean fundTransfer) {
+	public void insertFundTransferDetails(FundTransferBean fundTransfer) throws BankingException {
 		// TODO Auto-generated method stub
        dao.insertFundTransferDetails(fundTransfer);}
+
+	@Override
+	public AccountBean updateBalance(AccountBean account) throws BankingException  {
+		// TODO Auto-generated method stub
+		return dao.updateBalance(account);
+	}
+
+	@Override
+	public AccountBean updateBalanceForPayee(AccountBean accountByPayeeId) throws BankingException {
+		// TODO Auto-generated method stub
+		return dao.updateBalanceForPayee(accountByPayeeId);
+	}
+
+	@Override
+	public String randPassword() {
+		// TODO Auto-generated method stub
+        String uuid = UUID.randomUUID().toString();
+        String newPassword = uuid.substring(0,8).replace("-", "");
+        return newPassword;
+	}
 
 }

@@ -34,6 +34,18 @@ public class CustomerBean {
 		super();
 	}
 
+	public CustomerBean(long accountId, String customerName, String email, String address, String pancard,
+			String accountType, String userId) {
+		super();
+		this.accountId = accountId;
+		this.customerName = customerName;
+		this.email = email;
+		this.address = address;
+		this.pancard = pancard;
+		this.accountType = accountType;
+		this.userId = userId;
+	}
+
 	public String getAccountType() {
 		return accountType;
 	}
