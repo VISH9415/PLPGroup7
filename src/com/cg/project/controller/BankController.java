@@ -120,7 +120,7 @@ public class BankController {
 					
 					long tempAccountId = user.getAccountId();
 					model.addAttribute("check", tempAccountId);
-					
+					System.out.println("tempAccountId "+tempAccountId);
 					HttpSession session = request.getSession();
 					session.setAttribute("userName" , username);
 					return "home";

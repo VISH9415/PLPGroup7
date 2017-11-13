@@ -6,7 +6,7 @@
     <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="styles/forms.css">
-    	<link rel="stylesheet" type="text/css" href="styles/homeScreen.css">
+    	<link rel="stylesheet" type="text/css" href="styles/home.css">
         <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Nunito|Spectral+SC|Ubuntu" rel="stylesheet">
         <script src="scripts/index.js"></script>
     </head>
@@ -23,7 +23,8 @@
             
             
             <div id="body">
-                
+ 
+                 <c:if test="${check==0}"> 
                 <div id="openAccountDiv">  
                   <input type="checkbox" id="openAccountform-switch"/>
                     <div id="openAccountButton">
@@ -35,7 +36,7 @@
                     <!-- Open Account Form -->
                     <!--  conditional open account.. if user hasn't opened only then -->
                     <%-- <c:if test="${user.accountId==0}"> --%>
-                    <c:if test="${check!=0}">
+                    
                     <div id="openAccountForm">
                         <h1>Enter your details</h1>
                         <form action="openAccount.htm" method="post">
@@ -80,8 +81,9 @@
                         </form>
                     
                     </div>
-                       </c:if> 
+                        
                     </div>
+                    </c:if>
                  
                 
                 <c:if test="${check!=0}">
