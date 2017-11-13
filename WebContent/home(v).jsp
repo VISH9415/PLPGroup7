@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<<<<<<< HEAD:WebContent/home.jsp
         <link rel="stylesheet" type="text/css" href="styles/forms.css">
         <link rel="stylesheet" type="text/css" href="styles/home.css">
         <link href="https://fonts.googleapis.com/css?family=Spectral+SC|Josefin+Sans|Nunito|Ubuntu" rel="stylesheet">
@@ -39,7 +38,7 @@
                         <h1>Enter your details</h1>
                         <form action="openAccount.htm" method="post">
                             <p>
-                            <input type="hidden" name="userName" id="userName"/>
+                            <input type="hidden" name="userName" value="userName"/>
                             </p>
                                                            
                             <p>
@@ -112,6 +111,9 @@
                             <div id="hr-ft-formContainer">
                                 <h1>Fund Transfer</h1>
                                 <form action="fundTransfer.htm" method="post">
+                                <p>
+                            <input type="hidden" name="userName" value="userName"/>
+                            </p>
                                     <p>
                                         <label for="ft-userid">Enter your account id:</label>
                                         <input type="text" id="ft-userid" name="ft-userid" placeholder="Enter your account id" required/>
@@ -140,6 +142,9 @@
                             <div id="hr-ft-formContainer">
                                 <h1>Change Password</h1>
                                 <form action="changePassword.htm" method="post">
+                                <p>
+                            <input type="hidden" name="userName" value="userName"/>
+                            </p>
                                     <p>
                                         <label for="ft-oldpswd">Old Password:</label>
                                         <input type="password" id="ft-oldpswd" name="ft-oldpswd" placeholder="Enter your old password" required/>
@@ -166,7 +171,7 @@
                                 <h1>Change Address</h1>
                                 <form action="changeAddress.htm" method="post">
                                 <p>
-                                    <input type="hidden" name="userName" id="userName"/>
+                                    <input type="hidden" name="userName" value="userName"/>
                                    </p>
                                    
                                     <p>
@@ -192,14 +197,3 @@
     </body>
 </html>
 
-=======
-<title>HomePage</title>
-</head>
-<body>
-<a href = "user.htm">User</a><br>
-<a href = "admin.htm">Administrator</a><br>
-<a href = "login.htm">Already User...Login</a><br>
-<!-- <a href = "login.htm">Existing User</a> -->
-</body>
-</html>
->>>>>>> bf6b94265a72433b0d72482278ea3b597142a30a:WebContent/home(v).jsp

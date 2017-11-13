@@ -444,9 +444,9 @@ public class BankController {
 			
 			double bal = balance-amount;
 			account.setAccountBalance(bal);
-			service.updateBalance(account);
+			//service.updateBalance(account);
 			
-			logger.info("Transaction Successful");
+			//logger.info("Transaction Successful");
 			msg = "Transaction Successful";
 			redirect = "transfersuccess";
 			map.addAttribute("message", msg);
