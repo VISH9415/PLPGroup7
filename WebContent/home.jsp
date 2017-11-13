@@ -14,7 +14,7 @@
         <div id="container">
             <div id="header">
                 <ul>
-                    <li id="logoContainer"><a href="home.html"><span id="headerLogo"></span></a></li>
+                    <li id="logoContainer"><a href="home.jsp"><span id="headerLogo"></span></a></li>
                     <li><span>Welcome to Vivahaka Bank Online Portal</span></li>
                     <li class="headerRight"><span><a href="">Logout</a></span></li>
                      <li class="headerRight"><span>Welcome ${userName}</span></li>
