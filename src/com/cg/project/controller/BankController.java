@@ -2,19 +2,20 @@ package com.cg.project.controller;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cg.project.bean.AccountBean;
 import com.cg.project.bean.CustomerBean;
@@ -25,6 +26,7 @@ import com.cg.project.bean.UserBean;
 import com.cg.project.exception.BankingException;
 import com.cg.project.service.IBankingService;
 import com.cg.project.utils.Constants;
+import com.cg.project.utils.RequestPage;
 
 @Controller
 public class BankController {
@@ -73,29 +75,25 @@ public class BankController {
 				System.out.println("userBean: " + user);
 
 				service.registerUser(user);
-				// fetch user to validate if inserted on not..
 				UserBean userCheck = service.fetchUserById(username);
-				System.out.println("userCheck " + userCheck);
 				if (userCheck != null) {
-					String msg = "signup done!";
-					System.out.println(msg);
-					model.addAttribute("message", msg); // return "index";
-					return "Temp";
+					model.addAttribute(Constants.message, Constants.SignUpDone); // return "index";
+					model.addAttribute(Constants.page, Constants.returnToHome);
+					return RequestPage.redirectToPage;
 				} else {
-					String msg = "Signup failed!!";
-					System.out.println(msg);
-					model.addAttribute("message", msg);
-					return "Error";
+					model.addAttribute(Constants.message, Constants.SignupFailed);
+					model.addAttribute(Constants.page, Constants.returnToHome);
+					return RequestPage.redirectToErrorPage;
 				}
 			} else {
-				String msg = "User already registered";
-				System.out.println(msg);
-				model.addAttribute("message", msg);
-				return "Error";
+				model.addAttribute(Constants.message, Constants.alreadySignedUp);
+				model.addAttribute(Constants.page, Constants.returnToHome);
+				return RequestPage.redirectToErrorPage;
 			}
 		} catch (BankingException be) {
-			model.addAttribute("message", be.getMessage());
-			return "Error";
+			model.addAttribute(Constants.message, be.getMessage());
+			model.addAttribute(Constants.page, Constants.returnToHome);
+			return RequestPage.redirectToErrorPage;
 		}
 	}
 
@@ -113,34 +111,29 @@ public class BankController {
 		try {
 			UserBean user = service.fetchUserById(username);
 			System.out.println("for login user fetched: " + user);
-
 			if (user != null) {
-				System.out.println("exists");
 				if (password.equals(user.getLoginPassword())) {
-					
-					long tempAccountId = user.getAccountId();
-					model.addAttribute("check", tempAccountId);
-					System.out.println("tempAccountId "+tempAccountId);
+					long accountId = user.getAccountId();
+					model.addAttribute(	Constants.checkOpenAccount, accountId);
 					HttpSession session = request.getSession();
-					session.setAttribute("userName" , username);
-					session.setAttribute("date", Date.valueOf(LocalDate.now()));
-					return "home";
-					
+					session.setAttribute(Constants.userName,username);
+					return RequestPage.redirectToLoginPage;
 				} else { 
-					String msg = "Password incorrect, try again !!";
-					System.out.println(msg);
-					model.addAttribute("message", msg);
-					return "Error";
+					System.out.println("in else");
+					model.addAttribute(Constants.message, Constants.incorrectPassword);
+					model.addAttribute(Constants.page, Constants.returnToHome);
+					return RequestPage.redirectToErrorPage;
 				}
 			} else {
-				String msg = "user isn't registered,please signup!!";
-				System.out.println(msg);
-				model.addAttribute("message", msg);
-				return "Error";
+				model.addAttribute(Constants.message,Constants.notSignedUp);
+				model.addAttribute(Constants.page, Constants.returnToHome);
+				return RequestPage.redirectToErrorPage;
 			}
 		} catch (BankingException be) {
-			model.addAttribute("message", be.getMessage());
-			return "Error";
+			System.out.println("hiexcept");
+			model.addAttribute(Constants.message,be.getMessage());
+			model.addAttribute(Constants.page, Constants.returnToHome);
+			return RequestPage.redirectToErrorPage;
 		}
 	}
 
@@ -170,34 +163,34 @@ public class BankController {
 						service.updateloginpassword(user);
 						UserBean userUpdated = service.fetchUserById(userName);
 						if (userUpdated.getLoginPassword().equals(newPassword)) {
-							String msg = "Your new login password is: "
-									+ newPassword + "";
-							model.addAttribute("message", msg);
-							return "Temp";
+							model.addAttribute(Constants.message, Constants.newLoginPassword+newPassword+Constants.passwordForFutureLogin);
+							model.addAttribute(Constants.page, Constants.returnToHome);
+							return RequestPage.redirectToPage;
 						} else {
-							String msg = "password isn't updated ";
-							model.addAttribute("message", msg);
-							return "Error";
+							model.addAttribute("message", Constants.passwordUpdateFailure);
+							model.addAttribute(Constants.page, Constants.returnToHome);
+							return RequestPage.redirectToErrorPage;
 						}
 					} else {
-						String msg = "incorrect secret answer ";
-						model.addAttribute("message", msg);
-						return "Error";
+						model.addAttribute(Constants.message, Constants.incorrectAnswer);
+						model.addAttribute(Constants.page, Constants.returnToHome);
+						return RequestPage.redirectToErrorPage;
 					}
 				} else {
-					String msg = "incorrect secret question chosen ";
-					model.addAttribute("message", msg);
-					return "Error";
+					model.addAttribute(Constants.message,  Constants.incorrectQuestion);
+					model.addAttribute(Constants.page, Constants.returnToHome);
+					return RequestPage.redirectToErrorPage;
 				}
 
 			} else {
-				String msg = "user not registered... ";
-				model.addAttribute("message", msg);
-				return "Error";
+				model.addAttribute(Constants.message, Constants.notSignedUp);
+				model.addAttribute(Constants.page, Constants.returnToHome);
+				return RequestPage.redirectToErrorPage;
 			}
 		} catch (BankingException be) {
-			model.addAttribute("message", be.getMessage());
-			return "Error";
+			model.addAttribute(Constants.message, be.getMessage());
+			model.addAttribute(Constants.page, Constants.returnToHome);
+			return RequestPage.redirectToErrorPage;
 		}
 	}
 
@@ -213,24 +206,20 @@ public class BankController {
 	@RequestMapping(value = "/adminlogin", method = RequestMethod.POST)
 	public String validateAdmin(@RequestParam("admin-username") String adminId,
 			@RequestParam("admin-password") String adminPass, Model model) {
-		System.out.println("in admin login method");
-		// String redirect = "";
 		try {
 			int count = service.validateAdmin(adminId, adminPass);
 			if (count != 0) {
-				String msg = "Admin Login Successful";
-				model.addAttribute("message", msg);
-				// redirect ="Temp";
-				return "Temp";
-			} else {
-				// redirect = "Error";
-				String msg = "Entered Invalid login credentials!";
-				model.addAttribute("message", msg);
-				return "Error";
-			}
+				model.addAttribute(Constants.message, Constants.adminLogin);
+				model.addAttribute(Constants.page, Constants.returnToHome);
+				return RequestPage.redirectToPage;
+			   } 
+				model.addAttribute(Constants.message,Constants.adminInvalidCredentials);
+				model.addAttribute(Constants.page, Constants.returnToHome);
+				return RequestPage.redirectToErrorPage;
 		} catch (BankingException be) {
-			model.addAttribute("message", be.getMessage());
-			return "Error";
+			model.addAttribute(Constants.message, be.getMessage());
+			model.addAttribute(Constants.page, Constants.returnToHome);
+			return RequestPage.redirectToErrorPage;
 		}
 	}
 
@@ -273,12 +262,9 @@ public class BankController {
 
 			System.out.println("user fetched: " + userFetched);
 			long accountId = service.fetchAccountIdFromCustomer(userName);
-			System.out.println("hi");
 			userFetched.setAccountId(accountId);
 
-			UserBean user = service.updateAccountIdinUser(userFetched);
-
-			System.out.println("updated actid: " + user.getAccountId());
+			service.updateAccountIdinUser(userFetched);
 
 			AccountBean account = new AccountBean();
 
@@ -291,29 +277,25 @@ public class BankController {
 
 			service.insertIntoAccountMaster(account);
 			// fetch from account master..
-			AccountBean accountFetched = service
-					.fetchAccountByAccountId(accountId);
-			System.out.println("act fetched: " + accountFetched);
+			AccountBean accountFetched = service.fetchAccountByAccountId(accountId);
 
 			if (accountFetched != null) {
-				String msg = "Account is opened with balance Rs.10K only !!";
-				model.addAttribute("message", msg);
-				model.addAttribute("userName", userName);
-				return "TempHome";
+				
+				model.addAttribute(Constants.message,Constants.accountOpen);
+				model.addAttribute(Constants.userName,userName);
+				model.addAttribute(Constants.page, Constants.returnToLogin);
+				return RequestPage.redirectToPage;
 			} else {
-				String msg = "Account isn't inserted !!";
-				model.addAttribute("message", msg);
-				return "ErrorHome";
+				
+				model.addAttribute(Constants.message, Constants.accountOpenFailed);
+				model.addAttribute(Constants.page, Constants.returnToLogin);
+				return RequestPage.redirectToErrorPage;
 			}
 		} catch (BankingException be) {
-			model.addAttribute("message", be.getMessage());
-			return "ErrorHome";
+			model.addAttribute(Constants.message,be.getMessage());
+			model.addAttribute(Constants.page, Constants.returnToLogin);
+			return RequestPage.redirectToErrorPage;
 		}
-	}
-
-	@RequestMapping("/Viewbalance")
-	public String viewStatement() {
-		return null;
 	}
  
 	/**
@@ -332,17 +314,66 @@ public class BankController {
 			long accountId = service.fetchAccountIdFromCustomer(userName);
 			CustomerBean customer = service.fetchCustomerByAccountId(accountId);
 			customer.setAddress(newAddress);
-
 			service.updateCustomerAddress(customer);
-			String message = "Addresss successfully changed";
-			model.addAttribute("message", message);
-			return "TempHome";
+			model.addAttribute(Constants.message,Constants.addressChanged);
+			model.addAttribute(Constants.page,Constants.returnToLogin);
+			return RequestPage.redirectToPage;
 		} catch (BankingException be) {
-			model.addAttribute("message", be.getMessage());
-			return "ErrorHome";
+			model.addAttribute(Constants.message, be.getMessage());
+			model.addAttribute(Constants.page,Constants.returnToLogin);
+			return RequestPage.redirectToErrorPage;
 		}
 	}
 
+	private TransactionsBean getTransactionRecordForPayer(long accountId,double amount,String transactionDescription)
+	{
+			TransactionsBean transactionByActId = new TransactionsBean();
+			transactionByActId.setAccountNumber(accountId);
+			LocalDate dt = LocalDate.now();
+			Date dateOfTransactionForPayer = Date.valueOf(dt);
+			transactionByActId.setDateOfTransaction(dateOfTransactionForPayer);
+			transactionByActId.setTransactionAmount(amount);
+			transactionByActId.setTransactionType(Constants.transactionTypeForPayer);
+			transactionByActId.setTransDescription(transactionDescription);
+			return transactionByActId;
+	}
+	
+	private TransactionsBean getTransactionsRecordForPayee(long payeId,double amount,String transactionDescription)
+	{
+		TransactionsBean transactionByPayeeId = new TransactionsBean();
+		transactionByPayeeId.setAccountNumber(payeId);
+
+		LocalDate dt1 = LocalDate.now();
+		Date dateOfTransactionForPayee = Date.valueOf(dt1);
+
+		transactionByPayeeId.setDateOfTransaction(dateOfTransactionForPayee);
+		transactionByPayeeId.setTransactionAmount(amount);
+		transactionByPayeeId.setTransactionType(Constants.transactionTypeForPayee); 
+		transactionByPayeeId.setTransDescription(transactionDescription);
+		return transactionByPayeeId; 
+	}
+	
+	private PayeeBean getPayeeRecord(long accountId,long payeeId,String nickName)
+	{
+		PayeeBean payee = new PayeeBean();
+		payee.setAccountId(accountId);
+		payee.setPayeeAccountId(payeeId);
+		payee.setNickName(nickName);
+        return payee;
+	}
+	
+	private FundTransferBean getFundTransferRecord(long accountId,long payeeId,double amount)
+	{
+		FundTransferBean fundTransfer = new FundTransferBean();
+		fundTransfer.setAccountId(accountId);
+		LocalDate dt1 = LocalDate.now();
+		Date dateOfTransactionForPayee = Date.valueOf(dt1);
+		fundTransfer.setDateOfTransfer(dateOfTransactionForPayee);
+		fundTransfer.setPayeeAccountId(payeeId);
+		fundTransfer.setTransferAmount(amount);
+		return fundTransfer;
+	}
+	
 	/**
 	 * Method Name: fundTransfer
 	 * Description: This method will navigate user to funds transfer page.
@@ -360,129 +391,62 @@ public class BankController {
 			@RequestParam("ft-describe") String transactionDescription,
 			@RequestParam("ft-nickname") String nickName, Model map) {
 		try {
-			double balance = 0;
 
 			UserBean userByName = new UserBean();
 			userByName = service.fetchUserById(userName);
-
-			System.out.println("pay to " + payeeId);
-			System.out.println("user is " + userByName);
-
 			long payerId = userByName.getAccountId();
-
-			System.out.println("pay by " + payerId);
-
 			if (payerId == accId) {
-
 				CustomerBean customerByActId = new CustomerBean();
 				customerByActId = service.fetchCustomerByAccountId(payeeId);
 				long payeId = customerByActId.getAccountId();
-
-				System.out.println("payeId :" + payeId);
-
 				if (payeId == payeeId) {
-
-					System.out.println("in if payid is actid");
-
 					AccountBean accountByActId = new AccountBean();
 					accountByActId = service.fetchAccountByAccountId(accId);
-
-					System.out.println("accountByActId" + accountByActId);
-
-					balance = accountByActId.getAccountBalance();
-
-					System.out.println("balance: " + balance);
-
+			        double balance = accountByActId.getAccountBalance();
 					if (balance >= amount) {
-						System.out.println("in validaton of balance");
-
-						TransactionsBean transactionByActId = new TransactionsBean();
-						transactionByActId.setAccountNumber(accId);
-
-						LocalDate dt = LocalDate.now();
-						Date dateOfTransactionForPayer = Date.valueOf(dt);
-
-						transactionByActId.setDateOfTransaction(dateOfTransactionForPayer);
-						transactionByActId.setTransactionAmount(amount);
-						transactionByActId.setTransactionType(service.fetchCustomerByAccountId(accId).getAccountType()); 
-						transactionByActId.setTransDescription(transactionDescription);
-
-						service.insertTransactionDetails(transactionByActId);
-
-						System.out.println("Inserting data into transactions of payer");
-
-						// insert transactions for payee...
-						TransactionsBean transactionByPayeeId = new TransactionsBean();
-						transactionByPayeeId.setAccountNumber(payeId);
-
-						LocalDate dt1 = LocalDate.now();
-						Date dateOfTransactionForPayee = Date.valueOf(dt1);
-
-						transactionByPayeeId.setDateOfTransaction(dateOfTransactionForPayee);
-						transactionByPayeeId.setTransactionAmount(amount);
-						transactionByPayeeId.setTransactionType("savings"); 
-						transactionByPayeeId.setTransDescription(transactionDescription);
-
-						service.insertTransactionDetails(transactionByPayeeId);
-						System.out.println("isnerting data into transaction of payee");
-
+                       TransactionsBean transactionByActId = new TransactionsBean();
+                       transactionByActId = getTransactionRecordForPayer(accId,amount,transactionDescription);
+                       service.insertTransactionDetails(transactionByActId);
+                       TransactionsBean transactionByPayeeId = new TransactionsBean();
+                       transactionByPayeeId = getTransactionsRecordForPayee(payeId,amount,transactionDescription);
+                       service.insertTransactionDetails(transactionByPayeeId);
 						PayeeBean payee = new PayeeBean();
-						payee.setAccountId(accId);
-						payee.setPayeeAccountId(payeeId);
-						payee.setNickName(nickName);
-
-						System.out.println("before inserting into payee");
+						payee = getPayeeRecord(accId,payeeId,nickName);
 						service.insertPayeeDetails(payee);
-						System.out.println("inserting into payee");
-
 						FundTransferBean fundTransfer = new FundTransferBean();
-						fundTransfer.setAccountId(accId);
-						fundTransfer
-								.setDateOfTransfer(dateOfTransactionForPayee);
-						fundTransfer.setPayeeAccountId(payeeId);
-						fundTransfer.setTransferAmount(amount);
-
-						System.out.println("before fund insertion");
+						fundTransfer = getFundTransferRecord(accId,payeeId,amount);
 						service.insertFundTransferDetails(fundTransfer);
-						System.out.println("after fund insertion");
-
 						double updatedBalanceForPayer = balance - amount;
 						accountByActId.setAccountBalance(updatedBalanceForPayer);
-						System.out.println("before updation of balance of payer");
 						service.updateBalance(accountByActId);
-						System.out.println("after updation of balance of payer");
-
 						AccountBean accountByPayeeId = new AccountBean();
 						accountByPayeeId = service.fetchAccountByAccountId(payeeId);
 						double updatedBalanceForPayee = accountByPayeeId.getAccountBalance() + amount;
 						accountByPayeeId.setAccountBalance(updatedBalanceForPayee);
-
-						System.out.println("before updation of balance of payee");
 						service.updateBalanceForPayee(accountByPayeeId);
-						System.out.println("after updation of balance of payee");
-
-						String msg = "Transaction Successful";
-						map.addAttribute("message", msg);
-						return "Temp";
+						map.addAttribute(Constants.message, Constants.transactionSuccessful);
+						map.addAttribute(Constants.page,Constants.returnToLogin);
+						return RequestPage.redirectToPage;
 					} else {
-						String msg = "Insufficient Balance";
-						map.addAttribute("message", msg);
-						return "Error";
+						map.addAttribute(Constants.message,Constants.insufficientBalance);
+						map.addAttribute(Constants.page,Constants.returnToLogin);
+						return RequestPage.redirectToErrorPage;
 					}
 				} else {
-					String msg = "Invalid payee Id";
-					map.addAttribute("message", msg);
-					return "Error";
+					map.addAttribute(Constants.message,Constants.invalidPayeeId);
+					map.addAttribute(Constants.page,Constants.returnToLogin);
+					return RequestPage.redirectToErrorPage;
 				}
 			} else {
-				String msg = "Invalid payer Id";
-				map.addAttribute("message", msg);
-				return "Error";
+				map.addAttribute(Constants.message,Constants.invalidPayerId);
+				map.addAttribute(Constants.page,Constants.returnToLogin);
+				return RequestPage.redirectToErrorPage;
 
 			}
-		} catch (BankingException be) {
-			map.addAttribute("message", be.getMessage());
-			return "ErrorHome";
+		} catch (Exception be) {
+			map.addAttribute(Constants.message, be.getMessage());
+			map.addAttribute(Constants.page,Constants.returnToLogin);
+			return RequestPage.redirectToErrorPage;
 		}
 	}
 
@@ -500,29 +464,32 @@ public class BankController {
 	public String viewMiniStatement(@RequestParam("miniAccountNumber") long accountId,
 			@RequestParam("userName") String userName, Model map) {
 		try {
-			System.out.println("in mini...");
-			System.out.println("username "+userName);
 			long actIdForUser = service.fetchUserById(userName).getAccountId();
 			if (actIdForUser == accountId) {
+				System.out.println("in mini");
 				List<TransactionsBean> miniStatement = service.viewMiniStatement(accountId);
-				//System.out.println("before list");
-				//System.out.println(miniStatement);
-				map.addAttribute("miniList", miniStatement);
-				boolean check = true;
-				map.addAttribute("var",check);
-				return "ViewList";
+				List<TransactionsBean> transactionsList =service.fetchTransactionsByAccountId(accountId);
+				System.out.println(Constants.selectTypeOfStatement);
+				System.out.println(Constants.checkforMiniStatement);
+				System.out.println(transactionsList.size());
+				map.addAttribute(Constants.miniStatement, miniStatement);
+				map.addAttribute(Constants.selectTypeOfStatement,Constants.checkforMiniStatement);
+				map.addAttribute(Constants.noOfTransactions, transactionsList.size());
+				return RequestPage.redirectToListPage;
 			} else {
-				String msg = "wrong account Id..";
-				map.addAttribute("message", msg);
-				return "Error";
+				
+				map.addAttribute(Constants.message,Constants.invalidAccountId);
+				map.addAttribute(Constants.page, Constants.returnToLogin);
+				return RequestPage.redirectToErrorPage;
 			}
 		} catch (BankingException be) {
-			map.addAttribute("message", be.getMessage());
-			return "Error";
+			map.addAttribute(Constants.message, be.getMessage());
+			map.addAttribute(Constants.page, Constants.returnToLogin);
+			return RequestPage.redirectToErrorPage;
 		}
 	}
 
-	/**
+/*	/**
 	 * Method Name: viewDetailedStatement
 	 * Description: This method will navigate user to detailed Statement section of view balance page.
 	 * Return Type: String
@@ -532,8 +499,8 @@ public class BankController {
 	 * @param finDate
 	 * @param map
 	 */
-	@RequestMapping(value = "/detailedStatement.htm", method = RequestMethod.POST)
-	public String viewDetailedStatement(@RequestParam("miniAccountNumber") long accountId,
+	/* @RequestMapping(value = "/detailedStatement.htm", method = RequestMethod.POST)
+	    public String viewDetailedStatement(@RequestParam("miniAccountNumber") long accountId,
 			@RequestParam("userName") String userName,
 			@RequestParam("startDate") Date iniDate,
 			@RequestParam("endDate") Date finDate, Model map) {
@@ -541,13 +508,10 @@ public class BankController {
 			System.out.println("in detailed");
 			long actIdForUser = service.fetchUserById(userName).getAccountId();
 			if (actIdForUser == accountId) {
-				System.out.println(userName);
 				List<TransactionsBean> detailStatement = service.viewDetailStatement(accountId,iniDate,finDate);
-				System.out.println(userName);
-				System.out.println("account id "+accountId);
+				List<TransactionsBean> transactionsList =service.fetchTransactionsByAccountId(accountId);
+				map.addAttribute("numberOfTransactions", transactionsList.size());
 				map.addAttribute("detailList", detailStatement);
-				System.out.println(detailStatement);
-				System.out.println();
 				boolean check = false;
 				map.addAttribute("var",check);
 				return "ViewList";
@@ -560,7 +524,37 @@ public class BankController {
 			map.addAttribute("message", be.getMessage());
 			return "Error";
 		}
+	}*/
+	
+	@RequestMapping(value = "/detailedStatement.htm", method = RequestMethod.POST)
+	public String viewDetailedStatement(@RequestParam("miniAccountNumber") long accountId,
+			@RequestParam("userName") String userName,
+			@RequestParam("startDate") Date startDate,
+			@RequestParam("endDate") Date endDate, Model map) {
+		try {
+			System.out.println("in detailed");
+			long actIdForUser = service.fetchUserById(userName).getAccountId();
+			if (actIdForUser == accountId) {
+				List<TransactionsBean> detailStatement = service.viewDetailStatement(accountId,startDate,endDate);
+				List<TransactionsBean> transactionsList =service.fetchTransactionsByAccountId(accountId);
+				map.addAttribute("numberOfTransactions", transactionsList.size());
+				map.addAttribute("detailList", detailStatement);
+				boolean check = false;
+				map.addAttribute("var",check);
+				return "ViewList";
+			} else {
+				String msg = "Incorrect account Id";
+				map.addAttribute("message", msg);
+				return "Error";
+			}
+		} catch (BankingException be) {
+			map.addAttribute("message", be.getMessage());
+			map.addAttribute(Constants.page, Constants.returnToHome);
+			return "Error";
+		}
 	}
+	
+	
 
 	/**
 	 * Method Name: adminViewTransactions
@@ -573,8 +567,7 @@ public class BankController {
 	public String adminViewTransactions(@RequestParam("accId") long accId,
 			Model map) {
 		try {
-			List<TransactionsBean> adminStmt = service
-					.adminViewTransactions(accId);
+			List<TransactionsBean> adminStmt = service.adminViewTransactions(accId);
 			map.addAttribute("adminList", adminStmt);
 			return "Temp";
 		} catch (BankingException be) {
@@ -599,24 +592,23 @@ public class BankController {
 		try {
 			UserBean user = new UserBean();
 			user = service.fetchUserById(userName);
-			System.out.println("in change password");
 			String loginPass = user.getLoginPassword();
 
 				if (loginPass.equals(oldpassword)) {
 					user.setLoginPassword(newpassword);
 					service.updateloginpassword(user);
-
-					String msg = "Login Password is changed !!";
-					model.addAttribute("message", msg);
-					return "Temp";
+					model.addAttribute(Constants.message,Constants.LoginPasswordChanged);
+					model.addAttribute(Constants.page, Constants.returnToHome);
+					return RequestPage.redirectToPage;
 				} else {
-					String msg = "incorrect oldpassword !!";
-					model.addAttribute("message", msg);
-					return "Error";
+					model.addAttribute(Constants.message,Constants.incorrectOldPassword);
+					model.addAttribute(Constants.page, Constants.returnToHome);
+					return RequestPage.redirectToErrorPage;
 				}
 		} catch (BankingException be) {
-			model.addAttribute("message", be.getMessage());
-			return "Error";
+			model.addAttribute(Constants.message, be.getMessage());
+			model.addAttribute(Constants.page, Constants.returnToHome);
+			return RequestPage.redirectToErrorPage;
 		}
 	}
 

@@ -58,5 +58,7 @@ public interface IBankingService
 
 	public CustomerBean fetchCustomerByUserId(String username) throws BankingException;
 
+	public List<TransactionsBean> fetchTransactionsByAccountId(long accountId) throws BankingException;
+
 
 }

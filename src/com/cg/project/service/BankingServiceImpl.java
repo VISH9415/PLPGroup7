@@ -192,4 +192,10 @@ public class BankingServiceImpl implements IBankingService {
 		return dao.fetchCustomerByUserId(username);
 	}
 
+	@Override
+	public List<TransactionsBean> fetchTransactionsByAccountId(long accountId) throws BankingException {
+		// TODO Auto-generated method stub
+		return dao.fetchTransactionsByAccountId(accountId);
+	}
+
 }

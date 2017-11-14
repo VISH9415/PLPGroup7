@@ -66,4 +66,6 @@ public interface IBankingDAO
 
 	public CustomerBean fetchCustomerByUserId(String username);
 
+	public List<TransactionsBean> fetchTransactionsByAccountId(long accountId) throws BankingException;
+
 }

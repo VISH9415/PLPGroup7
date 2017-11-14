@@ -5,8 +5,8 @@
 <html>
     <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<link rel="stylesheet" type="text/css" href="styles/forms.css">
-    	<link rel="stylesheet" type="text/css" href="styles/homeScreen.css">
+<link rel="stylesheet" type="text/css" href="styles/home.css">
+<link rel="stylesheet" type="text/css" href="styles/newWindow.css">
         <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Nunito|Spectral+SC|Ubuntu" rel="stylesheet">
         <script src="scripts/index.js"></script>
     </head>
@@ -223,7 +223,7 @@
                         <div id="hr-detailedStatementForm">
                             <div id="hr-detailedDetailAsk">
                                 <h1>View Detailed Statement</h1>
-                                <form action="detailedStatement.htm" method="post" onsubmit="return validateDetailSummaryForm;">
+                                <form action="detailedStatement.htm" method="post" onsubmit="return validateDetailsForm();">
                             <p>
                             <input type="hidden" name="userName" value="${userName}"/>
                             </p>    
@@ -233,11 +233,11 @@
                                     </p>
                                     <p>
                                         <label for="startDate">Enter Starting Date</label>
-                                        <input type="date" id="startDate" required>
+                                        <input type="date" id="startDate" name="startDate" required>
                                     </p>
                                     <p>
                                         <label for="endDate">Enter Ending Date</label>
-                                        <input type="date" id="endDate" required>
+                                        <input type="date" id="endDate" name="startDate" required>
                                     </p>
                                     <p>
                                         <input type="submit" value="View Detailed Statement">
@@ -328,4 +328,3 @@
         </div>
     </body>
 </html>
-

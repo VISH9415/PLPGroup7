@@ -436,4 +436,17 @@ public class BankingDAOImpl implements IBankingDAO{
         return customer;
 	}
 
+@Override
+public List<TransactionsBean> fetchTransactionsByAccountId(long accountId) throws BankingException{
+	try {
+		TypedQuery<TransactionsBean> query = entityManager.createQuery(QueryMapper.TransactionDetailsQuery, TransactionsBean.class);
+		query.setParameter("paccNo", accountId);
+		List<TransactionsBean> transactionsList = query.getResultList();
+		return transactionsList;
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		throw new BankingException("Exception occured in fetching transactions");
+	}
+}
+
 }
