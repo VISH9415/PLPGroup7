@@ -123,6 +123,7 @@ public class BankController {
 					System.out.println("tempAccountId "+tempAccountId);
 					HttpSession session = request.getSession();
 					session.setAttribute("userName" , username);
+					session.setAttribute("date", Date.valueOf(LocalDate.now()));
 					return "home";
 					
 				} else { 

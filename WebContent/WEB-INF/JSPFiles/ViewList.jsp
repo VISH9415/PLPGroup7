@@ -11,7 +11,7 @@
 
 <c:if test="${var eq true}">
 <table border="1">
-<tr>Mini Statement for ${userName}</tr>
+<tr><td colspan="6" align="center">Mini Statement for ${userName}</td></tr>
 <tr>
 <th>Transaction Id</th>
 <th>Transaction Description</th>
@@ -34,7 +34,7 @@
 
 <c:if test="${var eq false}">
 <table border="1">
-<tr>Detailed Statement for ${userName}</tr>
+<tr><td colspan="6" align="center">Detailed Statement for ${userName}</td></tr>
 <tr>
 <th>Transaction Id</th>
 <th>Transaction Description</th>

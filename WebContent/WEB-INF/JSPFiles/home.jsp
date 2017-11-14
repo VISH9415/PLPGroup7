@@ -11,7 +11,7 @@
         <script type="text/javascript" src="scripts/index.js"></script>
         <script type="text/javascript" src="scripts/test.js"></script>
     </head>
-    <body onload="return alertLogin();">
+    <body onload="return validateDates();">
         <div id="container">
             <div id="header">
                 <ul>
@@ -225,7 +225,7 @@
                         <div id="hr-detailedStatementForm">
                             <div id="hr-detailedDetailAsk">
                                 <h1>View Detailed Statement</h1>
-                                <form action="detailedStatement.htm" method="post">
+                                <form action="detailedStatement.htm" method="post" onSubmit="return validateDateForm();">
                             <p>
                             <input type="hidden" name="userName" value="${userName}"/>
                             </p>    
