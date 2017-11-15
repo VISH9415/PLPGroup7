@@ -1,16 +1,16 @@
 package com.cg.project.controller;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -260,7 +260,7 @@ public class BankController {
 	}
 
 	/**
-	 * 
+	 * This method fetches transaction record for the payer and is called in fundtransfer method
 	 * @param accountId
 	 * @param amount
 	 * @param transactionDescription
@@ -275,7 +275,7 @@ public class BankController {
 	}
 
 	/**
-	 * 
+	 * This method fetches transaction record for the payee and is called in fundtransfer method
 	 * @param payeId
 	 * @param amount
 	 * @param transactionDescription
@@ -290,7 +290,7 @@ public class BankController {
 	}
 
 	/**
-	 * 
+	 * This method fetches paytee table record for the payee and is called in fundtransfer method
 	 * @param accountId
 	 * @param payeeId
 	 * @param nickName
@@ -303,6 +303,7 @@ public class BankController {
 	}
 
 	/**
+	 * This method fetches fund transfer record for the payee and is called in fundtransfer method 
 	 * 
 	 * @param accountId
 	 * @param payeeId
@@ -435,19 +436,19 @@ public class BankController {
 	 * @param endDate
 	 * @param map
 	 * @return
+	 * @throws ParseException 
 	 */
 	@RequestMapping(value = "/detailedStatement.htm", method = RequestMethod.POST)
 	public String viewDetailedStatement(
 			@RequestParam("miniAccountNumber") long accountId,
 			@RequestParam("userName") String userName,
 			@RequestParam("startDate") Date startDate,
-			@RequestParam("endDate") Date endDate, Model map) {
+			@RequestParam("endDate") Date endDate, Model map) throws ParseException {
 		try {
 			long accountIdForUser = service.fetchUserById(userName)
 					.getAccountId();
 			if (accountIdForUser == accountId) {
-				List<TransactionsBean> detailStatement = service
-						.viewDetailStatement(accountId, startDate, endDate);
+				List<TransactionsBean> detailStatement = service.viewDetailStatement(accountId, startDate, endDate);
 				map.addAttribute(Constants.noOfTransactions,
 						detailStatement.size());
 				map.addAttribute(Constants.detailedStatement, detailStatement);

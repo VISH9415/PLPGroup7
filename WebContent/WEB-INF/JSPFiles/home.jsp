@@ -233,8 +233,6 @@
 							</div>
 						</div>
 						
-						                     <!-- detailed statement form -->
-                        <!-- detailed statement form -->
                         <div id="hr-detailedStatementForm">
                             <div id="hr-detailedDetailAsk">
                                 <h1>View Detailed Statement</h1>
@@ -260,78 +258,6 @@
                                 </form>
                             </div>
                         </div>
-
-						<%--                         <div id="hr-vb-ministatement">
-                            <div id="miniStatementViewer">
-                                <div id="miniStatementTable">
-                                <form>
-                                    <table>
-                                        <caption>Some of your latest transactions are as:</caption>
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Transaction id</th>
-                                                <th scope="col">Transaction Description</th>
-                                                <th scope="col">Date of Transaction</th>
-                                                <th scope="col">Transaction Type</th>
-                                                <th scope="col">Transaction Amount</th>
-                                                <th scope="col">Account Number</th>
-                                            </tr>
-                                        </thead>
-                                        
-                                        <tbody>
-                                        <c:forEach items="${miniList}" var="trans">
-                                            <tr>
-                                                <!-- <td scope="row">Dummy data</td> -->
-                                              <td>${trans.transactionId}</td>
-                                              <td>${trans.transDescription}</td>
-                                              <td>${trans.dateOfTransaction}</td>
-                                              <td>${trans.transactionType}</td>
-                                              <td>${trans.transactionAmount}</td>
-                                              <td>${trans.accountNumber}</td>
-                                            </tr>
-                                            </c:forEach>                                            
-                                            </tbody>
-                                        </table>
-                                        </form>
-                                </div>
-                            </div>
-                        </div> --%>
-
-						<%--                         <div id="hr-vb-detailedstatement">
-                            <div id="detailedStatementViewer">
-                               <div id="detailedStatementTable">
-                                   <table>
-                                   
-                                        <caption>Detailed Statement as:</caption>
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Transaction id</th>
-                                                <th scope="col">Transaction Description</th>
-                                                <th scope="col">Date of Transaction</th>
-                                                <th scope="col">Transaction Type</th>
-                                                <th scope="col">Transaction Amount</th>
-                                                <th scope="col">Account Number</th>
-                                            </tr>
-                                        </thead>
-                                        
-                                        <tbody>
-                                        <c:forEach items="${detailedList}" var="trans">
-                                            <tr>
-                                              <!--   <td scope="row">Dummy data</td> -->
-                                              <td>${trans.transactionId}</td>
-                                              <td>${trans.transDescription}</td>
-                                              <td>${trans.dateOfTransaction}</td>
-                                              <td>${trans.transactionType}</td>
-                                              <td>${trans.transactionAmount}</td>
-                                              <td>${trans.accountNumber}</td>
-                                            </tr>
-                                            </c:forEach>                                            
-                                       </tbody>  
-                                             
-                                    </table>
-                               </div>
-                            </div>
-                        </div> --%>
 
 					</div>
 				</div>

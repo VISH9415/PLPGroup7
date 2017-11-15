@@ -26,7 +26,7 @@
 				<c:if test="${var eq true && numberOfTransactions!=0}">
 					<table style="display: block;" border="1">
 						<tr>
-							<td colspan="6">Mini Statement for ${userName}</td>
+							<td colspan="6" align="center">Mini Statement for ${userName}</td>
 						</tr>
 						<tr>
 							<th>Transaction Id</th>
