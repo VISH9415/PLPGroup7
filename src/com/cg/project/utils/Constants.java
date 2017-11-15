@@ -50,5 +50,6 @@ public interface Constants {
 	long initFundId = 0L;
 	long initTransactionId = 0L;
 	String transactionsForAdmin ="adminList";
+	Object loginDone = "You're successfully logged in";
 
 	}

@@ -83,7 +83,7 @@
 				</c:if>
 
 				<c:if test="${var eq false && numberOfTransactions==0}">
-					<h2>You haven't performed any transactions before</h2>
+					<h2>You haven't performed any transactions in this period</h2>
 				</c:if>
 
 				<c:if test="${admin eq true && numberOfTransactions!=0}">
