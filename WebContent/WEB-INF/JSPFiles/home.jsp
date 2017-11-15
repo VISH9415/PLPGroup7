@@ -8,9 +8,7 @@
 <link rel="stylesheet" type="text/css" href="styles/forms.css">
 <link rel="stylesheet" type="text/css" href="styles/home.css">
 <link rel="stylesheet" type="text/css" href="styles/newWindow.css">
-<link
-	href="https://fonts.googleapis.com/css?family=Josefin+Sans|Nunito|Spectral+SC|Ubuntu"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Nunito|Spectral+SC|Ubuntu" rel="stylesheet">
 <script type="text/javascript" src="scripts/index.js"></script>
 <script type="text/javascript" src="scripts/test.js"></script>
 </head>
@@ -129,17 +127,17 @@
 
 									<p>
 										<label for="ft-userid">Enter your account id:</label> <input
-											type="text" id="ft-userid" name="ft-userid"
+											type="number" id="ft-userid" name="ft-userid"
 											placeholder="Enter your account id" required />
 									</p>
 									<p>
 										<label for="ft-payeeid">Enter payee account id:</label> <input
-											type="text" id="ft-payeeid" name="ft-payeeid"
+											type="number" id="ft-payeeid" name="ft-payeeid"
 											placeholder="Enter payee account id" required />
 									</p>
 									<p>
 										<label for="ft-amount">Enter amount to transfer:</label> <input
-											type="text" id="ft-amount" name="ft-amount"
+											type="number" id="ft-amount" name="ft-amount"
 											placeholder="Enter amount to transfer" pattern="[0-9]{1,}"
 											required />
 									</p>
@@ -240,13 +238,13 @@
                         <div id="hr-detailedStatementForm">
                             <div id="hr-detailedDetailAsk">
                                 <h1>View Detailed Statement</h1>
-                                <form action="detailedStatement.htm" method="post" onsubmit="return validateDetailSummaryForm;">
+                                <form action="detailedStatement.htm" method="post">
                             <p>
                             <input type="hidden" name="userName" value="${userName}"/>
                             </p>    
 									<p>
                                         <label for="detailedAccountNumber">Account Number</label>
-                                        <input type="text" id="miniAccountNumber" name="miniAccountNumber" placeholder="Enter your account number" required />
+                                        <input type="number" id="miniAccountNumber" name="miniAccountNumber" placeholder="Enter your account number" required />
                                     </p>
                                     <p>
                                         <label for="startDate">Enter Starting Date</label>

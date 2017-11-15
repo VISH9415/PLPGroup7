@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="styles/newWindow.css">
 <link rel="stylesheet" type="text/css" href="styles/home.css">
+<link rel="stylesheet" type="text/css" href="styles/forms.css">
 </head>
 <body>
 	<div id="container">
@@ -26,7 +27,7 @@
 					<form action="adminViewTransactions.htm" method="post">
 						<table>
 							<tr>
-								<td>Enter Account Id</td>
+								<td>Enter the Account Id for Customer</td>
 								<td><input type="text" name="accountId"></td>
 							</tr>
 							<tr>

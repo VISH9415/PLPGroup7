@@ -138,25 +138,21 @@ public class BankController {
 						model.addAttribute(Constants.page,
 								Constants.returnToHome);
 						return RequestPage.redirectToPage;
-					} else {
-						model.addAttribute(Constants.message,
-								Constants.incorrectAnswer);
-						model.addAttribute(Constants.page,
-								Constants.returnToHome);
-						return RequestPage.redirectToErrorPage;
 					}
-				} else {
 					model.addAttribute(Constants.message,
-							Constants.incorrectQuestion);
+							Constants.incorrectAnswer);
 					model.addAttribute(Constants.page, Constants.returnToHome);
 					return RequestPage.redirectToErrorPage;
 				}
-
-			} else {
-				model.addAttribute(Constants.message, Constants.notSignedUp);
+				model.addAttribute(Constants.message,
+						Constants.incorrectQuestion);
 				model.addAttribute(Constants.page, Constants.returnToHome);
 				return RequestPage.redirectToErrorPage;
+
 			}
+			model.addAttribute(Constants.message, Constants.notSignedUp);
+			model.addAttribute(Constants.page, Constants.returnToHome);
+			return RequestPage.redirectToErrorPage;
 		} catch (BankingException be) {
 			model.addAttribute(Constants.message, be.getMessage());
 			model.addAttribute(Constants.page, Constants.returnToHome);
@@ -168,7 +164,7 @@ public class BankController {
 	 * Method Name: validateAdmin Description: The bank administrator is
 	 * navigated to login page. Return Type: String
 	 * 
-	 * @param adminId 
+	 * @param adminId
 	 * @param adminPass
 	 * @param model
 	 * @return
@@ -221,8 +217,7 @@ public class BankController {
 			service.insertIntoCustomer(initialAccountId, customerName, email,
 					address, panCard, accountType, userName);
 			UserBean userFetched = service.fetchUserById(userName);
-			long updatedAccountId = service
-					.fetchAccountIdFromCustomer(userName);
+			long updatedAccountId = service.fetchAccountIdFromCustomer(userName);
 			userFetched.setAccountId(updatedAccountId);
 			service.updateAccountIdinUser(userFetched);
 			service.insertIntoAccountMaster(updatedAccountId, accountType,
@@ -273,7 +268,9 @@ public class BankController {
 	 */
 	private TransactionsBean getTransactionRecordForPayer(long accountId,
 			double amount, String transactionDescription) {
-		TransactionsBean transactionByActId = new TransactionsBean(transactionDescription,Date.valueOf(LocalDate.now()),Constants.transactionTypeForPayer,amount,accountId);
+		TransactionsBean transactionByActId = new TransactionsBean(
+				transactionDescription, Date.valueOf(LocalDate.now()),
+				Constants.transactionTypeForPayer, amount, accountId);
 		return transactionByActId;
 	}
 
@@ -286,7 +283,9 @@ public class BankController {
 	 */
 	private TransactionsBean getTransactionsRecordForPayee(long payeId,
 			double amount, String transactionDescription) {
-		TransactionsBean transactionByPayeeId = new TransactionsBean(transactionDescription,Date.valueOf(LocalDate.now()),Constants.transactionTypeForPayee,amount,payeId);
+		TransactionsBean transactionByPayeeId = new TransactionsBean(
+				transactionDescription, Date.valueOf(LocalDate.now()),
+				Constants.transactionTypeForPayee, amount, payeId);
 		return transactionByPayeeId;
 	}
 
@@ -297,8 +296,9 @@ public class BankController {
 	 * @param nickName
 	 * @return
 	 */
-	private PayeeBean getPayeeRecord(long accountId, long payeeId,String nickName) {
-		PayeeBean payee = new PayeeBean(accountId,payeeId,nickName);
+	private PayeeBean getPayeeRecord(long accountId, long payeeId,
+			String nickName) {
+		PayeeBean payee = new PayeeBean(accountId, payeeId, nickName);
 		return payee;
 	}
 
@@ -311,7 +311,8 @@ public class BankController {
 	 */
 	private FundTransferBean getFundTransferRecord(long accountId,
 			long payeeId, double amount) {
-		FundTransferBean fundTransfer = new FundTransferBean(accountId,payeeId,Date.valueOf(LocalDate.now()),amount);
+		FundTransferBean fundTransfer = new FundTransferBean(accountId,
+				payeeId, Date.valueOf(LocalDate.now()), amount);
 		return fundTransfer;
 	}
 
@@ -340,41 +341,52 @@ public class BankController {
 				customerByActId = service.fetchCustomerByAccountId(payeeId);
 				if (customerByActId != null) {
 					long payeId = customerByActId.getAccountId();
-						AccountBean accountByActId = new AccountBean();
-						accountByActId = service.fetchAccountByAccountId(accId);
-						double balance = accountByActId.getAccountBalance();
-						if (balance >= amount) {
-							TransactionsBean transactionByActId = getTransactionRecordForPayer(accId, amount, transactionDescription);
-							service.insertTransactionDetails(transactionByActId);
-							TransactionsBean transactionByPayeeId = getTransactionsRecordForPayee(payeId, amount, transactionDescription);
-							service.insertTransactionDetails(transactionByPayeeId);
-							PayeeBean payee = getPayeeRecord(accId, payeeId, nickName);
-							service.insertPayeeDetails(payee);
-							FundTransferBean fundTransfer = getFundTransferRecord(accId,payeeId, amount);
-							service.insertFundTransferDetails(fundTransfer);
-							double updatedBalanceForPayer = balance - amount;
-							accountByActId.setAccountBalance(updatedBalanceForPayer);
-							service.updateBalance(accountByActId);
-							AccountBean accountByPayeeId = service.fetchAccountByAccountId(payeeId);
-							double updatedBalanceForPayee = accountByPayeeId.getAccountBalance() + amount;
-							accountByPayeeId.setAccountBalance(updatedBalanceForPayee);
-							service.updateBalanceForPayee(accountByPayeeId);
-							map.addAttribute(Constants.message,Constants.transactionSuccessful);
-							map.addAttribute(Constants.page,Constants.returnToLogin);
-							return RequestPage.redirectToPage;
-						}
-							map.addAttribute(Constants.message,Constants.insufficientBalance);
-							map.addAttribute(Constants.page,Constants.returnToLogin);
-							return RequestPage.redirectToErrorPage;
-				} 
+					AccountBean accountByActId = new AccountBean();
+					accountByActId = service.fetchAccountByAccountId(accId);
+					double balance = accountByActId.getAccountBalance();
+					if (balance >= amount) {
+						TransactionsBean transactionByActId = getTransactionRecordForPayer(
+								accId, amount, transactionDescription);
+						service.insertTransactionDetails(transactionByActId);
+						TransactionsBean transactionByPayeeId = getTransactionsRecordForPayee(
+								payeId, amount, transactionDescription);
+						service.insertTransactionDetails(transactionByPayeeId);
+						PayeeBean payee = getPayeeRecord(accId, payeeId,
+								nickName);
+						service.insertPayeeDetails(payee);
+						FundTransferBean fundTransfer = getFundTransferRecord(
+								accId, payeeId, amount);
+						service.insertFundTransferDetails(fundTransfer);
+						double updatedBalanceForPayer = balance - amount;
+						accountByActId
+								.setAccountBalance(updatedBalanceForPayer);
+						service.updateBalance(accountByActId);
+						AccountBean accountByPayeeId = service
+								.fetchAccountByAccountId(payeeId);
+						double updatedBalanceForPayee = accountByPayeeId
+								.getAccountBalance() + amount;
+						accountByPayeeId
+								.setAccountBalance(updatedBalanceForPayee);
+						service.updateBalanceForPayee(accountByPayeeId);
+						map.addAttribute(Constants.message,
+								Constants.transactionSuccessful);
+						map.addAttribute(Constants.page,
+								Constants.returnToLogin);
+						return RequestPage.redirectToPage;
+					}
 					map.addAttribute(Constants.message,
-							Constants.PayeeNotRegistered);
+							Constants.insufficientBalance);
 					map.addAttribute(Constants.page, Constants.returnToLogin);
 					return RequestPage.redirectToErrorPage;
-			} 
-				map.addAttribute(Constants.message, Constants.invalidPayerId);
+				}
+				map.addAttribute(Constants.message,
+						Constants.PayeeNotRegistered);
 				map.addAttribute(Constants.page, Constants.returnToLogin);
 				return RequestPage.redirectToErrorPage;
+			}
+			map.addAttribute(Constants.message, Constants.invalidPayerId);
+			map.addAttribute(Constants.page, Constants.returnToLogin);
+			return RequestPage.redirectToErrorPage;
 		} catch (BankingException be) {
 			map.addAttribute(Constants.message, be.getMessage());
 			map.addAttribute(Constants.page, Constants.returnToLogin);
@@ -397,8 +409,7 @@ public class BankController {
 			long accountIdForUser = service.fetchUserById(userName)
 					.getAccountId();
 			if (accountIdForUser == accountId) {
-				List<TransactionsBean> miniStatement = service
-						.viewMiniStatement(accountId);
+				List<TransactionsBean> miniStatement = service.viewMiniStatement(accountId);
 				map.addAttribute(Constants.miniStatement, miniStatement);
 				map.addAttribute(Constants.selectTypeOfStatement,
 						Constants.checkforMiniStatement);
@@ -462,17 +473,18 @@ public class BankController {
 	 * @param map
 	 */
 	@RequestMapping(value = "/adminViewTransactions.htm", method = RequestMethod.POST)
-	public String adminViewTransactions(@RequestParam("accountId") long accountId,
-			Model map) {
+	public String adminViewTransactions(
+			@RequestParam("accountId") long accountId, Model map) {
 		try {
-			List<TransactionsBean> adminStatement = service.adminViewTransactions(accountId);
-			String userName = service.fetchCustomerByAccountId(accountId).getUserId();
-			map.addAttribute(Constants.userName,userName);
-			map.addAttribute(Constants.transactionsForAdmin,adminStatement);
+			List<TransactionsBean> adminStatement = service
+					.adminViewTransactions(accountId);
+			String userName = service.fetchCustomerByAccountId(accountId)
+					.getUserId();
+			map.addAttribute(Constants.userName, userName);
+			map.addAttribute(Constants.transactionsForAdmin, adminStatement);
 			map.addAttribute(Constants.selectAdminStatement,
 					Constants.checkforAdminStatement);
-			map.addAttribute(Constants.noOfTransactions,
-					adminStatement.size());
+			map.addAttribute(Constants.noOfTransactions, adminStatement.size());
 			map.addAttribute(Constants.page, Constants.returnToHome);
 			return RequestPage.redirectToListPage;
 		} catch (BankingException be) {
