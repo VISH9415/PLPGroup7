@@ -128,10 +128,6 @@
                                         <input type="text" id="ft-payeeid" name="ft-payeeid" placeholder="Enter payee account id" required/>
                                     </p>
                                     <p>
-                                        <label for="ft-confirmpayeeid">Re enter payee account id:</label>
-                                        <input type="text" id="ft-confirmpayeeid" name="ft-confirmpayeeid" placeholder="Re enter payee account id" required/>
-                                    </p>
-                                    <p>
                                         <label for="ft-amount">Enter amount to transfer:</label>
                                         <input type="text" id="ft-amount" name="ft-amount" placeholder="Enter amount to transfer" pattern="[0-9]{1,}" required/>
                                     </p>

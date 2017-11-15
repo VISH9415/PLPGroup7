@@ -6,16 +6,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Payeetable")
+@Table(name = "Payeetable")
 public class PayeeBean {
 	@Id
-    @Column(name="account_id")
+	@Column(name = "account_id")
 	long accountId;
-    @Column(name="payee_account_id")
+	@Column(name = "payee_account_id")
 	long payeeAccountId;
-    @Column(name="nickname")
+	@Column(name = "nickname")
 	String nickName;
-	
 	public PayeeBean() {
 		super();
 	}
@@ -43,5 +42,4 @@ public class PayeeBean {
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
-	
 }

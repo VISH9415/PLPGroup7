@@ -33,7 +33,6 @@ public class BankingDAOImpl implements IBankingDAO{
 
 	/** 
 	 * Method to register user after signup into usertable
-	 * com.cg.project.dao.IBankingDAO#registerUser(com.cg.project.bean.UserBean)
 	 */
 	@Override
 	public void registerUser(UserBean userBean) throws BankingException{
@@ -42,7 +41,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			entityManager.flush();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception in inserting user record");			}
+			throw new BankingException(e.getMessage()+" Exception in inserting user record");			}
 	}
 
 	/**
@@ -57,7 +56,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			return userFound;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in fetching user.");
+			throw new BankingException(e.getMessage()+" Exception occured in fetching user.");
 		}
 
 	}
@@ -78,7 +77,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			return count;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in validating admin.");
+			throw new BankingException(e.getMessage()+" Exception occured in validating admin.");
 		}
 	}
  
@@ -93,7 +92,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			entityManager.flush();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in updating user login password");
+			throw new BankingException(e.getMessage()+" Exception occured in updating user login password");
 		}
 	}
 	
@@ -108,21 +107,22 @@ public class BankingDAOImpl implements IBankingDAO{
 			return user;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in updating accountId in usertable.");
+			throw new BankingException(e.getMessage()+" Exception occured in updating accountId in usertable.");
 		}
 	}
 	/**
 	 * Method to insert customer record in customer table
 	 */
 	@Override
-	public void insertIntoCustomer(CustomerBean customer) throws BankingException
+	public CustomerBean insertIntoCustomer(CustomerBean customer) throws BankingException
 	{
 		try {
 			entityManager.persist(customer);
 			entityManager.flush();
+			return customer;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in inserting customer record.");
+			throw new BankingException(e.getMessage()+" Exception occured in inserting customer record.");
 		}
 	}
 	/**
@@ -138,7 +138,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			entityManager.merge(userFound);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured updating user record.");
+			throw new BankingException(e.getMessage()+" Exception occured updating user record.");
 		}
 
 		//String sql = "UPDATE USERTABLE SET ACCOUNT_ID=?,LOGIN_PASSWORD=? WHERE USER_ID=?";	
@@ -148,14 +148,15 @@ public class BankingDAOImpl implements IBankingDAO{
 	 * Method to insert account record into account master table
 	 */
 	@Override
-	public void insertIntoAccountMaster(AccountBean accountBean) throws BankingException {
+	public AccountBean insertIntoAccountMaster(AccountBean accountBean) throws BankingException {
 		// TODO Auto-generated method stub
 		try {
 			entityManager.persist(accountBean);
 			entityManager.flush();
+			return accountBean;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in inserting account record into AccountMaster.");
+			throw new BankingException(e.getMessage()+" Exception occured in inserting account record into AccountMaster.");
 		}
 	}
 
@@ -170,7 +171,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			entityManager.flush();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in updating customer address");
+			throw new BankingException(e.getMessage()+" Exception occured in updating customer address");
 		}
 	}
 
@@ -187,7 +188,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			return user;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in validating user.");
+			throw new BankingException(e.getMessage()+" Exception occured in validating user.");
 		}
 	}
 
@@ -201,7 +202,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			return customer;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in fetching Customer.");
+			throw new BankingException(e.getMessage()+" Exception occured in fetching Customer.");
 		}
 	}
 
@@ -215,7 +216,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			return user;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in fetching accountId from usertable");
+			throw new BankingException(e.getMessage()+" Exception occured in fetching accountId from usertable");
 		}
 	}
 
@@ -229,7 +230,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			return account;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in fetching account record.");
+			throw new BankingException(e.getMessage()+" Exception occured in fetching account record.");
 		}
 	}
 
@@ -244,7 +245,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			return accountBean;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in updating balance in accountmaster ");
+			throw new BankingException(e.getMessage()+" Exception occured in updating balance in accountmaster ");
 		}
 	}
 	/**
@@ -257,7 +258,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			return user;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in fetching username.");
+			throw new BankingException(e.getMessage()+" Exception occured in fetching username.");
 		}
 	}
 
@@ -274,7 +275,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			return miniStatement;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in fetching transaction details for mini statement");
+			throw new BankingException(e.getMessage()+" Exception occured in fetching transaction details for mini statement");
 		}
 	}
 
@@ -293,7 +294,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			return detailStatement;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in fetching transaction details for detailed statement");
+			throw new BankingException(e.getMessage()+" Exception occured in fetching transaction details for detailed statement");
 		}
 	}
 
@@ -310,7 +311,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			return adminStatement;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in fetching transaction records by the admin");
+			throw new BankingException(e.getMessage()+" Exception occured in fetching transaction records by the admin");
 		}
 	}
 
@@ -326,7 +327,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			return transaction;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in inserting transaction record");
+			throw new BankingException(e.getMessage()+" Exception occured in inserting transaction record");
 		}
 	}
 
@@ -342,7 +343,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			return customerFound;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in fetching customer from customer table");
+			throw new BankingException(e.getMessage()+" Exception occured in fetching customer from customer table");
 		}
 	}
 
@@ -360,7 +361,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			return customer.getAccountId();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in fetching accountId from customer table");
+			throw new BankingException(e.getMessage()+" Exception occured in fetching accountId from customer table");
 		}
 	}
 
@@ -376,7 +377,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			return accountFound;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in fetching account record");
+			throw new BankingException(e.getMessage()+" Exception occured in fetching account record");
 		}
 	}
 
@@ -391,7 +392,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			return payee;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in inserting payee record");
+			throw new BankingException(e.getMessage()+" Exception occured in inserting payee record");
 		}
 	}
 
@@ -407,7 +408,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			entityManager.flush();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in inserting fund transfer record");
+			throw new BankingException(e.getMessage()+" Exception occured in inserting fund transfer record");
 		}
 	}
 
@@ -421,7 +422,7 @@ public class BankingDAOImpl implements IBankingDAO{
 			return accountOfPayee;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new BankingException("Exception occured in updating balance for payee");
+			throw new BankingException(e.getMessage()+" Exception occured in updating balance for payee");
 		}
 	}
   /**
@@ -445,8 +446,15 @@ public List<TransactionsBean> fetchTransactionsByAccountId(long accountId) throw
 		return transactionsList;
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
-		throw new BankingException("Exception occured in fetching transactions");
+		throw new BankingException(e.getMessage()+" Exception occured in fetching transactions");
 	}
+}
+
+@Override
+public CustomerBean test(CustomerBean customer) {
+	entityManager.persist(customer);
+	entityManager.flush();
+	return customer;
 }
 
 }

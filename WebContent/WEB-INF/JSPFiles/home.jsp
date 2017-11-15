@@ -21,7 +21,7 @@
 				<li id="logoContainer"><a href="home.jsp"><span
 						id="headerLogo"></span></a></li>
 				<li><span>Welcome to Vivahaka Bank Online Portal</span></li>
-				<li class="headerRight"><span><a href="">Logout</a></span></li>
+				<li class="headerRight"><span><a href="index.jsp">Logout</a></span></li>
 				<li class="headerRight"><span>Welcome ${userName}</span></li>
 			</ul>
 		</div>
@@ -136,12 +136,6 @@
 										<label for="ft-payeeid">Enter payee account id:</label> <input
 											type="text" id="ft-payeeid" name="ft-payeeid"
 											placeholder="Enter payee account id" required />
-									</p>
-									<p>
-										<label for="ft-confirmpayeeid">Re enter payee account
-											id:</label> <input type="text" id="ft-confirmpayeeid"
-											name="ft-confirmpayeeid"
-											placeholder="Re enter payee account id" required />
 									</p>
 									<p>
 										<label for="ft-amount">Enter amount to transfer:</label> <input

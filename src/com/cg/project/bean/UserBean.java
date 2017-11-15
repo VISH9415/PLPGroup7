@@ -8,7 +8,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "UserTable")
 public class UserBean {
-	
 	@Column(name = "Account_Id")
 	private long accountId;
 	@Id
@@ -20,14 +19,11 @@ public class UserBean {
 	private String transactionPassword;
 	@Column(name = "lock_Status")
 	private String lockStatus;
-	@Column(name="secret_question")
+	@Column(name = "secret_question")
 	private String secretQuestion;
-	@Column(name="secret_answer")
-    private String secretAnswer;
-	
-
-
-public UserBean(long accountId, String userId, String loginPassword, String transactionPassword, String lockStatus,
+	@Column(name = "secret_answer")
+	private String secretAnswer;
+	public UserBean(long accountId, String userId, String loginPassword, String transactionPassword, String lockStatus,
 			String secretQuestion, String secretAnswer) {
 		super();
 		this.accountId = accountId;
@@ -38,60 +34,55 @@ public UserBean(long accountId, String userId, String loginPassword, String tran
 		this.secretQuestion = secretQuestion;
 		this.secretAnswer = secretAnswer;
 	}
-public UserBean() {
-	super();
-}
-public long getAccountId() {
-	return accountId;
-}
-public void setAccountId(long accountId) {
-	this.accountId = accountId;
-}
-public String getUserId() {
-	return userId;
-}
-public void setUserId(String userId) {
-	this.userId = userId;
-}
-public String getLoginPassword() {
-	return loginPassword;
-}
-public void setLoginPassword(String loginPassword) {
-	this.loginPassword = loginPassword;
-}
-public String getTransactionPassword() {
-	return transactionPassword;
-}
-public void setTransactionPassword(String transactionPassword) {
-	this.transactionPassword = transactionPassword;
-}
-public String getSecretAnswer() {
-	return secretAnswer;
-}
-public void setSecretAnswer(String secretAnswer) {
-	this.secretAnswer = secretAnswer;
-}
-public String getSecretQuestion() {
-	return secretQuestion;
-}
-public void setSecretQuestion(String secretQuestion) {
-	this.secretQuestion = secretQuestion;
-}
-public String getLockStatus() {
-	return lockStatus;
-}
-public void setLockStatus(String lockStatus) {
-	this.lockStatus = lockStatus;
-}
-
-@Override
-public String toString() {
-	return "UserBean [accountId=" + accountId + ", userId=" + userId
-			+ ", loginPassword=" + loginPassword + ", transactionPassword="
-			+ transactionPassword + ", lockStatus=" + lockStatus
-			+ ", secretQuestion=" + secretQuestion + ", secretAnswer="
-			+ secretAnswer + "]";
-}
-
-
+	public UserBean() {
+		super();
+	}
+	public long getAccountId() {
+		return accountId;
+	}
+	public void setAccountId(long accountId) {
+		this.accountId = accountId;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getLoginPassword() {
+		return loginPassword;
+	}
+	public void setLoginPassword(String loginPassword) {
+		this.loginPassword = loginPassword;
+	}
+	public String getTransactionPassword() {
+		return transactionPassword;
+	}
+	public void setTransactionPassword(String transactionPassword) {
+		this.transactionPassword = transactionPassword;
+	}
+	public String getSecretAnswer() {
+		return secretAnswer;
+	}
+	public void setSecretAnswer(String secretAnswer) {
+		this.secretAnswer = secretAnswer;
+	}
+	public String getSecretQuestion() {
+		return secretQuestion;
+	}
+	public void setSecretQuestion(String secretQuestion) {
+		this.secretQuestion = secretQuestion;
+	}
+	public String getLockStatus() {
+		return lockStatus;
+	}
+	public void setLockStatus(String lockStatus) {
+		this.lockStatus = lockStatus;
+	}
+	@Override
+	public String toString() {
+		return "UserBean [accountId=" + accountId + ", userId=" + userId + ", loginPassword=" + loginPassword
+				+ ", transactionPassword=" + transactionPassword + ", lockStatus=" + lockStatus + ", secretQuestion="
+				+ secretQuestion + ", secretAnswer=" + secretAnswer + "]";
+	}
 }

@@ -1,7 +1,5 @@
 package com.cg.project.bean;
-
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,23 +9,21 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="fund_transfer")
+@Table(name = "fund_transfer")
 public class FundTransferBean {
-
 	@Id
-	@Column(name="fundtransfer_id")
-	@SequenceGenerator(name="seq1",sequenceName="fundid_seq")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator="seq1")
+	@Column(name = "fundtransfer_id")
+	@SequenceGenerator(name = "seq1", sequenceName = "fundid_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq1")
 	private long fundTransferId;
-	@Column(name="account_id")
+	@Column(name = "account_id")
 	private long accountId;
-	@Column(name="payee_account_id")
+	@Column(name = "payee_account_id")
 	private long payeeAccountId;
-	@Column(name="date_of_transfer")
+	@Column(name = "date_of_transfer")
 	private Date dateOfTransfer;
-	@Column(name="transfer_amount")
+	@Column(name = "transfer_amount")
 	private double transferAmount;
-	
 	public long getFundTransferId() {
 		return fundTransferId;
 	}
@@ -60,9 +56,7 @@ public class FundTransferBean {
 	}
 	@Override
 	public String toString() {
-		return "FundTransferBean [fundTransferId=" + fundTransferId
-				+ ", accountId=" + accountId + ", payeeAccountId="
-				+ payeeAccountId + ", dateOfTransfer=" + dateOfTransfer
-				+ ", transferAmount=" + transferAmount + "]";
+		return "FundTransferBean [fundTransferId=" + fundTransferId + ", accountId=" + accountId + ", payeeAccountId="
+				+ payeeAccountId + ", dateOfTransfer=" + dateOfTransfer + ", transferAmount=" + transferAmount + "]";
 	}
 }
