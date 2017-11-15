@@ -59,9 +59,9 @@ public class BankingServiceImpl implements IBankingService {
 	}
 
 	@Override
-	public void registerUser(UserBean userBean) throws BankingException {
-		// TODO Auto-generated method stub
-		dao.registerUser(userBean);
+	public UserBean registerUser(long initialAccountId,String userName,String password,String transactionPassword,String lockStatus,String secretQuestion,String secretAnswer) throws BankingException {
+		UserBean user = new UserBean(initialAccountId,userName,password,transactionPassword,lockStatus,secretQuestion,secretAnswer);
+		return dao.registerUser(user);
 	}
 
 	@Override

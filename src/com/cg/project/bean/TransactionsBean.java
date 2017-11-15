@@ -31,10 +31,9 @@ public class TransactionsBean {
 	public TransactionsBean() {
 		super();
 	}
-	public TransactionsBean(long transactionId, String transDescription, Date dateOfTransaction, String transactionType,
+	public TransactionsBean(String transDescription, Date dateOfTransaction, String transactionType,
 			double transactionAmount, long accountNumber) {
 		super();
-		this.transactionId = transactionId;
 		this.transDescription = transDescription;
 		this.dateOfTransaction = dateOfTransaction;
 		this.transactionType = transactionType;

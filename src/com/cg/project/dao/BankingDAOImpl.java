@@ -35,13 +35,15 @@ public class BankingDAOImpl implements IBankingDAO{
 	 * Method to register user after signup into usertable
 	 */
 	@Override
-	public void registerUser(UserBean userBean) throws BankingException{
+	public UserBean registerUser(UserBean userBean) throws BankingException{
 		try {
 			entityManager.persist(userBean);
 			entityManager.flush();
+			return userBean;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new BankingException(e.getMessage()+" Exception in inserting user record");			}
+		
 	}
 
 	/**

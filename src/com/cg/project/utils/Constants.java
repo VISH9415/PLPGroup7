@@ -30,7 +30,9 @@ public interface Constants {
 	String accountOpenFailed = "Account open failed!";
 	boolean checkforMiniStatement = true;
 	boolean checkforDetailStatement = false;
+	boolean checkforAdminStatement = true;
 	String selectTypeOfStatement = "var";
+	String selectAdminStatement = "admin";
 	String noOfTransactions = "numberOfTransactions";
 	String miniStatement = "miniList";
 	String detailedStatement = "detailList";
@@ -43,7 +45,10 @@ public interface Constants {
 	String invalidPayeeId = "Incorrect Payee id entered";
 	String insufficientBalance = "Sorry, insufficient balance available in your account";
 	String transactionSuccessful = "You have successfully transfered the amount to payee";
-	String PayeeNotRegistered = "Sorry this payee isn't registered with our bank";
-	long initialAccountId = 0000;
+	String PayeeNotRegistered = "Sorry the payee isn't registered with our bank";
+	long initialAccountId = 0L;
+	long initFundId = 0L;
+	long initTransactionId = 0L;
+	String transactionsForAdmin ="adminList";
 
 	}

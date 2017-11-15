@@ -20,8 +20,6 @@ public interface IBankingService
 
 	void updateUserDetails(String uid, long actId) throws BankingException;
 
-	void registerUser(UserBean userBean) throws BankingException;
-
 	List<TransactionsBean> viewDetailStatement(long accId, Date initDate, Date finDate) throws BankingException;
 
 	List<TransactionsBean> adminViewTransactions(long accId) throws BankingException;
@@ -65,6 +63,10 @@ public interface IBankingService
 
 	AccountBean insertIntoAccountMaster(long updatedAccountId, String accountType, Date opendate, double initialBalance)
 			throws BankingException;
+
+	UserBean registerUser(long initialaccountid, String userName, String password,
+			String transactionPassword, String lockstatus,
+			String secretQuestion, String secretAnswer) throws BankingException;
 
 
 }

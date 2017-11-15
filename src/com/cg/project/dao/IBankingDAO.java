@@ -13,7 +13,7 @@ import com.cg.project.exception.BankingException;
 
 public interface IBankingDAO {
 
-	void registerUser(UserBean userBean) throws BankingException;
+	UserBean registerUser(UserBean userBean) throws BankingException;
 
 	UserBean fetchUserById(String userName) throws BankingException;
 

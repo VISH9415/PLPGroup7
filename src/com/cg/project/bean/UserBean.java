@@ -23,6 +23,7 @@ public class UserBean {
 	private String secretQuestion;
 	@Column(name = "secret_answer")
 	private String secretAnswer;
+	
 	public UserBean(long accountId, String userId, String loginPassword, String transactionPassword, String lockStatus,
 			String secretQuestion, String secretAnswer) {
 		super();

@@ -44,7 +44,7 @@
 								<td>${trans.transactionType }</td>
 								<td>${trans.transactionAmount }</td>
 								<td>${trans.accountNumber }</td>
-								</tr>
+							</tr>
 						</c:forEach>
 					</table>
 				</c:if>
@@ -58,7 +58,8 @@
 				<c:if test="${var eq false  && numberOfTransactions!=0}">
 					<table style="display: block;" border="1">
 						<tr>
-							<td colspan="6" align="center">Detailed Statement for ${userName}</td>	
+							<td colspan="6" align="center">Detailed Statement for
+								${userName}</td>
 						</tr>
 						<tr>
 							<th>Transaction Id</th>
@@ -69,14 +70,14 @@
 							<th>Account Number</th>
 						</tr>
 						<c:forEach items="${detailList}" var="trans">
-								<tr>
-									<td>${trans.transactionId }</td>
-									<td>${trans.transDescription }</td>
-									<td>${trans.dateOfTransaction }</td>
-									<td>${trans.transactionType }</td>
-									<td>${trans.transactionAmount }</td>
-									<td>${trans.accountNumber }</td>
-								</tr>
+							<tr>
+								<td>${trans.transactionId }</td>
+								<td>${trans.transDescription }</td>
+								<td>${trans.dateOfTransaction }</td>
+								<td>${trans.transactionType }</td>
+								<td>${trans.transactionAmount }</td>
+								<td>${trans.accountNumber }</td>
+							</tr>
 						</c:forEach>
 					</table>
 				</c:if>
@@ -84,6 +85,39 @@
 				<c:if test="${var eq false && numberOfTransactions==0}">
 					<h2>You haven't performed any transactions before</h2>
 				</c:if>
+
+				<c:if test="${admin eq true && numberOfTransactions!=0}">
+					<table style="display: block;" border="1">
+						<tr>
+							<td colspan="6" align="center">Transactions performed by
+								${userName}</td>
+						</tr>
+						<tr>
+							<th>Transaction Id</th>
+							<th>Transaction Description</th>
+							<th>Date of Transaction</th>
+							<th>Transaction Type</th>
+							<th>Transaction Amount</th>
+							<th>Account Number</th>
+						</tr>
+						<c:forEach items="${adminList}" var="trans">
+							<tr>
+								<td>${trans.transactionId }</td>
+								<td>${trans.transDescription }</td>
+								<td>${trans.dateOfTransaction }</td>
+								<td>${trans.transactionType }</td>
+								<td>${trans.transactionAmount }</td>
+								<td>${trans.accountNumber }</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</c:if>
+   
+             	<c:if test="${admin eq true  && numberOfTransactions==0}">
+					<h2>This user hasn't performed any transactions</h2>
+				</c:if>
+               
+
 			</div>
 		</div>
 		<div id="footer">&copy; Vivahaka Bank</div>

@@ -24,6 +24,19 @@ public class FundTransferBean {
 	private Date dateOfTransfer;
 	@Column(name = "transfer_amount")
 	private double transferAmount;
+	
+	public FundTransferBean(long accountId,
+			long payeeAccountId, Date dateOfTransfer, double transferAmount) {
+		super();
+		this.accountId = accountId;
+		this.payeeAccountId = payeeAccountId;
+		this.dateOfTransfer = dateOfTransfer;
+		this.transferAmount = transferAmount;
+	}
+	
+	public FundTransferBean() {
+		super();
+	}
 	public long getFundTransferId() {
 		return fundTransferId;
 	}
