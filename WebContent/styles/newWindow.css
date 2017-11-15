@@ -1,0 +1,20 @@
+#bodyContainer {
+    position: absolute;
+    width: 400px;
+    height: 200px;
+    top: 35%;
+    left: 35%;
+    text-align: center;
+    font-size: 30px;
+}
+
+p {
+    margin: 30px;
+}
+
+#tableContainer {
+    position: absolute;
+    overflow: auto;
+    left: 12%;
+    height: 800px;
+}

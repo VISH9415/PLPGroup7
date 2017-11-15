@@ -1,0 +1,247 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Spectral SC', serif;
+    font-family: 'Nunito', sans-serif;
+}
+form {
+    margin: 0;
+    width: 300px;
+}
+
+label {
+    cursor: pointer;
+}
+
+#admin-login, #user-login {
+    background-color: #5F9EA0;
+    width: 300px;
+    height: 40px;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: 30px;
+    color: black;
+}
+
+#admin-login:hover, #user-login:hover {
+    background-color: #A6A9C4;
+    border: 1px solid #A6B5BA;
+}
+
+#form-switch {
+    display: none;
+}
+
+#p-form-switch {
+    display: none;
+}
+
+#user-sel {
+    display: none;
+}
+#user-sel:checked~#login-form {
+    display: block;
+}
+#user-sel:checked~#userTypes {
+    display: none;
+}
+
+#admin-sel {
+    display: none;
+}
+#admin-sel:checked~#admin-login-form {
+    display: block;
+}
+#admin-sel:checked~#userTypes {
+    display: none;
+}
+
+#admin-login-form {
+    display: none;
+}
+#login-form {
+    display: none;
+}
+#register-form {
+    display: none;
+}
+
+#forgetpassword-form {
+    display: none;
+}
+
+#form-switch:checked~#register-form {
+    display:block;
+}
+#form-switch:checked~#login-form {
+    display:none;
+}
+
+#p-form-switch:checked~#forgetpassword-form {
+    display: block;
+}
+#p-form-switch:checked~#login-form {
+    display:none;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#header {
+    position: absolute;
+    height: 7%;
+    width: 100%;
+    background-color: #B3B7DD;
+    margin: auto;
+}
+
+#imageLogo {
+    position: absolute;
+    width: 100px;
+    height: 100%;
+    left: 50%;
+    margin-left: -25px;
+}
+
+#body {
+    position: absolute;
+    height: 90%;
+    width: 100%;
+    top: 7%;
+    background-color: #C6CAF2;
+    overflow-y: scroll;
+}
+
+#wrapper {
+    position: absolute;
+    width: 600px;
+    height: 60%;
+    left: 51%;
+    margin-left: -300px;
+}
+
+
+#footer {
+    position: absolute;
+    height: 3%;
+    width: 100%;
+    background-color: black;
+    top: 97%;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+}
+
+#logo {
+    position: absolute;
+    height: 100%;
+}
+
+#userTypes {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -170px;
+    margin-top: -80px;
+}
+
+#admin-login-form {
+    position: absolute;
+    top: 20%;
+    left: 16%;
+    width: 400px;
+    
+}
+
+#admin-login-form h1 {
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+}
+
+#admin-login-form p {
+    padding: 10px;
+}
+
+#login-form {
+    position: absolute;
+    width: 400px;
+    left: 16%;
+    top: 27%;
+}
+
+#login-form h1 {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+}
+
+#login-form p {
+    padding: 10px;
+}
+
+.link-switch {
+    display: block;
+    color: blue;
+}
+
+#forgetpassword-form {
+    position: absolute;
+    width: 400px;
+    left: 16%;
+    top: 20%;
+}
+#forgetpassword-form h1 {
+    text-align: center;
+}
+
+#forgetpassword-form p {
+    padding: 10px;
+}
+
+#forgetpassword-form select {
+    padding: 10px;
+    width: 380px;
+    border 1px solid #ccc;
+}
+
+#forgetpassword-form input[type=text]{
+    width: 358px;
+}
+
+#register-form {
+    position: absolute;
+    width: 400px;
+    left: 17%;
+}
+
+#register-form p {
+    padding: 10px;
+}
+
+#register-form h1 {
+    text-align: center;
+}
+
+#register-form select {
+    padding: 10px;
+    width: 380px;
+    border 1px solid #ccc;
+}
+
+#register-form input[type=text]{
+    width: 358px;
+}
+
+.link-switch {
+    display: block;
+    color: blue;
+}
